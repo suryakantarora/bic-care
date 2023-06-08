@@ -1,0 +1,7 @@
+{
+  "name": "bicbank",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
