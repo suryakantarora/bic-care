@@ -1,0 +1,65 @@
+<ion-content>
+  <div class="pin-box">
+    <ion-row>
+      <ion-col size="2">
+        <ion-icon [name]="position<1?'ellipse-outline':'ellipse'"></ion-icon>
+      </ion-col>
+      <ion-col size="2">
+        <ion-icon  [name]="position<2?'ellipse-outline':'ellipse'"></ion-icon>
+      </ion-col>
+      <ion-col size="2">
+        <ion-icon  [name]="position<3?'ellipse-outline':'ellipse'"></ion-icon>
+      </ion-col>
+      <ion-col size="2">
+        <ion-icon  [name]="position<4?'ellipse-outline':'ellipse'"></ion-icon>
+      </ion-col>
+      <ion-col size="2">
+        <ion-icon  [name]="position<5?'ellipse-outline':'ellipse'"></ion-icon>
+      </ion-col>
+      <ion-col size="2">
+        <ion-icon  [name]="position<6?'ellipse-outline':'ellipse'"></ion-icon>
+      </ion-col>
+    </ion-row>
+  </div>
+  <ion-row class="btn">
+    <ion-col size="4">
+      <div lines="none" class="button" (click)="countPin('1')">1</div>
+    </ion-col>
+    <ion-col size="4">
+      <div lines="none" class="button" (click)="countPin('2')">2</div>
+    </ion-col>
+    <ion-col size="4">
+      <div lines="none" class="button" (click)="countPin('3')">3</div>
+    </ion-col>
+    <ion-col size="4">
+      <div lines="none" class="button" (click)="countPin('4')">4</div>
+    </ion-col>
+    <ion-col size="4">
+      <div lines="none" class="button" (click)="countPin('5')">5</div>
+    </ion-col>
+    <ion-col size="4">
+      <div lines="none" class="button" (click)="countPin('6')">6</div>
+    </ion-col>
+    <ion-col size="4">
+      <div lines="none" class="button" (click)="countPin('7')">7</div>
+    </ion-col>
+    <ion-col size="4">
+      <div lines="none" class="button" (click)="countPin('8')">8</div>
+    </ion-col>
+    <ion-col size="4">
+      <div lines="none" class="button" (click)="countPin('9')">9</div>
+    </ion-col>
+    <ion-col size="4">
+      <div lines="none" class="button" (click)="deleteAll()"><ion-icon name="close"></ion-icon></div>
+    </ion-col>
+    <ion-col size="4">
+      <div lines="none" class="button" (click)="countPin('0')">0</div>
+    </ion-col>
+    <ion-col size="4">
+      <div lines="none" class="button" (click)="deletePin()"><ion-icon name="backspace-outline"></ion-icon></div>
+    </ion-col>
+  </ion-row>
+</ion-content>
+<ion-footer>
+
+</ion-footer>

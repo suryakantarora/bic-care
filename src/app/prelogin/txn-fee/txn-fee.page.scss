@@ -1,0 +1,9 @@
+.segment{
+  --background:var(--ion-color-secondary);
+}
+.active{
+  color: var(--ion-color-secondary) !important;
+}
+.inactive{
+  color: #fff !important;
+}

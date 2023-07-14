@@ -1,0 +1,159 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-item lines="none" color="primary">
+      <ion-label>{{ 'LOGIN_WELCOME_MSG' | translate }}</ion-label>
+      <ion-avatar slot="end" (click)="global.changeLanguage($event)">
+        <img [src]="global.flagImage">
+      </ion-avatar>
+    </ion-item>
+    <img src="assets/imgs/banners/bnr1.png" width="100%" (click)="testLoading()">
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="row">
+    <div class="box">
+      <ion-item lines="none">
+        <ion-label class="ion-text-center">
+          <h2>{{ 'PIN_LOGIN' | translate }}</h2>
+        </ion-label>
+      </ion-item>
+      <div class="pin-box" id="pin-modal">
+        <ion-label class="ion-text-center">
+          <p>{{ 'PIN' | translate }}</p>
+        </ion-label>
+      </div>
+      <div class="ion-text-center">
+        <ion-button fill="clear" color="danger" class="forgot-pin ion-text-capitalize" (click)="forgotPin()">{{'FORGET_PIN' | translate }}</ion-button>
+        <br>
+        <ion-button shape="round" size="small" class="touch-btn" (click)="performBiometricVerificatin()">
+          <ion-icon name="finger-print-outline"></ion-icon> &nbsp;
+          <span class="touch_id"> {{ 'TOUCH_LOGIN' | translate }}</span> &nbsp;
+        </ion-button>
+      </div>
+    </div>
+  </div>
+  <!--Grid for menus-->
+  <br>
+  <ion-grid>
+    <ion-row class="top bottom" justify-content-center align-items-center>
+      <ion-col size="4" class="right btn">
+        <div class="ion-text-center" (click)="openPage('atm-location')">
+          <img src="assets/imgs/loginicon/atm-location-512x512.png" height="50">
+          <p class="btnText ion-text-wrap">{{ 'ATM_LOCATION' | translate }}</p>
+        </div>
+      </ion-col>
+      <ion-col size="4" class="right btn">
+        <div class="btn ion-text-center" (click)="openPage('rates')">
+          <img src="assets/imgs/loginicon/exchange-rate-512x512.png" height="50">
+          <p class="btnText ion-text-wrap">{{ 'EXCHANGE' | translate }} & {{ 'INTEREST_RATE' | translate }}</p>
+        </div>
+      </ion-col>
+      <ion-col size="4" class="btn">
+        <div class="btn ion-text-center" (click)="openPage('txn-fee')">
+          <img src="assets/imgs/loginicon/transaction-fee.png" height="50">
+          <p class="btnText ion-text-wrap">{{ 'TXN_FEE' | translate }}</p>
+        </div>
+      </ion-col>
+      <ion-col size="4" class="top right btn">
+        <div class="btn ion-text-center" (click)="openPage('support')">
+          <img src="assets/imgs/loginicon/support-512x512.png" height="50">
+          <p class="btnText ion-text-wrap">{{ 'SUPPORT' | translate }}</p>
+        </div>
+      </ion-col>
+      <ion-col size="4" class="top right btn">
+        <div class="btn ion-text-center" (click)="openPage('feedback')">
+          <img src="assets/imgs/loginicon/feedback-512x512.png" height="50">
+          <p class="btnText ion-text-wrap">{{ 'FEEDBACK' | translate }}</p>
+        </div>
+      </ion-col>
+      <ion-col size="4" class="top btn">
+        <div class="btn ion-text-center" (click)="openPage('terms-condition')">
+          <img src="assets/imgs/loginicon/news-512x512.png" height="50">
+          <p class="btnText ion-text-wrap">{{ 'TERMS_CONDITION' | translate }}</p>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-modal trigger="pin-modal" [initialBreakpoint]="1" [breakpoints]="[0, 1]" handle="false">
+    <ng-template>
+      <!-- <ion-fab slot="fixed" horizontal="end" vertical="top" edge="true">
+        <ion-fab-button>
+          <ion-icon name="close"></ion-icon>
+        </ion-fab-button>
+      </ion-fab> -->
+      <div class="block">
+        <div class="bottom-pin-box">
+          <ion-row>
+            <ion-col size="2">
+              <ion-icon [name]="position<1?'ellipse-outline':'ellipse'"></ion-icon>
+            </ion-col>
+            <ion-col size="2">
+              <ion-icon  [name]="position<2?'ellipse-outline':'ellipse'"></ion-icon>
+            </ion-col>
+            <ion-col size="2">
+              <ion-icon  [name]="position<3?'ellipse-outline':'ellipse'"></ion-icon>
+            </ion-col>
+            <ion-col size="2">
+              <ion-icon  [name]="position<4?'ellipse-outline':'ellipse'"></ion-icon>
+            </ion-col>
+            <ion-col size="2">
+              <ion-icon  [name]="position<5?'ellipse-outline':'ellipse'"></ion-icon>
+            </ion-col>
+            <ion-col size="2">
+              <ion-icon  [name]="position<6?'ellipse-outline':'ellipse'"></ion-icon>
+            </ion-col>
+          </ion-row>
+        </div>
+        <ion-row class="btn-bottom">
+          <ion-col size="4">
+            <div lines="none" class="button" (click)="countPin('1')">1</div>
+          </ion-col>
+          <ion-col size="4">
+            <div lines="none" class="button" (click)="countPin('2')">2</div>
+          </ion-col>
+          <ion-col size="4">
+            <div lines="none" class="button" (click)="countPin('3')">3</div>
+          </ion-col>
+          <ion-col size="4">
+            <div lines="none" class="button" (click)="countPin('4')">4</div>
+          </ion-col>
+          <ion-col size="4">
+            <div lines="none" class="button" (click)="countPin('5')">5</div>
+          </ion-col>
+          <ion-col size="4">
+            <div lines="none" class="button" (click)="countPin('6')">6</div>
+          </ion-col>
+          <ion-col size="4">
+            <div lines="none" class="button" (click)="countPin('7')">7</div>
+          </ion-col>
+          <ion-col size="4">
+            <div lines="none" class="button" (click)="countPin('8')">8</div>
+          </ion-col>
+          <ion-col size="4">
+            <div lines="none" class="button" (click)="countPin('9')">9</div>
+          </ion-col>
+          <ion-col size="4">
+            <div lines="none" class="button" (click)="deleteAll()"><ion-icon name="close"></ion-icon></div>
+          </ion-col>
+          <ion-col size="4">
+            <div lines="none" class="button" (click)="countPin('0')">0</div>
+          </ion-col>
+          <ion-col size="4">
+            <div lines="none" class="button" (click)="deletePin()"><ion-icon name="backspace-outline"></ion-icon></div>
+          </ion-col>
+        </ion-row>
+        <div class="ion-padding">
+          <ion-button color="danger" expand="block" mode="ios" fill="clear" (click)="cancelModal()">{{'CANCEL' | translate}}</ion-button>
+        </div>
+      </div>
+    </ng-template>
+  </ion-modal>
+</ion-content>
+<ion-footer>
+  <ion-toolbar color="primary">
+    <ion-item lines="none" button detail="false" color="primary" (click)="openUserLogin()">
+      <ion-label class="ion-text-center">{{ 'USER_LOGIN' | translate}}</ion-label>
+    </ion-item>
+  </ion-toolbar>
+</ion-footer>

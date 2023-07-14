@@ -1,0 +1,25 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="end" *ngIf="imgList">
+      <ion-button color="primary" class="ion-text-uppercase" (click)="skip()">{{'SKIP' | translate}}</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <swiper-container #swiper (slidechange)="swiperSlideChanged($event, swiper)"
+  [loop]="false"
+  [pagination]="true">
+    <swiper-slide *ngFor="let i of imgList;let ind=index" class="ionic-padding">
+      <img [src]="i.imgPath" class="start-img">
+      <ion-item lines="none">
+        <ion-label class="ion-text-center ion-text-wrap">
+          <h2 class="title">{{i.title | translate}}</h2>
+          <p *ngIf="i.desc" class="desc">{{i.desc | translate}}</p>
+        </ion-label>
+      </ion-item>
+      <div style="width:100%" class="ion-padding">
+        <ion-button mode="ios" expand="block" shape="round" *ngIf="!i.desc" (click)="skip()">{{'CONTINUE' | translate}}</ion-button></div>
+    </swiper-slide>
+  </swiper-container>
+</ion-content>

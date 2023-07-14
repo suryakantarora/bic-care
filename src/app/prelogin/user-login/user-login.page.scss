@@ -1,0 +1,42 @@
+
+.logo-box {
+    text-align: center;
+    margin-top: -50px !important;
+    
+}
+.logo {
+    height: 90px;
+    width: 90px;
+    margin: auto;
+    border: 2px solid var(--ion-color-secondary);
+    border-radius: 50%;
+}
+.container {
+    margin-left: 16px !important;
+    margin-right: 16px !important;
+    border: 2px solid var(--ion-color-secondary);
+    border-radius: 16px;
+    .form-bg{
+        padding-bottom: 16px;
+        min-height: 100px;
+        padding-left:16px;
+        padding-right:16px;
+        .welcome-msg{
+            color: var(--ion-color-primary);
+            font-weight: bolder;
+        }
+    }   
+}
+
+
+.form-field{
+    margin-left: 16px;
+    margin-right: 16px;
+}
+.input-field{
+    margin-top: 16px;
+}
+.error{
+    font-size: x-small;
+    color:red !important;
+}

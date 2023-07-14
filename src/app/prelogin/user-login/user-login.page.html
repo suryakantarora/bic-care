@@ -1,0 +1,43 @@
+<ion-content>
+  <img src="assets/imgs/bic-bg.png" class="banner">
+  <div class="container">
+    <div class="logo-box">
+      <img src="assets/imgs/bic-logo.png" class="logo">
+    </div>
+    <div class="form-bg">
+      <ion-item lines="none">
+        <ion-label class="ion-text-center">
+          <h2 class="welcome-msg">{{'LOGIN_WELCOME_MSG' | translate}}</h2>
+          <p>{{'PROVIDE_CREDENTIALS' | translate}}</p>
+        </ion-label>
+      </ion-item>
+      <div class="form-control" mode="md">
+        <form [formGroup]="loginForm">
+          <ion-input type="text" label="Username *" labelPlacement="floating" fill="outline" formControlName="userName"
+            name="userName" placeholder="Enter your username" class="input-field" required="true"></ion-input>
+          <div *ngIf="f['userName'].invalid && (f['userName'].dirty || f['userName'].touched)" class="error">
+            <div *ngIf="f['userName'].errors?.['required']">Username cannot be left blank</div>
+            <div *ngIf="f['userName'].errors?.['min'] || f['userName'].errors?.['max']">Invalid username </div>
+          </div>
+          <br>
+          <ion-input type="password" label="Password *" labelPlacement="floating" fill="outline"
+            formControlName="password" name="password" placeholder="Enter your password" class="input-field"
+            required="true"></ion-input>
+          <div *ngIf="f['password'].invalid && (f['password'].dirty || f['password'].touched)" class="error">
+            <div *ngIf="f['password'].errors?.['required']">Password cannot be left blank</div>
+            <div *ngIf="f['password'].errors?.['min'] || f['password'].errors?.['max']">Invalid password </div>
+          </div>
+          <br><br>
+          <ion-row>
+            <ion-col size="6">
+              <ion-button mode="ios" fill="outline" color="primary" expand="block" (click)="back()">{{'BACK' | translate}}</ion-button>
+            </ion-col>
+            <ion-col size="6">
+              <ion-button mode="ios" color="primary" expand="block">{{'PROCEED' | translate}}</ion-button>
+            </ion-col>
+          </ion-row>
+        </form>
+      </div>
+    </div>
+  </div>
+</ion-content>

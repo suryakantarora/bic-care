@@ -1,0 +1,107 @@
+<ion-content>
+  <div class="ion-margin-top">
+		<div class="setting-header">
+			<img [src]="selectedImage" class="profile" (click)="openActionSheet()" onerror="this.src='assets/imgs/setting.png'">
+      <ion-title color="light">{{'SETTINGS' | translate}}</ion-title>
+		</div>
+	</div>
+  <div class="card-bg">
+    <ion-card mode="md" class="setting-card">
+      <ion-item lines="none" button detail="true" (click)="openPage('profile')">
+        <ion-buttons slot="start" class="settings-icon">
+          <ion-button color="secondary">
+            <ion-icon name="person" slot="icon-only"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+        <ion-label class="label">
+          <h2>{{ 'PROFILE' | translate }}</h2>
+          <p>{{'CHECK_YOUR_PROFILE' | translate}}</p>
+        </ion-label>
+      </ion-item>
+    </ion-card>
+    <ion-card mode="md" class="setting-card">
+      <ion-item lines="none" button detail="true" (click)="openPage('support')">
+        <ion-buttons slot="start" class="settings-icon">
+          <ion-button color="secondary">
+            <ion-icon name="call" slot="icon-only"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+        <ion-label class="label">
+          <h2>{{ 'CONTACT_US' | translate }}</h2>
+				<p>{{'CONTACT_US_DESC' | translate}}</p>
+        </ion-label>
+      </ion-item>
+    </ion-card>
+    <ion-card mode="md" class="setting-card">
+      <ion-item lines="none" button detail="true" (click)="changeLanguage()">
+        <ion-buttons slot="start" class="settings-icon">
+          <ion-button color="secondary">
+            <ion-icon name="language" slot="icon-only"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+        <ion-label class="label">
+          <h2>{{ 'CHANGE_LANGUAGE' | translate }}</h2>
+				<p>{{'CHANGE_APP_LANGUAGE' | translate}}</p>
+        </ion-label>
+      </ion-item>
+    </ion-card>
+    <ion-card mode="md" class="setting-card">
+      <ion-item lines="none" button detail="true" (click)="openPage('reset-pin')">
+        <ion-buttons slot="start" class="settings-icon">
+          <ion-button color="secondary">
+            <ion-icon name="apps" slot="icon-only"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+        <ion-label class="label">
+          <h2>{{ 'CHANGE_PIN' | translate }}</h2>
+          <p>{{'CHANGE_LOGIN_PIN' | translate}}</p>
+        </ion-label>
+      </ion-item>
+    </ion-card>
+    <ion-card mode="md" class="setting-card">
+      <ion-item lines="none" button detail="true" (click)="openPage('reset-password')">
+        <ion-buttons slot="start" class="settings-icon">
+          <ion-button color="secondary">
+            <ion-icon name="chatbox-ellipses" slot="icon-only"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+        <ion-label class="label">
+          <h2>{{ 'CHANGE_PASSWORD' | translate }}</h2>
+          <p>{{'CHANGE_LOGIN_PASSWORD' | translate}}</p>
+        </ion-label>
+      </ion-item>
+    </ion-card>
+    <ion-card mode="md" class="setting-card">
+      <ion-item lines="none" button detail="true" (click)="enableDisableTouchId()">
+        <ion-buttons slot="start" class="settings-icon">
+          <ion-button color="secondary">
+            <ion-icon name="finger-print" slot="icon-only"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+        <ion-label class="label">
+					<h2>{{ 'TOUCHID' | translate }}</h2>
+					<p>{{ 'TOUCHID_MSG' | translate }}</p>
+        </ion-label>
+      </ion-item>
+    </ion-card>
+    <ion-card mode="md" class="setting-card">
+      <ion-item lines="none" button detail="true">
+        <ion-buttons slot="start" class="settings-icon">
+          <ion-button color="secondary">
+            <ion-icon name="share-social" slot="icon-only"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+        <ion-label class="label">
+          <h2>{{ 'SHARE_APP' | translate }}</h2>
+          <p>{{'SHARE_APP_WITH_FRIENDS' | translate}}</p>
+        </ion-label>
+      </ion-item>
+    </ion-card>
+  </div>
+  <div class="ion-margin-bottom">
+    <ion-label class="label">
+      <p>{{ 'APP_VERSION' | translate }}</p>
+      <h2> {{appVerNum}} </h2>
+    </ion-label>
+  </div>
+</ion-content>

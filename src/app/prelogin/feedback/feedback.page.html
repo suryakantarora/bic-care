@@ -1,0 +1,139 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{'FEEDBACK' | translate}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card mode="md">
+    <img src="assets/imgs/banners/bnr1.png" />
+    <form [formGroup]="feedbackForm">
+      <div class="form-control ion-margin-top">
+        <ion-input
+          type="email"
+          formControlName="emailId"
+          placeholder="Enter your Email-ID"
+          fill="outline"
+          errorText="Invalid email"
+        >
+        <div slot="label">Email ID <ion-text color="danger"> * </ion-text></div>
+      </ion-input>
+      </div>
+      <div class="form-control">
+        <ion-input
+          type="number"
+          formControlName="mobileNum"
+          placeholder="Enter your mobile no."
+          fill="outline"
+          errorText="Invalid mobile number"
+        >
+        <div slot="label">Mobile Number <ion-text color="danger"> * </ion-text></div>
+      </ion-input>
+      </div>
+      <div class="form-control">
+        <ion-label class="ion-text-wrap">
+          <p>On a scale of 1 to 5, how much are you satishfied with the app? <ion-text color="danger"> * </ion-text></p>
+        </ion-label>
+        <ion-row class="ion-text-center">
+          <ion-col size="3">
+            <ion-button
+              color="secondary"
+              fill="clear"
+              (click)="countRating('1')"
+            >
+              <ion-icon
+                slot="icon-only"
+                [name]="rating>='1'?'star':'star-outline'"
+              ></ion-icon>
+            </ion-button>
+          </ion-col>
+          <ion-col size="2">
+            <ion-button
+              color="secondary"
+              fill="clear"
+              (click)="countRating('2')"
+            >
+              <ion-icon
+                slot="icon-only"
+                [name]="rating>='2'?'star':'star-outline'"
+              ></ion-icon>
+            </ion-button>
+          </ion-col>
+          <ion-col size="2">
+            <ion-button
+              color="secondary"
+              fill="clear"
+              (click)="countRating('3')"
+            >
+              <ion-icon
+                slot="icon-only"
+                [name]="rating>='3'?'star':'star-outline'"
+              ></ion-icon>
+            </ion-button>
+          </ion-col>
+          <ion-col size="2">
+            <ion-button
+              color="secondary"
+              fill="clear"
+              (click)="countRating('4')"
+            >
+              <ion-icon
+                slot="icon-only"
+                [name]="rating>='4'?'star':'star-outline'"
+              ></ion-icon>
+            </ion-button>
+          </ion-col>
+          <ion-col size="3">
+            <ion-button
+              color="secondary"
+              fill="clear"
+              (click)="countRating('5')"
+            >
+              <ion-icon
+                slot="icon-only"
+                [name]="rating>='5'?'star':'star-outline'"
+              ></ion-icon>
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </div>
+      <div class="form-control">
+        <ion-label class="ion-text-wrap">
+          <p>Which are the features you love the most?</p>
+        </ion-label>
+        <div class="checkbox-box" mode="md">
+          <ion-checkbox labelPlacement="end">The UI</ion-checkbox><br />
+          <ion-checkbox labelPlacement="end">Account Statement</ion-checkbox> <br />
+          <ion-checkbox labelPlacement="end">Card Management</ion-checkbox> <br />
+          <ion-checkbox labelPlacement="end">Dashboard</ion-checkbox> <br />
+          <ion-checkbox labelPlacement="end">Wallet Feature</ion-checkbox> <br />
+          <ion-checkbox labelPlacement="end">Login Option</ion-checkbox> <br />
+          <ion-checkbox labelPlacement="end">Other</ion-checkbox> <br />
+        </div>
+      </div>
+      <div class="form-control ion-margin-top">
+        <ion-textarea
+          type="text"
+          formControlName="otherFeedback"
+          placeholder="Enter your feedback"
+          fill="outline"
+        >
+        <div slot="label">Other Feedback <ion-text color="danger"> * </ion-text></div>
+      </ion-textarea>
+      </div>
+      <ion-toolbar class="btn-box top">
+        <ion-button
+          [disabled]="feedbackForm.invalid"
+          expand="block"
+          mode="ios"
+          color="secondary"
+          >{{'SUBMIT' | translate}}</ion-button
+        >
+      </ion-toolbar>
+    </form>
+  </ion-card>
+</ion-content>
+<ion-footer> </ion-footer>

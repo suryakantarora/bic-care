@@ -1,0 +1,21 @@
+<ion-content>
+  <div class="bg-box">
+    <div class="ion-text-center">
+      <img [src]="alertData.img" class="alert-icon">
+    </div>
+    <ion-item lines="none">
+      <ion-label class="ion-text-center ion-text-wrap">
+        <h2>{{alertData.title}}</h2>
+        <p class="description">{{alertData.message}}</p>
+      </ion-label>
+    </ion-item>
+    <ion-row class="bottom-buttons ion-no-margin ion-text-center">
+      <ion-col [size]="alertData.type==='CNF_ALERT'?'6':'12'" [ngClass]="alertData.type==='CNF_ALERT'?'right':''">
+        <ion-button mode="md" fill="clear" expand="block" class="btn ion-text-capitalize" color="danger" (click)="close('N')">{{'DISMISS' | translate}}</ion-button>
+      </ion-col>
+      <ion-col size="6" class="btn" *ngIf="alertData.type==='CNF_ALERT'">
+        <ion-button mode="md" fill="clear" expand="block" class="btn ion-text-capitalize" (click)="close('Y')">{{'PROCEED' | translate}}</ion-button>
+      </ion-col>
+    </ion-row>
+  </div>
+</ion-content>

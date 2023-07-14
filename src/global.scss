@@ -16,7 +16,7 @@
 @import "@ionic/angular/css/normalize.css";
 @import "@ionic/angular/css/structure.css";
 @import "@ionic/angular/css/typography.css";
-@import '@ionic/angular/css/display.css';
+@import "@ionic/angular/css/display.css";
 
 /* Optional CSS utils that can be commented out */
 @import "@ionic/angular/css/padding.css";
@@ -24,3 +24,58 @@
 @import "@ionic/angular/css/text-alignment.css";
 @import "@ionic/angular/css/text-transformation.css";
 @import "@ionic/angular/css/flex-utils.css";
+
+ion-modal#alert-modal {
+  --width: fit-content;
+  --min-width: 250px;
+  --height: fit-content;
+  --border-radius: 6px;
+  --box-shadow: 0 28px 48px rgba(0, 0, 0, 0.4);
+}
+
+.custom-alert {
+  --width: 75%;
+  --min-width: 250px;
+  --height: fit-content;
+  --border-radius: 6px;
+  --box-shadow: 0 28px 48px rgba(0, 0, 0, 0.8);
+}
+.custom-loading {
+  --background: transparent !important;
+  background-color: rgba(0, 0, 0, 0.2);
+  --width: 100px;
+  --min-width: 100px;
+  --height: fit-content;
+  --border-radius: 6px;
+  --box-shadow: none !important;
+}
+.center-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+ion-item-divider {
+  ion-label{
+    width:100% !important;
+  }
+}
+.right{
+  border-right: 1px solid #dedede;
+}
+.left{
+  border-left: 1px solid #dedede;
+}
+.top{
+  border-top: 1px solid #dedede;
+}
+.bottom{
+  border-bottom: 1px solid #dedede;
+}
+.border{
+  border: 1px solid #dedede;
+}
+
+.transparent-item{
+  --background: transparent !important;
+}

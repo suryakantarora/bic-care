@@ -1,0 +1,35 @@
+ion-content {
+  --background: linear-gradient(
+    var(--ion-color-primary) 40%,
+    var(--ion-color-light) 40%
+  );
+}
+.form-control {
+  margin-left: 16px;
+  margin-right: 16px;
+  margin-bottom: 16px;
+}
+ion-card {
+  box-shadow: none !important;
+  border: 1px solid var(--ion-color-secondary);
+  border-radius: 16px;
+}
+.btn-box {
+  padding: 10px;
+  ion-button {
+    --border-radius: 8px !important;
+  }
+}
+.checkbox-box {
+  ion-checkbox {
+    margin-top: 16px !important;
+
+    --size: 20px;
+    --checkbox-background-checked: var(--ion-color-secondary);
+  }
+
+  ion-checkbox::part(container) {
+    border-radius: 3px;
+    border: 2px solid var(--ion-color-secondary);;
+  }
+}

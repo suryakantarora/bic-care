@@ -1,0 +1,10 @@
+<ion-content>
+  <div *ngFor="let l of languages;let i=index">
+    <ion-item [lines]="i-1<languages.length?'full':'none'" button detail="false" (click)="close(l)">
+      <ion-avatar slot="start">
+        <img [src]="l.logo">
+      </ion-avatar>
+      <ion-label><h2>{{l.name}}</h2></ion-label>
+    </ion-item>
+  </div>
+</ion-content>

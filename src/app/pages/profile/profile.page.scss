@@ -1,0 +1,52 @@
+ion-content {
+    --background: linear-gradient(var(--ion-color-primary) 50%, var(--ion-color-light) 50%);
+    text-align: center;
+}
+.setting-header{
+    text-align: center !important;
+    margin: 30px !important;
+}
+.label-header{
+    h2{
+        color: var(--ion-color-secondary);
+        font-weight: bolder;
+    } p{
+        color: var(--ion-color-light);
+        font-size: smaller;
+    }
+}
+.profile {
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+    // border:1px solid var(--ion-color-light);
+    padding: 10px;
+}
+.card-bg{
+    background-color: #f3eded;
+    padding:1px;
+    margin:10px !important;
+    border-radius: 10px;
+    border: 1px solid var(--ion-color-primary);
+}
+.setting-card {
+    border: 1px dotted var(--ion-color-secondary);
+    box-shadow: none !important;
+    border-radius: 10px !important;
+}
+.settings-icon {
+    margin-right: 7px !important;
+    // border: 1px dotted var(--ion-color-secondary);
+    border-radius: 50%;
+    // background-color: var(--ion-color-light);
+}
+.label {
+    h2 {
+        color: var(--ion-color-primary);
+        font-weight: bold;
+    }
+    p {
+        color: var(--ion-color-secondary) !important;
+        font-size: smaller;
+    }
+}

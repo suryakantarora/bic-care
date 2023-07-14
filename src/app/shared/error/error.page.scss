@@ -1,0 +1,8 @@
+ion-content{
+    --background: none;
+    background-image: url('../../../assets/imgs/error-bg.jpg');
+    background-size: 100% 100%;
+}
+.right-border {
+    border-right:1px solid var(--ion-color-light);
+}

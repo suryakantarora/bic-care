@@ -1,0 +1,22 @@
+<div class="md-stepper-horizontal orange">
+  <div class="md-step" [ngClass]="activeIndex>=1?'active':''" (click)="sendOutput(1)">
+    <div class="md-step-circle"><span>1</span></div>
+    <div class="md-step-bar-left"></div>
+    <div class="md-step-bar-right"></div>
+  </div>
+  <div class="md-step" [ngClass]="activeIndex>=2?'active':''" (click)="sendOutput(2)">
+    <div class="md-step-circle"><span>2</span></div>
+    <div class="md-step-bar-left"></div>
+    <div class="md-step-bar-right"></div>
+  </div>
+  <div class="md-step"[ngClass]="activeIndex>=3?'active':''" (click)="sendOutput(3)">
+    <div class="md-step-circle"><span>3</span></div>
+    <div class="md-step-bar-left"></div>
+    <div class="md-step-bar-right"></div>
+  </div>
+  <div class="md-step"[ngClass]="activeIndex>=4?'active':''" (click)="sendOutput(4)">
+    <div class="md-step-circle"><span>4</span></div>
+    <div class="md-step-bar-left"></div>
+    <div class="md-step-bar-right"></div>
+  </div>
+</div>

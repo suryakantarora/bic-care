@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Grid Box with Centered Images and Captions</title>
+  <style>
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      grid-gap: 20px;
+      align-items: center;
+    }
+
+    .grid-item {
+      text-align: center;
+    }
+
+    .grid-item img {
+      display: block;
+      margin: 0 auto;
+    }
+
+    .grid-item p {
+      margin-top: 0px;
+    }
+  </style>
+</head>
+<body>
+  <div class="grid-container">
+    <div class="grid-item">
+      <img src="../../../../assets/imgs/home/my-profile-512x512.png" alt="Image 1">
+      <p>Caption 1</p>
+    </div>
+    <div class="grid-item">
+      <img src="../../../../assets/imgs/home/my-profile-512x512.png" alt="Image 2">
+      <p>Caption 2</p>
+    </div>
+    <div class="grid-item">
+      <img src="../../../../assets/imgs/home/my-profile-512x512.png" alt="Image 3">
+      <p>Caption 3</p>
+    </div>
+    <!-- Add more grid items as needed -->
+  </div>
+</body>
+</html>

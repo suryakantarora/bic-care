@@ -1,0 +1,64 @@
+ion-content{
+    // background: linear-gradient(var(--ion-color-primary), var(--ion-color-light));
+    --background: linear-gradient(var(--ion-color-primary) 30%, var(--ion-color-light) 30%)
+
+}
+.bg-reg{
+    height:120px;
+    margin: auto;
+}
+.header-box {
+    // background: linear-gradient(color($colors, dark), color($colors, dark));
+    --background: linear-gradient(var(--ion-color-primary) 50%, var(--ion-color-primary) 50%)
+    padding-bottom: 200px;
+    color: #fff;
+    background-size: 400% 400%;
+    animation: gradient 15s ease infinite;
+    .username {
+        font-size: larger;
+        font-weight: bolder;
+    }
+    .userMobile {
+        padding: 0px !important;
+        margin: 0px !important;
+        font-size: medium;
+        margin-top: -8px !important;
+        .mobile-icon {
+            font-size: 15px;
+        }
+    }
+}
+.profile{
+    height:100px;
+    width:100px;
+    border-radius:10px;
+    border:1px solid var(--ion-color-primary);
+    border-style: dotted;
+    margin-left:auto;
+    margin-right:auto;
+}
+.content-box {
+    background: #fff;
+    width: 95% !important;
+    min-height: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    
+    border-radius: 16px;
+    border: 1px dotted var(--ion-color-secondary);
+}
+.top-border-radius {
+    border-top-left-radius: 16px !important;
+    border-top-right-radius: 16px !important;
+}
+.form-field{
+    margin-left: 16px;
+    margin-right: 16px;
+}
+.input-field{
+    margin-top: 16px;
+}
+.error{
+    font-size: x-small;
+    color:red !important;
+}

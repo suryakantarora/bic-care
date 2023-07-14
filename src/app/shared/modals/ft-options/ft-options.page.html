@@ -1,0 +1,68 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar color="primary" mode="md">
+    <ion-title>{{'FT' | translate}}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button color="light" (click)="close('NONE')">
+        <ion-icon name="close" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="light">
+  <ion-card mode="md" (click)="close('BICTOBIC')">
+    <ion-item button detail="true" lines="none">
+      <ion-avatar slot="start">
+        <img src="assets/imgs/logo.png">
+      </ion-avatar>
+      <ion-label>
+        <h2>{{'BIC_BANK' | translate}}</h2>
+        <p>{{'TRANSFER_THROUGH_BIC' | translate}}</p>
+      </ion-label>
+    </ion-item>
+  </ion-card>
+  <ion-card mode="md" (click)="close('BICTOBCEL')">
+    <ion-item button detail="true" lines="none">
+      <ion-avatar slot="start">
+        <img src="assets/imgs/bank-logo/27710418.png">
+      </ion-avatar>
+      <ion-label>
+        <h2>{{'BCEL (USD-USD / THB-THB)' | translate}}</h2>
+        <p>{{'TRANSFER_THROUGH_BCEL' | translate}}</p>
+      </ion-label>
+    </ion-item>
+  </ion-card>
+  <ion-card mode="md" (click)="close('LAPNET')">
+    <ion-item button detail="true" lines="none">
+      <ion-avatar slot="start">
+        <img src="assets/imgs/lapnet-sm.png">
+      </ion-avatar>
+      <ion-label>
+        <h2>{{'LAPNET (LAK-LAK)' | translate}}</h2>
+        <p>{{'TRANSFER_THROUGH_LAPNET' | translate}}</p>
+      </ion-label>
+    </ion-item>
+  </ion-card>
+  <ion-card mode="md" (click)="close('UMONEY')">
+    <ion-item button detail="true" lines="none">
+      <ion-avatar slot="start">
+        <img src="assets/imgs/umoney.jpg" style="border: 1px solid orangered">
+      </ion-avatar>
+      <ion-label>
+        <h2>{{'U-MONEY' | translate}}</h2>
+        <p>{{'TRANSFER_THROUGH_UMONEY' | translate}}</p>
+      </ion-label>
+    </ion-item>
+  </ion-card>
+  <ion-card mode="md" (click)="close('MMONEY')">
+    <ion-item button detail="true" lines="none">
+      <ion-avatar slot="start">
+        <img src="assets/imgs/lmmdummy.png">
+      </ion-avatar>
+      <ion-label>
+        <h2>{{'M-MONEY' | translate}}</h2>
+        <p>{{'TRANSFER_THROUGH_MMONEY' | translate}}</p>
+      </ion-label>
+    </ion-item>
+  </ion-card>
+</ion-content>

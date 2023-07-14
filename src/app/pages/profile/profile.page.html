@@ -1,0 +1,123 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar color="primary">
+    <ion-title>{{ 'PERSONAL_DETAIL' | translate }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-back-button name="" icon="close"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div class="setting-header">
+    <img [src]="selectedImage" class="profile" (click)="openCamera(0)" onerror="this.src='assets/imgs/setting.png'">
+    <ion-label class="label-header">
+      <h2>{{user?.name}}</h2>
+      <p>{{user?.mobile}}</p>
+    </ion-label>
+  </div>
+  <div class="card-bg">
+    <ion-card mode="md" class="setting-card">
+      <ion-item lines="none" button detail="false">
+        <ion-buttons slot="start" class="settings-icon">
+          <ion-button color="secondary">
+            <ion-icon name="phone-portrait" slot="icon-only"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+        <ion-label class="label">
+          <p>{{ 'MOBILE_NUMBER' | translate }}</p>
+					<h2> {{user?.mobile}}</h2>
+        </ion-label>
+      </ion-item>
+    </ion-card>
+    <ion-card mode="md" class="setting-card">
+      <ion-item lines="none" button detail="false">
+        <ion-buttons slot="start" class="settings-icon">
+          <ion-button color="secondary">
+            <ion-icon name="mail" slot="icon-only"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+        <ion-label class="label">
+          <p>{{ 'EMAIL_ID' | translate }}</p>
+					<h2> {{user?.email}}</h2>
+        </ion-label>
+      </ion-item>
+    </ion-card>
+    <ion-card mode="md" class="setting-card">
+      <ion-item lines="none" button detail="false">
+        <ion-buttons slot="start" class="settings-icon">
+          <ion-button color="secondary">
+            <ion-icon name="calendar" slot="icon-only"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+        <ion-label class="label">
+          <p>{{ 'DOB' | translate }}</p>
+					<h2> {{user?.dob}}</h2>
+        </ion-label>
+      </ion-item>
+    </ion-card>
+    <ion-card mode="md" class="setting-card">
+      <ion-item lines="none" button detail="false">
+        <ion-buttons slot="start" class="settings-icon">
+          <ion-button color="secondary">
+            <ion-icon name="accessibility" slot="icon-only"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+        <ion-label class="label">
+          <p>{{ 'GENDER' | translate }}</p>
+					<h2> {{user?.gender}}</h2>
+        </ion-label>
+      </ion-item>
+    </ion-card>
+    <ion-card mode="md" class="setting-card">
+      <ion-item lines="none" button detail="false">
+        <ion-buttons slot="start" class="settings-icon">
+          <ion-button color="secondary">
+            <ion-icon name="heart-half" slot="icon-only"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+        <ion-label class="label">
+					<p>{{ 'MARITAL_STATUS' | translate }}</p>
+					<h2> {{user.maritalStatus}}</h2>
+        </ion-label>
+      </ion-item>
+    </ion-card>
+    <ion-card mode="md" class="setting-card">
+      <ion-item lines="none" button detail="false">
+        <ion-buttons slot="start" class="settings-icon">
+          <ion-button color="secondary">
+            <ion-icon name="globe" slot="icon-only"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+        <ion-label class="label">
+					<p>{{ 'NATIONALITY' | translate }}</p>
+					<h2> {{user.nationality}}</h2>
+        </ion-label>
+      </ion-item>
+    </ion-card>
+    <ion-card mode="md" class="setting-card">
+      <ion-item lines="none" button detail="false">
+        <ion-buttons slot="start" class="settings-icon">
+          <ion-button color="secondary">
+            <ion-icon name="disc" slot="icon-only"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+        <ion-label class="label">
+					<p>{{ 'ADDRESS' | translate }}</p>
+					<h2 class="ion-text-wrap"> {{user.address}}</h2>
+        </ion-label>
+      </ion-item>
+    </ion-card>
+    <ion-card mode="md" class="setting-card">
+      <ion-item lines="none" button detail="false">
+        <ion-buttons slot="start" class="settings-icon">
+          <ion-button color="secondary">
+            <ion-icon name="document" slot="icon-only"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+        <ion-label class="label">
+					<p>{{ 'PAN_NUMBER' | translate }}</p>
+					<h2> {{user.documentNumber}}</h2>
+        </ion-label>
+      </ion-item>
+    </ion-card>
+  </div>
+</ion-content>
