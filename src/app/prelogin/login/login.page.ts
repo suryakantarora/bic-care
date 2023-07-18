@@ -10,6 +10,7 @@ import { AlertService } from 'src/app/services/alert/alert.service';
 import { LoadingPage } from 'src/app/shared/popovers/loading/loading.page';
 import { RestService } from 'src/app/services/rest/rest.service';
 import { BiometryType, NativeBiometric } from "capacitor-native-biometric";
+import { Browser, OpenOptions } from '@capacitor/browser';
 // import { IonicSlides } from '@ionic/angular';
 @Component({
   selector: 'app-login',
@@ -41,6 +42,13 @@ export class LoginPage implements OnInit {
   cancelModal() {
     this.modal.dismiss()
   }
+  openTnC = async () => {
+    const option:OpenOptions​ = {
+      url: 'https://biclaos.com/policy/T&C.html',
+      presentationStyle: 'fullscreen'
+    }
+    await Browser.open(option);
+  };
   async ngOnInit() {
     const name = await this.storage.getData('app');
     console.log('App Status: ' + name);

@@ -1,0 +1,28 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <img src="assets/imgs/BIC-logo1-white.png" class="brand-banner" />
+    <ion-buttons slot="end">
+      <ion-button (click)="showConfirmLogout()">
+        <img
+          src="assets/imgs/home/power-off-512x512.png"
+          slot="icon-only"
+          class="icon"
+        />
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-back-button name="" icon="close"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-item lines="none" color="light">
+    <ion-avatar slot="start">
+      <ion-img [src]="profilePic"></ion-img>
+    </ion-avatar>
+  </ion-item>
+</ion-header>
+
+<ion-content>
+</ion-content>

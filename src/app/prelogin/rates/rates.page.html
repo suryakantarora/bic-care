@@ -3,9 +3,48 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title>{{'RATE' | translate}}</ion-title>
+    <ion-title>{{ 'EXCHANGE' | translate }} & {{ 'INTEREST_RATE' | translate }}</ion-title>
+  </ion-toolbar>
+  <ion-toolbar mode="md" class="segment-bg">
+    <ion-segment [(ngModel)]="rate" mode="ios">
+      <ion-segment-button value="EXCH" class="ion-text-capitalize">Exchange rate</ion-segment-button>
+      <ion-segment-button value="INTER" class="ion-text-capitalize">Interest rate</ion-segment-button>
+    </ion-segment>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content color="light">
+  <div [ngSwitch]="rate">
+    <div *ngSwitchCase="'EXCH'">
+      <ion-card class="card-bg no-shadow">
+        <ion-item-divider class="full-width" color="primary">
+          <ion-label class="ion-text-center p-0 m-0">
+            <ion-row>
+              <ion-col size="4">{{'CURRENCY' | translate}}</ion-col>
+              <ion-col size="4">{{'BUY_RATE' | translate}}</ion-col>
+              <ion-col size="4">{{'SELL_RATE' | translate}}</ion-col>
+            </ion-row>
+          </ion-label>
+        </ion-item-divider>
+        <ion-item-divider *ngFor="let r of exchangeRates;let i=index" [color]="i%2===1?'light':''">
+          <ion-label class="ion-text-center p-0 m-0" color="primary">
+            <ion-row>
+              <ion-col size="4" class="right">{{ getCurrency(r.currency) }}</ion-col>
+              <ion-col size="4" class="right">{{ formatAmount(r.buyRate) }}</ion-col>
+              <ion-col size="4">{{ formatAmount(r.sellRate) }}</ion-col>
+            </ion-row>
+          </ion-label>
+        </ion-item-divider>
+        <ion-item lines="none" *ngIf="!exchangeRates || exchangeRates.length<=0" class="ion-padding">
+          <ion-label class="ion-text-center">
+            <h2>{{'SORRY' | translate}}!</h2>
+            <p>{{'NO_DATA_FOUND' | translate}}</p>
+          </ion-label>
+        </ion-item>
+      </ion-card>
+    </div>
+    <div *ngSwitchCase="'INTER'">
+      inter
+    </div>
+  </div>
 </ion-content>

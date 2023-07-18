@@ -36,7 +36,6 @@ export class DashboardPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.loaderService.stop();
     this.global.deviceInfo().then(res => {
       console.log(res);
     }).catch(err=> {

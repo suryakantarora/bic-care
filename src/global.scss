@@ -24,6 +24,16 @@
 @import "@ionic/angular/css/text-alignment.css";
 @import "@ionic/angular/css/text-transformation.css";
 @import "@ionic/angular/css/flex-utils.css";
+@font-face {
+  font-family: "ibmplex";
+  font-style: normal;
+  font-weight: normal;
+  src: url("./assets/fonts/ibmplex.ttf");
+}
+
+* {
+  font-family: "ibmplex" !important;
+}
 
 ion-modal#alert-modal {
   --width: fit-content;
@@ -56,26 +66,58 @@ ion-modal#alert-modal {
   height: 100%;
 }
 ion-item-divider {
-  ion-label{
-    width:100% !important;
+  ion-label {
+    width: 100% !important;
   }
 }
-.right{
+.right {
   border-right: 1px solid #dedede;
 }
-.left{
+.left {
   border-left: 1px solid #dedede;
 }
-.top{
+.top {
   border-top: 1px solid #dedede;
 }
-.bottom{
+.bottom {
   border-bottom: 1px solid #dedede;
 }
-.border{
+.border {
   border: 1px solid #dedede;
 }
 
-.transparent-item{
+.transparent-item {
   --background: transparent !important;
+}
+.custom-btn {
+  --border-radius: 7px !important;
+}
+.bg-color {
+  background-color: #f3eded;
+}
+
+.card-bg {
+  background-color: #f3eded;
+  padding: 1px;
+  margin: 10px !important;
+  border-radius: 10px;
+  border: 1px solid var(--ion-color-primary);
+}
+.card-item{
+  border: 1px dotted var(--ion-color-secondary);
+  box-shadow: none !important;
+  border-radius: 10px !important;
+}
+.item-icon {
+  margin-right: 7px !important;
+  border-radius: 50%;
+}
+.no-shadow{
+  box-shadow: none !important;
+}
+.p-0{
+  padding:0px !important;
+}
+.m-0{
+  margin:0px !important;
 }

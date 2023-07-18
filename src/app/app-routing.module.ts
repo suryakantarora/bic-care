@@ -8,7 +8,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'tabs',
+    redirectTo: 'home',
     pathMatch: 'full'
   },
   {
@@ -102,6 +102,10 @@ const routes: Routes = [
   {
     path: 'ft-options',
     loadChildren: () => import('./shared/modals/ft-options/ft-options.module').then( m => m.FtOptionsPageModule)
+  },
+  {
+    path: 'wallet-dashboard',
+    loadChildren: () => import('./pages/wallet/wallet-dashboard/wallet-dashboard.module').then( m => m.WalletDashboardPageModule)
   },
 ];
 

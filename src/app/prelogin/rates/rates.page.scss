@@ -1,0 +1,9 @@
+.segment-bg{
+    padding-left:16px !important;
+    padding-right:16px !important;
+    ion-segment{
+        border:2px solid var(--ion-color-primary);
+        background-color: var(--ion-color-primary);
+        color: var(--ion-color-secondary)
+    }
+}

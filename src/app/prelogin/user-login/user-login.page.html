@@ -14,26 +14,27 @@
       <div class="form-control" mode="md">
         <form [formGroup]="loginForm">
           <ion-input type="text" label="Username *" labelPlacement="floating" fill="outline" formControlName="userName"
-            name="userName" placeholder="Enter your username" class="input-field" required="true"></ion-input>
-          <div *ngIf="f['userName'].invalid && (f['userName'].dirty || f['userName'].touched)" class="error">
+            name="userName" placeholder="Enter your username" class="input-field" required="true" errorText="Invalid username"></ion-input>
+          <!-- <div *ngIf="f['userName'].invalid && (f['userName'].dirty || f['userName'].touched)" class="error">
             <div *ngIf="f['userName'].errors?.['required']">Username cannot be left blank</div>
             <div *ngIf="f['userName'].errors?.['min'] || f['userName'].errors?.['max']">Invalid username </div>
-          </div>
+          </div> -->
           <br>
           <ion-input type="password" label="Password *" labelPlacement="floating" fill="outline"
             formControlName="password" name="password" placeholder="Enter your password" class="input-field"
-            required="true"></ion-input>
-          <div *ngIf="f['password'].invalid && (f['password'].dirty || f['password'].touched)" class="error">
+            required="true" errorText="Invalid password"></ion-input>
+          <!-- <div *ngIf="f['password'].invalid && (f['password'].dirty || f['password'].touched)" class="error">
             <div *ngIf="f['password'].errors?.['required']">Password cannot be left blank</div>
             <div *ngIf="f['password'].errors?.['min'] || f['password'].errors?.['max']">Invalid password </div>
-          </div>
-          <br><br>
+          </div> -->
+          <br>
+          <ion-button fill="clear" expand="block" color="danger" mode="ios">{{'FORGOT_PASS' | translate}}</ion-button>
           <ion-row>
             <ion-col size="6">
-              <ion-button mode="ios" fill="outline" color="primary" expand="block" (click)="back()">{{'BACK' | translate}}</ion-button>
+              <ion-button mode="ios" fill="outline" color="primary" expand="block" (click)="back()" class="custom-btn">{{'BACK' | translate}}</ion-button>
             </ion-col>
             <ion-col size="6">
-              <ion-button mode="ios" color="primary" expand="block">{{'PROCEED' | translate}}</ion-button>
+              <ion-button mode="ios" color="primary" expand="block" class="custom-btn">{{'PROCEED' | translate}}</ion-button>
             </ion-col>
           </ion-row>
         </form>

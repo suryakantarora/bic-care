@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AlertService } from 'src/app/services/alert/alert.service';
+import { RestService } from 'src/app/services/rest/rest.service';
 
 @Component({
   selector: 'app-atm-location',
@@ -7,18 +9,27 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AtmLocationPage implements OnInit {
   atmList:any=[];
-  constructor() { }
+  constructor(
+    private rest: RestService,
+    private alertService: AlertService
+  ) { }
 
   ngOnInit() {
-    this.initAtmList();
+    this.fetchAtmList();
   }
-  initAtmList(){
-    this.atmList=[
-      {status: 'I', atmName: 'SVNK Service Unit'},
-      {status: 'A', atmName: 'BIC Bank Lao Co. Ltd.'},
-      {status: 'A', atmName: 'BIC Bank LPB'},
-      {status: 'A', atmName: 'PTT Naxai'},
-      {status: 'I', atmName: 'BIC Test Bank'},
-    ];
+  async fetchAtmList() {
+    console.log('Sending request');
+    this.rest.fetchAtmList().then(res=>{
+      console.log('ATM List Resp: ' + JSON.stringify(res));
+      if(res.RESP_STATUS==='SUCCESS'){
+        this.atmList=res.data;
+      } else {
+        this.atmList=[];
+        this.alertService.showAlert('ALERT', res.RESP_CODE);
+      }
+    }).catch(err => {
+      console.error('ATM List Error: ' + JSON.stringify(err));
+    })
   }
 }
+// 0008001009009

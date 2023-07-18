@@ -3,10 +3,20 @@ import { CapacitorConfig } from '@capacitor/cli';
 const config: CapacitorConfig = {
   appId: 'com.biclaosuat.bic',
   appName: 'bicbank',
-  webDir: 'www',
+  bundledWebRuntime: false, // recently added
+  webDir: 'www', // dist => change if www not working for wpa apps
   server: {
-    androidScheme: 'https'
-  }
+    androidScheme: 'https',
+    allowNavigation: []
+  }, 
+  android: {
+    allowMixedContent: true
+  },
+  plugins: {
+    CapacitorHttp: {
+      enabled: true,
+    },
+  },
 };
 
 export default config;

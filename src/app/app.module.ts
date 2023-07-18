@@ -18,13 +18,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoaderService } from './services/loader/loader.service';
 import { LoaderInterceptor } from './shared/interceptors/loader-interceptor.service';
 import { MaskitoModule } from '@maskito/angular';
+import { WalletSidebarComponent } from './pages/wallet/wallet-sidebar/wallet-sidebar.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, WalletSidebarComponent],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),

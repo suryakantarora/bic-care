@@ -13,12 +13,10 @@
     <form [formGroup]="feedbackForm">
       <div class="form-control ion-margin-top">
         <ion-input
-          type="email"
-          formControlName="emailId"
+          type="email" formControlName="emailId"
           placeholder="Enter your Email-ID"
-          fill="outline"
-          errorText="Invalid email"
-        >
+          fill="outline" errorText="Invalid email"
+          [clearInput]="true">
         <div slot="label">Email ID <ion-text color="danger"> * </ion-text></div>
       </ion-input>
       </div>
@@ -120,6 +118,7 @@
           formControlName="otherFeedback"
           placeholder="Enter your feedback"
           fill="outline"
+          cols="5"
         >
         <div slot="label">Other Feedback <ion-text color="danger"> * </ion-text></div>
       </ion-textarea>

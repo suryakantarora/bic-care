@@ -10,19 +10,27 @@ import { RestService } from 'src/app/services/rest/rest.service';
   styleUrls: ['./txn-fee.page.scss'],
 })
 export class TxnFeePage implements OnInit {
-  feeList:any=[];
-  activeTab='TXN_FEE';
-  txnCurrency='LAK';
+  feeList: any = [];
+  activeTab = 'TXN_FEE';
+  txnCurrency = 'LAK';
   constructor(
-    private alertService:AlertService,
+    private alertService: AlertService,
     private global: GlobalService,
-    private rest:RestService,
+    private rest: RestService,
     private navCtrl: NavController
   ) { }
 
   ngOnInit() {
+    this.fetchTxnFee();
   }
   pop() {
     this.navCtrl.pop();
+  }
+  async fetchTxnFee() {
+    this.rest.fetchTxnFee().then(res => {
+      console.log('TXN Fee: ' + JSON.stringify(res));
+    }, err => {
+      console.log('Error: ' + err);
+    });
   }
 }

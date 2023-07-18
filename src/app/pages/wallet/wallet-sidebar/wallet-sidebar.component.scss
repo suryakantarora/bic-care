@@ -1,8 +1,6 @@
 .bic-logo {
     height: 70px;
     width: 70px;
-    border-radius: 50%;
-    border:1px solid var(--ion-color-secondary)
 }
 .last-login {
     color: var(--ion-color-secondary) !important;
@@ -24,18 +22,6 @@
                 color: var(--ion-color-primary);
                 font-weight: bolder;
             }
-        }
-    }
-}
-
-.footer-text{
-    ion-label {
-        h2 {
-            color: var(--ion-color-primary);
-            font-weight: bolder;
-        } p{
-            color: var(--ion-color-secondary);
-            font-size: x-small;
         }
     }
 }
