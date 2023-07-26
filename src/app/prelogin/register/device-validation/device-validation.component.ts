@@ -172,6 +172,8 @@ export class DeviceValidationComponent implements OnInit {
         emitdata.deviceVersion = this.deviceInfo.osVersion;
         this.formValidated.emit(emitdata);
         
+      } else if (resp.RESP_STATUS == 'SUCCESS' && resp.otpFor == 'MVR' && resp.otpStatus == 'F') {
+        this.alertService.showFailedAlert("ALERT", "Invalid OTP, Please try again with correct OTP");
       } else if (resp.RESP_STATUS == 'SUCCESS' && resp.otpFor == 'EMV' && resp.otpStatus == 'V') {
         this.storage.set('startPage', '2');
         this.alertService.showSuccessAlert("WELCOME_BACK", "REG_SUC_MSG");

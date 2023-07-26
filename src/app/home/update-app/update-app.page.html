@@ -1,0 +1,44 @@
+<ion-header mode="md" class="ion-no-border">
+  <ion-toolbar color="primary">
+    <ion-title>{{'UPDATE_APP' | translate}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card class="card-bg">
+    <div class="ion-margin">
+      <ion-img src="assets/imgs/app-update.png" class="update-icon"></ion-img>
+      <br>
+      <div class="app-contents">
+        <ion-item lines="full" class="top-radius">
+          <ion-label class="ion-text-center ion-text-wrap header-msg">
+            <h2>{{'UPDATE_AVAILABLE' | translate}}</h2>
+            <p>Release Version: {{updateDetails.releaseVersion}}</p>
+            <p class="ion-text-start">{{'APP_UPDATE_DESC' | translate}}</p>
+          </ion-label>
+        </ion-item>
+        <ion-item lines="none" class="bottom-radius">
+          <ion-label class="ion-text-wrap">
+            <p>Release Date: {{updateDetails.releaseDate | date:'dd-MMM-yyyy'}}</p>
+            <h2>Release Description: </h2>
+            <p>{{updateDetails.releaseDesc}}</p>
+          </ion-label>
+        </ion-item>
+      </div>
+    </div>
+  </ion-card>
+</ion-content>
+<ion-footer>
+  <ion-toolbar color="primary">
+    <ion-row>
+      <ion-col>
+        <ion-button mode="md" fill="outline" color="light" expand="block" class="custom-btn"
+          (click)="updateApp('SKIP')">{{'SKIP_BTN' | translate}}</ion-button>
+      </ion-col>
+      <ion-col>
+        <ion-button mode="md" color="secondary" expand="block" class="custom-btn"
+          (click)="updateApp('UPDATE')">{{'UPDATE' | translate}}</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-footer>

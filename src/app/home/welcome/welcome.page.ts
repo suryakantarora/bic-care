@@ -105,30 +105,38 @@ export class WelcomePage implements OnInit {
   appVersionResp(resp:any, startPage:string) {
 		console.log('App Release Data: ' + JSON.stringify(resp));
 		if (resp.RESP_STATUS == 'SUCCESS') {
-			if (this.deviceDetail?.platform === 'ios') {
-				console.log('Checking for ios platform');
-				for (let data of resp.data) {
-					console.log('Data : ' + JSON.stringify(data));
-					if (data.platform == "IOS" || data.platform == "ios") {
-						if(data.releaseVersion !== this.appInfo.version && startPage === '2'){
-							// App update for ios code goes here
-						}
-					}
-				}
-			} else {
-				console.log('Checking for android platform');
-				for (let data of resp.data) {
-					console.log('Data : ' + JSON.stringify(data));
-					if (data.platform == "ANDROID") {
-						if (data.releaseVersion !== this.appInfo.version && startPage === '2' ) {
-							// app update for android code goes here
-						}
-					}
-				}
-			}
-		} else {
-		  // login to app
-      this.global.setRoot('login');
-    }
+      if(startPage === '2') {
+        if (this.deviceDetail?.platform === 'ios') {
+          console.log('Checking for ios platform');
+          for (let data of resp.data) {
+            console.log('Data : ' + JSON.stringify(data));
+            if (data.platform === "IOS" || data.platform === "ios") {
+              if(data.releaseVersion !== this.appInfo.version){
+                // App update for ios code goes here
+                this.openAppUpdatePage(data);
+              }
+            }
+          }
+        } else {
+          console.log('Checking for android platform');
+          for (let data of resp.data) {
+            console.log('Data : ' + JSON.stringify(data));
+            if (data.platform === "ANDROID" || data.platform === "android") {
+              if (data.releaseVersion !== this.appInfo.version) {
+                // app update for android code goes here
+                this.openAppUpdatePage(data);
+              }
+            }
+          }
+        }
+      } else {
+        this.global.setRoot('login');
+      }
+		} 
 	}
+
+  async openAppUpdatePage(data:any) {
+    this.rest.setData(data);
+    this.navCtrl.navigateRoot(['home/update-app'])
+  }
 }

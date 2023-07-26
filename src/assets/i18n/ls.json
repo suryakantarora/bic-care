@@ -212,6 +212,7 @@
 	"EXISTING_USER_BTN":"ຜູ້ນໍາໃຊ້ທີ່ມີຢູ່ແລ້ວ",
 	"ENTER_MOBILE_NUM": "ໃສ່ຫມາຍເລກມືຖືຂອງທ່ານ",
 	"GET_OTP":"ຮັບ OTP",
+	"VERIFY_OTP": "ກວດສອບ OTP",
 	"VERIFY_BTN":"ກວດສອບ",
 	"CONFIRM_BTN":"ຢືນຢັນ",
 	"VERIFY_HEADER":"ເລີ່ມກວດສອບຂໍ້ມູນຂອງທ່ານ!",

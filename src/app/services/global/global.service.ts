@@ -250,6 +250,16 @@ export class GlobalService {
     return mobileNum;
   }
   getHashData(data:string, key:string='BICBANK') {
-		return SHA512(data+key);
+		return SHA512(data+key) + '';
 	}
+  generateRandomKey() {
+    var resultKey = '';
+		var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+		var charactersLength = characters.length;
+		var length = 10;
+		for (var i = 0; i < length; i++) {
+			resultKey += characters.charAt(Math.floor(Math.random() * charactersLength));
+		}
+		return resultKey;
+  }
 }

@@ -17,11 +17,11 @@ export class RegisterPage implements OnInit {
   validUser = true;
   closeModal = false;
   tcAccepted = false;
-  activeStepper = 2;
+  activeStepper = 1;
   deviceId: string;
   deviceInfo: any;
   appInfo: any;
-  regData: any={};
+  regData: any = {};
   constructor(
     private rest: RestService,
     private global: GlobalService,
@@ -41,7 +41,7 @@ export class RegisterPage implements OnInit {
 
   clickedStepper(ev: any) {
     console.log('stepper clicked: ' + ev);
-    this.activeStepper = ev;
+    // this.activeStepper = ev;
   }
 
   async continue(data: number) {
@@ -70,12 +70,12 @@ export class RegisterPage implements OnInit {
       const data: any = ev;
       this.regData = data;
       this.activeStepper += 1;
+      console.log('Device Validate regData: ' + JSON.stringify(this.regData));
     }
   }
   // Username and password form submit
   submitUserNameAndPassword(ev: any) {
     console.log('User Password Detail: ' + JSON.stringify(ev));
-    const regData:any={};
     if (ev) {
       const data: any = ev;
       console.log('username: ' + data.userName);
@@ -83,27 +83,42 @@ export class RegisterPage implements OnInit {
       this.regData.userName = data.userName;
       this.regData.password = data.password;
       this.activeStepper += 1;
+      console.log('User Password regData: ' + JSON.stringify(this.regData));
     }
   }
   // User detail form submit
   submitUserDetail(ev: Event) {
     console.log('User Detail: ' + JSON.stringify(ev));
+    const data:any=ev;
     if (ev) {
+      this.regData.firstName=data.firstName;
+      this.regData.middleName=data.middleName;
+      this.regData.lastName=data.lastName;
+      this.regData.gender=data.gender;
+      this.regData.email=data.emailId;
+      this.regData.maritalStatus=data.maritalStatus;
+      this.regData.dob=data.dob;
+      this.regData.nationality=data.nationality;
+      this.regData.address=data.address;
+      this.regData.fatherName=data?.fatherName || '';
       this.activeStepper += 1;
+      console.log('User Detail regData: ' + JSON.stringify(this.regData));
     }
   }
   // mpin Form Submit
   submitMpin(ev: Event) {
     console.log('MPin Detail: ' + JSON.stringify(ev));
+    const data:any=ev;
     if (ev) {
-      // this.initRegistration();
+      this.regData.mpin=data.pin;
+      this.initRegistration(this.regData);
     }
   }
 
   initRegistration(data: any) {
     const postData = {
-      deviceId: this.deviceId,
-      otpRefId: data.otpReference,
+      otpRefId: data.otpRefId,
+      deviceId: data.deviceId,
       deviceModel: data.deviceModel,
       deviceVersion: data.deviceVersion,
       appVersion: data.appVersion,
@@ -121,19 +136,32 @@ export class RegisterPage implements OnInit {
       maritalStatus: data.maritalStatus,
       fname: data.firstName,
       mname: data.middleName,
-      lname: data.surname,
+      lname: data.lastName,
       nationality: data.nationality,
       fatherName: data.fatherName,
-      gender: data.sex,
+      gender: data.gender,
       address: data.address,
       mobile: data.mobile,
       userName: data.userName,
-      password: this.hashedData(data.hashedPass)
+      password: this.hashedData(data.password)
     };
-    console.log(JSON.stringify(postData));
+    // console.log(JSON.stringify(postData));
+    this.rest.registerUser(postData).then(resp => {
+      if (resp.RESP_STATUS == 'SUCCESS') {
+        this.storage.set('startPage', '2');
+        this.activeStepper = 5;
+      } else {
+        this.alertService.showAlert('ALERT', 'USER_REG_FAIL_ERR');
+      }
+    }).catch(err=> {
+      this.rest.closePopover();
+      this.alertService.showFailedAlert('ERROR', 'SOMETHING_WENT_WRONG');
+    })
   }
 
-
+  login() {
+    this.global.setRoot('login');
+  }
   hashedData(data: string) {
     let resp = this.global.getHashData(data);
     let respString = resp.toString();

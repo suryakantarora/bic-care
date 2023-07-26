@@ -214,6 +214,7 @@
 	"ENTER_MOBILE_NUM": "Enter your mobile number",
 	"GET_OTP": "Get OTP",
 	"VERIFY_BTN": "Verify",
+	"VERIFY_OTP": "Verify OTP",
 	"CONFIRM_BTN": "Confirm",
 	"VERIFY_HEADER": "Let's get you verified!",
 	"VERIFY_DESCRIPTION": "Send us the preconfigured SMS to verify you",
@@ -1008,5 +1009,7 @@
 	"MAXIMUM_TXN_LIMIT_ALERT":"Amount must be less than {{amount}}",
 	"400":"Bad Request",
 	"404":"Data not found",
-	"SET_USERNAME_PASSWORD":"Set Username & Password"
+	"SET_USERNAME_PASSWORD":"Set Username & Password",
+	"UPDATE_APP":"Update App",
+	"UPDATE_AVAILABLE":"Update Available"
 }

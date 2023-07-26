@@ -19,23 +19,19 @@ export class HomePage implements OnInit{
   async getAppInfo() {
     App.getInfo().then(res => {
       console.log('App Info: ' + JSON.stringify(res));
-      this.rest.setData('appInfo', res);
       this.getDeviceInfo(res);
     });
   }
   async getDeviceInfo(appInfo:any) {
     await Device.getInfo().then((res) => {
       console.log('Device Info: ' + JSON.stringify(res));
-      this.rest.setData('deviceInfo', res);
     }).catch((err) => {
       console.error(err)
-    });
+    }); 
   }
   async getDeviceId() {
-    const appDetail:any={};
     await Device.getId().then(res => {
       console.log('Device ID: ' + JSON.stringify(res));
-      this.rest.setData('deviceId', res.identifier);
     }).catch((err) => {
       console.error(err)
     });

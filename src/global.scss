@@ -110,6 +110,12 @@ ion-item-divider {
   border-radius: 10px;
   border: 1px solid var(--ion-color-primary);
 }
+.top-border-radius{
+  border-top-left-radius: 10px !important;
+  border-top-right-radius: 10px !important;
+  border-bottom-right-radius: 0px !important;
+  border-bottom-right-radius: 0px !important;
+}
 .card-item {
   border: 1px dotted var(--ion-color-secondary);
   box-shadow: none !important;
@@ -169,4 +175,20 @@ ion-radio.ios::part(container) {
   --height: fit-content;
   --border-radius: 6px;
   --box-shadow: 0 28px 48px rgba(0, 0, 0, 0.8);
+}
+
+.form-field {
+  margin-left: 16px;
+  margin-right: 16px;
+}
+.input-field {
+  margin-top: 16px;
+}
+.item-field{
+  border: 1px solid var(--ion-color-medium);
+  border-radius: 5px;
+}
+.error {
+  font-size: x-small;
+  color: red !important;
 }

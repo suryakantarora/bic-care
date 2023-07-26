@@ -11,30 +11,32 @@ import { PopoverController } from '@ionic/angular';
 })
 export class RestService {
   authToken: any;
-  private _data:any;
-  private deviceDetail:any;
-  tcUrl = 'https://biclaos.com/policy/T&C.html';
+  private _data: any;
+  private deviceDetail: any;
+  appStoreUrl = suburl.APP_STORE_URL;
+  playStoreUrl = suburl.PLAY_STORE_URL;
+  tcUrl = suburl.TNC_URL;
   baseUrl = environment.baseUrl;
   constructor(private httpClient: HttpClient, private popoverCtrl: PopoverController) { }
 
-  public setData(key:string, value:any) {
-    this._data[key]=value;
+  public setData(data: any) {
+    this._data = data;
   }
-  public getData(key:string) {
-    return this._data[key];
+  public getData() {
+    return this._data;
   }
   public getDeviceDetail() {
     return this.deviceDetail;
   }
-  public setDeviceDetail(data:any) {
-    this.deviceDetail=data;
+  public setDeviceDetail(data: any) {
+    this.deviceDetail = data;
   }
   async closePopover() {
     try {
       this.popoverCtrl.dismiss().catch(err => {
         console.log('Cannot close popover')
       });
-    } catch(err) {
+    } catch (err) {
       console.log('Already closed');
     }
   }
@@ -102,7 +104,7 @@ export class RestService {
     loading.dismiss();
     return response?.data;
   }
-  async deviceInfoStartTime(postData:any) {
+  async deviceInfoStartTime(postData: any) {
     const options = {
       url: this.baseUrl + suburl.DEVICE_INFO,
       headers: { 'Content-Type': 'application/json' },
@@ -113,7 +115,7 @@ export class RestService {
     console.log("Response Data: " + JSON.stringify(response));
     return response?.data;
   }
-  async appRelease(postData:any) {
+  async appRelease(postData: any) {
     const options = {
       url: this.baseUrl + suburl.APP_RELEASE,
       headers: { 'Content-Type': 'application/json' },
@@ -124,7 +126,7 @@ export class RestService {
     console.log("Response Data: " + JSON.stringify(response));
     return response?.data;
   }
-  async deviceInfo(postData:any) {
+  async deviceInfo(postData: any) {
     const loading = await this.loading();
     const options = {
       url: this.baseUrl + suburl.DEVICE_INFO,
@@ -178,10 +180,24 @@ export class RestService {
   }
 
   async registerUser(postData: any) {
-    postData.SUBURL=suburl.REGISTER_USER;
+    postData.SUBURL = suburl.REGISTER_USER;
     const loading = await this.loading();
     const options = {
-      url: this.baseUrl + suburl.POST_SERVICE,
+      url: this.baseUrl + suburl.POST_SERVICE_WITH_DATA,
+      headers: { 'Content-Type': 'application/json' },
+      data: postData
+    };
+    console.log("Request Data: " + JSON.stringify(options));
+    const response: HttpResponse = await CapacitorHttp.post(options);
+    console.log("Response Data: " + JSON.stringify(response.data));
+    loading.dismiss();
+    return response?.data;
+  }
+  // Login User
+  async loginUser(postData: any) {
+    const loading = await this.loading();
+    const options = {
+      url: this.baseUrl + suburl.LOGIN_USER,
       headers: { 'Content-Type': 'application/json' },
       data: postData
     };

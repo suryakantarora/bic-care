@@ -66,6 +66,22 @@
     <div *ngIf="activeStepper===4">
       <app-set-mpin (submitPinDetail)="submitMpin($event)"></app-set-mpin>
     </div>
+    <div *ngIf="activeStepper===5" class="ion-text-center">
+      <div class="ion-padding">
+        <br>
+        <ion-img src="assets/imgs/success.png" class="success-icon"></ion-img>
+        <br>
+        <ion-item lines="none">
+          <ion-label class="ion-text-center ion-text-wrap reg-msg">
+            <h2>{{'SUCCESS' | translate}}</h2>
+            <p>{{'DEVICE_REG_SUCCESS_MSG' | translate}}</p>
+          </ion-label>
+        </ion-item>
+        <br>
+        <ion-button mode="ios" size="small" shape="round" color="secondary" (click)="login()">{{'CLICK_TO_LOGIN' | translate}}</ion-button>
+      </div>
+    </div>
   </div>
   <br>
+  
 </ion-content>

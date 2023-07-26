@@ -19,6 +19,8 @@ import { LoaderService } from './services/loader/loader.service';
 import { LoaderInterceptor } from './shared/interceptors/loader-interceptor.service';
 import { MaskitoModule } from '@maskito/angular';
 import { WalletSidebarComponent } from './pages/wallet/wallet-sidebar/wallet-sidebar.component';
+import { ROUND_PROGRESS_DEFAULTS, RoundProgressModule } from 'angular-svg-round-progressbar';
+
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -43,13 +45,22 @@ export function createTranslateLoader(http: HttpClient) {
     }),
     FormsModule,
     ReactiveFormsModule,
-    MaskitoModule
+    MaskitoModule,
+    RoundProgressModule
   ],
   providers: [
     LoaderService,
     { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    {
+      provide: ROUND_PROGRESS_DEFAULTS,
+      useValue: {
+        color: '#f00',
+        background: '#0f0'
+      }
+    }
+  ],
   bootstrap: [AppComponent],
-  schemas:[CUSTOM_ELEMENTS_SCHEMA]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class AppModule {}
+export class AppModule { }

@@ -11,6 +11,7 @@ import { LoadingPage } from 'src/app/shared/popovers/loading/loading.page';
 import { RestService } from 'src/app/services/rest/rest.service';
 import { BiometryType, NativeBiometric } from "capacitor-native-biometric";
 import { Browser, OpenOptions } from '@capacitor/browser';
+import { Device } from '@capacitor/device';
 // import { IonicSlides } from '@ionic/angular';
 @Component({
   selector: 'app-login',
@@ -25,7 +26,8 @@ export class LoginPage implements OnInit {
   reversedSentence: string = '';
   position = 0;
   pin = '';
-
+  randomKey:string='';
+  deviceId: any;
   constructor(
     private translate: TranslateService,
     public global: GlobalService,
@@ -33,7 +35,7 @@ export class LoginPage implements OnInit {
     private modalCtrl: ModalController,
     private alertService: AlertService,
     private popoverCtrl: PopoverController,
-    private restService: RestService,
+    private rest: RestService,
     private navCtrl: NavController
 
   ) {
@@ -41,6 +43,14 @@ export class LoginPage implements OnInit {
   }
   cancelModal() {
     this.modal.dismiss()
+  }
+  async getDeviceId() {
+    await Device.getId().then(res => {
+      console.log('Device ID: ' + JSON.stringify(res));
+      this.deviceId= res.identifier;
+    }).catch((err) => {
+      console.error(err)
+    });
   }
   openTnC = async () => {
     const option:OpenOptions​ = {
@@ -53,92 +63,10 @@ export class LoginPage implements OnInit {
     const name = await this.storage.getData('app');
     console.log('App Status: ' + name);
     this.global.getDefaultLang();
-    const sentence = 'Hello, worlds! This is a tests sentences';
-    this.reversedSentence = this.reverseWordsWithOddLength(sentence);
-    console.log('Reverse Word: ' + this.reversedSentence);
+    this.getDeviceId();
+    this.randomKey= this.global.generateRandomKey();
   }
-  reverseWordsWithOddLength(sentence: string): string {
-    const words = sentence.split(' ');
-    const reversedWords = words.map(word => {
-      if (word.length % 2 === 1) {
-        // return word.split('').reverse().join('');
-        return this.reverseWord(word);
-      }
-      return word;
-    });
-    return reversedWords.join(' ');
-  }
-  reverseWord(word: string) {
-    const chars = word.split('');
-    const revWord = chars.map(char => {
-      console.log(char);
-    });
-    let start = 0;
-    let end = chars.length - 1;
-
-    while (start < end) {
-      const temp = chars[start];
-      chars[start] = chars[end];
-      chars[end] = temp;
-      start++;
-      end--;
-    }
-
-    return chars.join('');
-  }
-  async test() {
-    // Promise
-    const delay = (ms: any) => {
-      return new Promise((resolve, reject) => {
-        resolve('Delayed value');
-        reject('Delayed value error');
-      });
-    };
-
-    delay(3000).then((result) => {
-      console.log('Result: ' + result); // Output: Delayed value
-    }).catch((error) => {
-      console.error('Error: ' + error);
-    });
-
-    // Ovservable
-    const numberObservable = new Observable((observer) => {
-      let count = 0;
-      const interval = setInterval(() => {
-        observer.next(count);
-        count++;
-      }, 1000);
-
-      return () => {
-        clearInterval(interval);
-      };
-    });
-
-    /* const subscription = numberObservable.subscribe((value) => {
-      console.log(value); // Output: 0, 1, 2, 3, ...
-    });
-
-     */
-
-
-    const observer = {
-      next: (value: any) => {
-        console.log(value);
-      },
-      error: (error: any) => {
-        console.error(error);
-      },
-      complete: () => {
-        console.log('Completed');
-      },
-    };
-
-    const subscription = numberObservable.subscribe(observer);
-    // Unsubscribe after 5 seconds
-    setTimeout(() => {
-      subscription.unsubscribe();
-    }, 5000);
-  }
+  
   openUserLogin() {
     this.navCtrl.navigateForward(['/user-login']);
   }
@@ -163,14 +91,15 @@ export class LoginPage implements OnInit {
       this.pin += pin;
       console.log(this.pin);
       if (this.position === 6) {
-        this.initPinLogin();
+        this.initPinLogin('MP');
       }
     }
   }
-  async initPinLogin() {
+  async initPinLogin(type:string) {
     this.modal.dismiss();
-    this.navCtrl.navigateRoot(['/tabs']);
+    // this.navCtrl.navigateRoot(['/tabs']);
     // this.navCtrl.navigateRoot(['/wallet-dashboard']);
+    this.initLogin(type);
   }
   deletePin() {
     if (this.position) {
@@ -232,6 +161,7 @@ export class LoginPage implements OnInit {
     }).then(() => true).catch(() => false);
   
     if(!verified) return;
+    this.initPinLogin('MP');
     this.saveCredentials();
     
   }
@@ -243,11 +173,12 @@ export class LoginPage implements OnInit {
   }
   saveCredentials() {
     // Save user's credentials
-    NativeBiometric.setCredentials({
+    NativeBiometric.setCredentials({ 
       username: "bicbank",
       password: "bicbank",
       server: "www.bicbank.com",
-    }).then();
+    }).then(() => {
+    });
     
   }
   deleteCredentials() {
@@ -255,5 +186,19 @@ export class LoginPage implements OnInit {
     NativeBiometric.deleteCredentials({
       server: "www.example.com",
     }).then();
+  }
+
+  async initLogin(type:string='FP', pin:string='') {
+    const postData = {
+			loginType: type,
+			mpin: this.global.getHashData(this.global.getHashData(pin), this.randomKey),
+			deviceId: this.deviceId,
+			loginKey: this.randomKey
+		};
+		this.rest.loginUser(postData).then(res=>{
+
+    }).catch(err=> {
+
+    });
   }
 }

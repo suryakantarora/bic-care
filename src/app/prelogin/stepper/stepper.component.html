@@ -19,4 +19,9 @@
     <div class="md-step-bar-left"></div>
     <div class="md-step-bar-right"></div>
   </div>
+  <div class="md-step"[ngClass]="activeIndex>=5?'active':''" (click)="sendOutput(5)">
+    <div class="md-step-circle"><span>5</span></div>
+    <div class="md-step-bar-left"></div>
+    <div class="md-step-bar-right"></div>
+  </div>
 </div>
