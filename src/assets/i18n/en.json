@@ -951,7 +951,7 @@
 	"TO_USE_BIC_BEST_APP_WALLET": "to use BIC Best App/Wallet",
 	"AGREE_AND_CONTINUE": "Agree and Continue",
 	"DISAGREE_AND_EXIT": "Disagree and Exit",
-	"YOUR_CREDENTIAL_WILL_BE_USE_TO_LOGIN_BIC_BEST": "Your credential will be use to login BIC Best/BIC Wallet.",
+	"YOUR_CREDENTIAL_WILL_BE_USE_TO_LOGIN_BIC_BEST": "Your credential will be used to login BIC Best/BIC Wallet.",
 	"STRONG_PASSWORD_TIP": "Strong password tip",
 	"ALPHANUMERIC_WITH_UPPER_AND_LOWER_CASE": "Alphanumeric with upper and lower case, special character (Example: @#$), and with numbers",
 	"MPIN_WILL_BE_YOUR_BIC_BEST_MOBILE_PIN_NUMBER_CONSISIT_OF_SIX": "MPIN will be your BIC Best Mobile PIN number consist of 6(six) digits.",
@@ -1005,5 +1005,8 @@
 	"PAY_FOR": "Paying For",
 	"SERVICE_CHARGE": "Service Charge",
 	"MINIMUM_TXN_LIMIT_ALERT":"Amount must be greater than {{amount}}",
-	"MAXIMUM_TXN_LIMIT_ALERT":"Amount must be less than {{amount}}"
+	"MAXIMUM_TXN_LIMIT_ALERT":"Amount must be less than {{amount}}",
+	"400":"Bad Request",
+	"404":"Data not found",
+	"SET_USERNAME_PASSWORD":"Set Username & Password"
 }

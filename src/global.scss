@@ -65,6 +65,12 @@ ion-modal#alert-modal {
   justify-content: center;
   height: 100%;
 }
+.action-sheet-modal {
+  --border-radius: 16px 16px 0px 0px !important;
+  ion-content {
+    border: 1px solid var(--ion-color-secondary) !important;
+  }
+}
 ion-item-divider {
   ion-label {
     width: 100% !important;
@@ -91,6 +97,7 @@ ion-item-divider {
 }
 .custom-btn {
   --border-radius: 7px !important;
+  text-transform: capitalize !important;
 }
 .bg-color {
   background-color: #f3eded;
@@ -103,7 +110,7 @@ ion-item-divider {
   border-radius: 10px;
   border: 1px solid var(--ion-color-primary);
 }
-.card-item{
+.card-item {
   border: 1px dotted var(--ion-color-secondary);
   box-shadow: none !important;
   border-radius: 10px !important;
@@ -112,12 +119,54 @@ ion-item-divider {
   margin-right: 7px !important;
   border-radius: 50%;
 }
-.no-shadow{
+.no-shadow {
   box-shadow: none !important;
 }
-.p-0{
-  padding:0px !important;
+.p-0 {
+  padding: 0px !important;
 }
-.m-0{
-  margin:0px !important;
+.m-0 {
+  margin: 0px !important;
+}
+
+ion-radio {
+  --border-radius: 4px;
+  --inner-border-radius: 4px;
+
+  --color: #ddd;
+  --color-checked: var(--ion-color-tertiary);
+}
+
+ion-radio.ios::part(container) {
+  width: 20px;
+  height: 20px;
+
+  border: 2px solid #ddd;
+  border-radius: 4px;
+}
+
+.radio-checked.ios::part(container) {
+  border-color: var(--ion-color-tertiary);
+}
+
+.checkbox-box {
+  ion-checkbox {
+    margin-top: 16px !important;
+
+    --size: 20px;
+    --checkbox-background-checked: var(--ion-color-secondary);
+  }
+
+  ion-checkbox::part(container) {
+    border-radius: 3px;
+    border: 2px solid var(--ion-color-secondary);
+  }
+}
+.select-date {
+  --width: 85%;
+  --min-width: 250px;
+  --max-width: 350px;
+  --height: fit-content;
+  --border-radius: 6px;
+  --box-shadow: 0 28px 48px rgba(0, 0, 0, 0.8);
 }

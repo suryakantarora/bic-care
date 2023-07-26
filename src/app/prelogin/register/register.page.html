@@ -1,101 +1,71 @@
 <ion-header class="ion-no-border">
   <ion-toolbar color="primary" class="ion-text-center">
-    <app-stepper
-      [activeIndex]="activeStepper"
-      (clickedTab)="clickedStepper($event)"
-    ></app-stepper>
+    <app-stepper [activeIndex]="activeStepper" (clickedTab)="clickedStepper($event)"></app-stepper>
     <img src="assets/imgs/reg-bg.png" class="bg-reg" />
     <h2 class="username ion-text-center">Device Registration</h2>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-modal class="action-sheet-modal" [isOpen]="isModalOpen" [initialBreakpoint]="1" [breakpoints]="[0, 1]"
+    handle="false" backdropDismiss="false" [canDismiss]="closeModal">
+    <ng-template style="border:1px solid #ccc">
+      <ion-header class="ion-no-border">
+        <ion-toolbar color="light">
+          <ion-item lines="full" mode="md" color="light">
+            <ion-avatar slot="start">
+              <img src="assets/imgs/tc-icon.png">
+            </ion-avatar>
+            <ion-label class="ion-text-wrap tc-text">
+              <h2>{{'TERMS_CONDITION' | translate}}</h2>
+              <p> {{'Please check the box to agree the Terms & Conditions' | translate}}</p>
+            </ion-label>
+          </ion-item>
+        </ion-toolbar>
+      </ion-header>
+      <br>
+      <ion-item lines="none">
+        <ion-label class="ion-text-wrap">
+          <h2>
+            {{'DO_YOU_AGREE_WITH_THE_TERMS_CONDITION_AS_STIPULATED' | translate}}
+            <span class="tc-link" (click)="openTNC()"> {{'HERE' | translate}} </span>
+            {{'TO_USE_BIC_BEST_APP_WALLET' | translate}}
+          </h2>
+        </ion-label>
+      </ion-item>
+      <ion-footer class="ion-no-border">
+        <ion-toolbar class="footer-checkbox">
+          <div class="checkbox-box" mode="md">
+            <ion-checkbox labelPlacement="end" [(ngModel)]="tcAccepted">{{'AGREE_AND_CONTINUE' |
+              translate}}</ion-checkbox>
+          </div>
+        </ion-toolbar>
+        <ion-row>
+          <ion-col size="6">
+            <ion-button expand="block" mode="md" fill="outline" color="danger" class="ion-text-capitalize custom-btn"
+              (click)="continue(0)">{{'EXIT' | translate}}</ion-button>
+          </ion-col>
+          <ion-col size="6">
+            <ion-button expand="block" mode="md" class="ion-text-capitalize custom-btn" [disabled]="!tcAccepted"
+              (click)="continue(1)">{{'CONTINUE' | translate}}</ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-footer>
+    </ng-template>
+  </ion-modal>
   <div class="content-box">
     <div *ngIf="activeStepper===1">
-      <form [formGroup]="regForm" (ngSubmit)="validateForm()">
-        <ion-item lines="none" color="light" class="top-border-radius">
-          <ion-label class="ion-text-center">
-            <p class="userMobile">Validate Mobile Number & OTP</p>
-          </ion-label>
-        </ion-item>
-        <div class="form-field" mode="md">
-          <ion-input
-            type="tel"
-            labelPlacement="floating"
-            errorText="Invalid Mobile no."
-            fill="outline"
-            formControlName="mobileNum"
-            name="mobilenum"
-            placeholder="+856 20X XXX XXXX"
-            class="input-field"
-            required="true"
-            [maskito]="phoneMask"
-            [maskitoElement]="maskPredicate"
-          >
-          <div slot="label">Mobile Number <ion-text color="danger">*</ion-text></div>
-        </ion-input>
-          <!-- <div *ngIf="f['mobileNum'].invalid && (f['mobileNum'].dirty || f['mobileNum'].touched)" class="error">
-            <div *ngIf="f['mobileNum'].errors?.['required']">Mobile number cannot be left blank</div>
-            <div *ngIf="f['mobileNum'].errors?.['min'] || f['mobileNum'].errors?.['max']">Mobile number cannot be less
-              than or greater than 10 digits</div>
-          </div> -->
-          <div class="ion-text-end" *ngIf="showTimer">
-            <ion-button mode="ios" fill="clear" *ngIf="timer"
-              >{{timerLabel}}</ion-button
-            >
-            <ion-button mode="ios" fill="clear" *ngIf="!timer"
-              >Resend OTP</ion-button
-            >
-          </div>
-          <ion-input
-            type="number"
-            errorText="Invalid OTP"
-            labelPlacement="floating"
-            fill="outline"
-            formControlName="otp"
-            name="otp"
-            [readonly]="!otpReference"
-            placeholder="Enter OTP"
-            class="input-field"
-          >
-          <div slot="label">OTP <ion-text color="danger">*</ion-text></div>
-        </ion-input>
-          <!-- <div *ngIf="f['otp'].invalid && (f['otp'].dirty || f['otp'].touched)"
-            class="error">
-            <div *ngIf="f['otp'].errors?.['required']">
-              OTP cannot be left blank
-            </div>
-            <div *ngIf="f['otp'].errors?.['min'] || f['otp'].errors?.['max']">
-              OTP cannot be less than or greater than 6 digits
-            </div>
-          </div> -->
-        </div>
-        <div class="ion-padding">
-          <ion-button
-            type="button"
-            expand="block"
-            mode="ios"
-            [disabled]="f['mobileNum'].invalid"
-            (click)="getOTP()"
-            *ngIf="!otpReference"
-            >{{'GET_OTP' | translate}}</ion-button
-          >
-          <ion-button
-            type="submit"
-            expand="block"
-            mode="ios"
-            [disabled]="f['mobileNum'].invalid"
-            *ngIf="otpReference"
-            >{{'VERIFY_OTP' | translate}}</ion-button
-          >
-        </div>
-      </form>
+      <app-device-validation (formValidated)="formValidated($event)"></app-device-validation>
     </div>
-    <div *ngIf="activeStepper===2"></div>
+    <div *ngIf="activeStepper===2">
+      <app-set-username-password (sendUserNamePassword)="submitUserNameAndPassword($event)"></app-set-username-password>
+    </div>
+    <div *ngIf="activeStepper===3">
+      <app-set-user-detail (submitUserDetail)="submitUserDetail($event)"></app-set-user-detail>
+    </div>
+    <div *ngIf="activeStepper===4">
+      <app-set-mpin (submitPinDetail)="submitMpin($event)"></app-set-mpin>
+    </div>
   </div>
+  <br>
 </ion-content>
-<!-- <ion-footer>
-  <ion-toolbar color="primary">
-    <ion-button expand="block" mode="ios" (click)="next()">{{'GET_OTP' | translate}}</ion-button>
-  </ion-toolbar>
-</ion-footer> -->

@@ -10,6 +10,10 @@ import { RegisterPage } from './register.page';
 import { StepperComponent } from '../stepper/stepper.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { MaskitoModule } from '@maskito/angular';
+import { DeviceValidationComponent } from './device-validation/device-validation.component';
+import { SetUsernamePasswordComponent } from './set-username-password/set-username-password.component';
+import { SetMpinComponent } from './set-mpin/set-mpin.component';
+import { SetUserDetailComponent } from './set-user-detail/set-user-detail.component';
 
 @NgModule({
   imports: [
@@ -21,6 +25,7 @@ import { MaskitoModule } from '@maskito/angular';
     ReactiveFormsModule,
     MaskitoModule
   ],
-  declarations: [RegisterPage, StepperComponent]
+  declarations: [RegisterPage, StepperComponent,
+  DeviceValidationComponent, SetUsernamePasswordComponent, SetMpinComponent, SetUserDetailComponent]
 })
 export class RegisterPageModule {}

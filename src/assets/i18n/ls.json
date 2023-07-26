@@ -1002,5 +1002,7 @@
 	"PAY_FOR": "ຊຳລະເພື່ອ",
 	"SERVICE_CHARGE": "ຄ່າບໍລິການ",
 	"MINIMUM_TXN_LIMIT_ALERT":"ຈຳນວນເງິນຕ້ອງຫລາຍກວ່າ {{amount}}",
-	"MAXIMUM_TXN_LIMIT_ALERT":"ຈຳນວນເງິນຕ້ອງຫນ້ອຍກວ່າ {{amount}}"
+	"MAXIMUM_TXN_LIMIT_ALERT":"ຈຳນວນເງິນຕ້ອງຫນ້ອຍກວ່າ {{amount}}",
+	"400":"Bad Request",
+	"404":"Data not found"
 }

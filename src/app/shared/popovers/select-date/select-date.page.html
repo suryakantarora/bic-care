@@ -1,0 +1,6 @@
+<ion-content class="ion-text-center">
+  <ion-datetime #datetime presentation="date" [(ngModel)]="selectedDate"></ion-datetime>
+  <div class="ion-padding">
+    <ion-button expand="block" mode="md" class="ion-text-capitalize" [disabled]="!selectedDate" (click)="close(selectedDate)"> Select Date</ion-button>
+  </div>
+</ion-content>

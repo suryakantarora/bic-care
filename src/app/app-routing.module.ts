@@ -107,6 +107,10 @@ const routes: Routes = [
     path: 'wallet-dashboard',
     loadChildren: () => import('./pages/wallet/wallet-dashboard/wallet-dashboard.module').then( m => m.WalletDashboardPageModule)
   },
+  {
+    path: 'select-date',
+    loadChildren: () => import('./shared/popovers/select-date/select-date.module').then( m => m.SelectDatePageModule)
+  },
 ];
 
 @NgModule({

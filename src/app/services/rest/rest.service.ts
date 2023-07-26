@@ -11,9 +11,33 @@ import { PopoverController } from '@ionic/angular';
 })
 export class RestService {
   authToken: any;
+  private _data:any;
+  private deviceDetail:any;
+  tcUrl = 'https://biclaos.com/policy/T&C.html';
   baseUrl = environment.baseUrl;
   constructor(private httpClient: HttpClient, private popoverCtrl: PopoverController) { }
 
+  public setData(key:string, value:any) {
+    this._data[key]=value;
+  }
+  public getData(key:string) {
+    return this._data[key];
+  }
+  public getDeviceDetail() {
+    return this.deviceDetail;
+  }
+  public setDeviceDetail(data:any) {
+    this.deviceDetail=data;
+  }
+  async closePopover() {
+    try {
+      this.popoverCtrl.dismiss().catch(err => {
+        console.log('Cannot close popover')
+      });
+    } catch(err) {
+      console.log('Already closed');
+    }
+  }
   // Capacitor http request starts here.
   async loading() {
     const popover = await this.popoverCtrl.create({
@@ -25,10 +49,11 @@ export class RestService {
     popover.present();
     return popover;
   }
-  async fetchAtmList() { 
-    const loading=await this.loading();
+  async fetchAtmList() {
+    const loading = await this.loading();
     const options = {
       url: this.baseUrl + suburl.ATM_LIST,
+      headers: { 'Content-Type': 'application/json' },
       data: {}
     };
     console.log("Request Data: " + JSON.stringify(options));
@@ -38,11 +63,12 @@ export class RestService {
     return response?.data;
   }
   async fetchExchangeRate() {
-    const loading=await this.loading();
+    const loading = await this.loading();
     const options = {
       url: 'https://starmpayservices.biclaos.com/StarMPayServices/exchangeRates',
       // url: this.baseUrl+ 'exchangeRates',
-      data: { }
+      headers: { 'Content-Type': 'application/json' },
+      data: {}
     };
     console.log("Request Data: " + JSON.stringify(options));
     const response: HttpResponse = await CapacitorHttp.post(options);
@@ -51,11 +77,11 @@ export class RestService {
     return response?.data;
   }
   async fetchInterestRate() {
-    const loading=await this.loading();
+    const loading = await this.loading();
     const options = {
-      // url: this.baseUrl+ 'https://starmpayservices.biclaos.com/StarMPayServices/exchangeRates',
-      url: this.baseUrl+ suburl.INTEREST_RATE,
-      data: { }
+      url: this.baseUrl + suburl.INTEREST_RATE,
+      headers: { 'Content-Type': 'application/json' },
+      data: {}
     };
     console.log("Request Data: " + JSON.stringify(options));
     const response: HttpResponse = await CapacitorHttp.post(options);
@@ -64,15 +90,104 @@ export class RestService {
     return response?.data;
   }
   async fetchTxnFee() {
-    const loading=await this.loading();
+    const loading = await this.loading();
     const options = {
-      // url: this.baseUrl+ 'https://starmpayservices.biclaos.com/StarMPayServices/exchangeRates',
-      url: this.baseUrl+ suburl.TXN_FEE,
-      data: { }
+      url: this.baseUrl + suburl.TXN_FEE,
+      headers: { 'Content-Type': 'application/json' },
+      data: {}
     };
     console.log("Request Data: " + JSON.stringify(options));
     const response: HttpResponse = await CapacitorHttp.post(options);
     console.log("Response Data: " + JSON.stringify(response));
+    loading.dismiss();
+    return response?.data;
+  }
+  async deviceInfoStartTime(postData:any) {
+    const options = {
+      url: this.baseUrl + suburl.DEVICE_INFO,
+      headers: { 'Content-Type': 'application/json' },
+      data: postData
+    };
+    console.log("Request Data: " + JSON.stringify(options));
+    const response: HttpResponse = await CapacitorHttp.post(options);
+    console.log("Response Data: " + JSON.stringify(response));
+    return response?.data;
+  }
+  async appRelease(postData:any) {
+    const options = {
+      url: this.baseUrl + suburl.APP_RELEASE,
+      headers: { 'Content-Type': 'application/json' },
+      data: postData
+    };
+    console.log("Request Data: " + JSON.stringify(options));
+    const response: HttpResponse = await CapacitorHttp.post(options);
+    console.log("Response Data: " + JSON.stringify(response));
+    return response?.data;
+  }
+  async deviceInfo(postData:any) {
+    const loading = await this.loading();
+    const options = {
+      url: this.baseUrl + suburl.DEVICE_INFO,
+      headers: { 'Content-Type': 'application/json' },
+      data: postData
+    };
+    console.log("Request Data: " + JSON.stringify(options));
+    const response: HttpResponse = await CapacitorHttp.post(options);
+    console.log("Response Data: " + JSON.stringify(response));
+    loading.dismiss();
+    return response?.data;
+  }
+  async validateMobile(postData: any) {
+    const loading = await this.loading();
+    const options = {
+      url: this.baseUrl + suburl.VALIDATE_MOBILE,
+      headers: { 'Content-Type': 'application/json' },
+      data: postData
+    };
+    console.log("Request Data: " + JSON.stringify(options));
+    const response: HttpResponse = await CapacitorHttp.post(options);
+    console.log("Response Data: " + JSON.stringify(response?.data));
+    loading.dismiss();
+    return response?.data;
+  }
+  async verifyOtp(postData: any) {
+    const loading = await this.loading();
+    const options = {
+      url: this.baseUrl + suburl.VERIFY_OTP,
+      headers: { 'Content-Type': 'application/json' },
+      data: postData
+    };
+    console.log("Request Data: " + JSON.stringify(options));
+    const response: HttpResponse = await CapacitorHttp.post(options);
+    console.log("Response Data: " + JSON.stringify(response.data));
+    loading.dismiss();
+    return response?.data;
+  }
+  async checkUserName(postData: any) {
+    const loading = await this.loading();
+    const options = {
+      url: this.baseUrl + suburl.CHECK_USER_NAME,
+      headers: { 'Content-Type': 'application/json' },
+      data: postData
+    };
+    console.log("Request Data: " + JSON.stringify(options));
+    const response: HttpResponse = await CapacitorHttp.post(options);
+    console.log("Response Data: " + JSON.stringify(response.data));
+    loading.dismiss();
+    return response?.data;
+  }
+
+  async registerUser(postData: any) {
+    postData.SUBURL=suburl.REGISTER_USER;
+    const loading = await this.loading();
+    const options = {
+      url: this.baseUrl + suburl.POST_SERVICE,
+      headers: { 'Content-Type': 'application/json' },
+      data: postData
+    };
+    console.log("Request Data: " + JSON.stringify(options));
+    const response: HttpResponse = await CapacitorHttp.post(options);
+    console.log("Response Data: " + JSON.stringify(response.data));
     loading.dismiss();
     return response?.data;
   }

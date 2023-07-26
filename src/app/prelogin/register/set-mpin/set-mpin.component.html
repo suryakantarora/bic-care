@@ -1,0 +1,41 @@
+<ion-item lines="full" color="light" class="top-border-radius">
+  <ion-label class="ion-text-center">{{ "SET_PIN" | translate }}</ion-label>
+</ion-item>
+<form [formGroup]="pinForm" (ngSubmit)="validateForm()">
+  <div class="form-field">
+    <ion-input
+      type="tel"
+      autofocus="true"
+      maxlength="6"
+      placeholder="Enter your login PIN"
+      class="input-field numeric-password"
+      fill="outline"
+      label="Login PIN *"
+      labelPlacement="floating"
+      formControlName="pin"
+      errorText="Invalid Login PIN"
+    ></ion-input>
+  </div>
+  <div class="form-field">
+    <ion-input
+      type="tel"
+      maxlength="6"
+      placeholder="Confirm your Login PIN"
+      class="input-field"
+      fill="outline"
+      label="Confirm Login PIN *"
+      labelPlacement="floating"
+      formControlName="cnfPin"
+      errorText="Invalid Confirm Login PIN"
+    ></ion-input>
+  </div>
+  <div class="ion-padding">
+    <ion-button class="custom-btn ion-text-capitalize" type="submit" expand="block" mode="md"
+      [disabled]="!pinForm.valid">{{'SET_PIN' | translate}}</ion-button>
+  </div>
+  <ion-item lines="none">
+    <ion-label class="ion-text-wrap">
+      <p><ion-text color="primary"><strong>{{'NOTE' | translate}} :</strong></ion-text> {{'MPIN_WILL_BE_YOUR_BIC_BEST_MOBILE_PIN_NUMBER_CONSISIT_OF_SIX' | translate}}</p>
+    </ion-label>
+  </ion-item>
+</form>

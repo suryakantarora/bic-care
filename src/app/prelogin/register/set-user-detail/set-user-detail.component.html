@@ -1,0 +1,107 @@
+<ion-item lines="full" color="light" class="top-border-radius">
+  <ion-label class="ion-text-center">{{ "PERSONAL_DETAIL" | translate }}</ion-label>
+</ion-item>
+<form [formGroup]="detailForm" (ngSubmit)="validateForm()">
+  <div class="form-field">
+    <ion-input
+      type="text"
+      autofocus="true"
+      maxlength="20"
+      placeholder="Enter your first name"
+      class="input-field"
+      fill="outline"
+      label="First Name *"
+      labelPlacement="floating"
+      formControlName="firstName"
+      errorText="Invalid First Name"
+    ></ion-input>
+  </div>
+  <div class="form-field">
+    <ion-input
+      type="text"
+      maxlength="20"
+      placeholder="Enter your last name"
+      class="input-field"
+      fill="outline"
+      label="Last Name *"
+      labelPlacement="floating"
+      formControlName="lastName"
+      errorText="Invalid Last Name"
+    ></ion-input>
+  </div>
+  <div class="form-field">
+    <ion-input
+      placeholder="dd-MM-yyyy"
+      formControlName="dob"
+      label="DOB *"
+      labelPlacement="floating"
+      fill="outline"
+      readonly
+      class="input-field"
+      (click)="openDOB()"
+    ></ion-input>
+  </div>
+  <div class="form-field">
+    <ion-item lines="none" class="input-field" fill="outline">
+        <ion-radio-group formControlName="gender" errortext="Invalid Gender" style="width:100%" area-label="Gender">
+          <ion-row>
+            <ion-col size="6">
+              <ion-radio value="M" labelPlacement="end" justify="start" label="Male">Male</ion-radio>
+            </ion-col>
+            <ion-col size="6">
+              <ion-radio value="F" labelPlacement="end" justify="start" label="Female">Female</ion-radio>
+            </ion-col>
+          </ion-row>
+        </ion-radio-group>
+    </ion-item>
+  </div>
+  <div class="form-field">
+    <ion-select label="Marital Status *" labelPlacement="floating" mode="md" formControlName="maritalStatus"
+      placeholder="Please select" fill="outline" class="input-field" interface="popover">
+      <ion-select-option value="MARRIED">{{'MARRIED' | translate}}</ion-select-option>
+      <ion-select-option value="SINGLE">{{'BACHELOR' | translate}}</ion-select-option>
+    </ion-select>
+  </div>
+  <div class="form-field">
+    <ion-input
+      type="email"
+      maxlength="50"
+      placeholder="Enter your Email-ID"
+      class="input-field"
+      fill="outline"
+      label="Email ID *"
+      labelPlacement="floating"
+      formControlName="emailId"
+      errorText="Invalid Email ID"
+    ></ion-input>
+  </div>
+  <div class="form-field">
+    <ion-input
+      type="text"
+      maxlength="50"
+      placeholder="Select your nationality"
+      class="input-field"
+      fill="outline"
+      label="Nationality *"
+      labelPlacement="floating"
+      formControlName="nationality"
+      errorText="Invalid Nationality"
+    ></ion-input>
+  </div>
+  <div class="form-field">
+    <ion-textarea formControlName="address"
+    placeholder="Enter your complete address"
+    label="Address *"
+    labelPlacement="floating" fill="outline"
+    class="input-field"
+    rows="5"
+    maxlength="100"
+    [counter]="true"
+    ></ion-textarea>
+  </div>
+
+  <div class="form-field ion-padding-top">
+    <ion-button type="submit" expand="block" class="custom-btn" [disabled]="!detailForm.valid">{{'PROCEED' | translate}}</ion-button>
+  </div>
+  <br/>
+</form>

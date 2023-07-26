@@ -1,0 +1,38 @@
+.top-border-radius {
+    border-top-left-radius: 16px !important;
+    border-top-right-radius: 16px !important;
+}
+.form-field {
+    margin-left: 16px;
+    margin-right: 16px;
+}
+.input-field {
+    margin-top: 16px;
+}
+.error {
+    font-size: x-small;
+    color: red !important;
+}
+
+ion-radio {
+    --border-radius: 4px;
+    --inner-border-radius: 4px;
+
+    --color: var(--ion-color-medium);
+    --color-checked: var(--ion-color-tertiary);
+}
+
+ion-radio.ios::part(container) {
+    width: 20px;
+    height: 20px;
+
+    border: 2px solid #ddd;
+    border-radius: 4px;
+}
+
+.radio-checked.ios::part(container) {
+    border-color: var(--ion-color-tertiary);
+}
+.picture {
+    max-width: 300px;
+}

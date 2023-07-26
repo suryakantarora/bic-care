@@ -1,5 +1,6 @@
 import { Component, ElementRef, ViewChild, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
+import { Storage } from '@ionic/storage-angular';
 import { TranslateService } from '@ngx-translate/core';
 import { Swiper } from 'swiper';
 @Component({
@@ -14,9 +15,10 @@ export class StartPage implements OnInit {
   imgList: any = [];
   constructor(
     private translate: TranslateService,
-    private navCtrl: NavController
+    private navCtrl: NavController,
+    private storage: Storage
   ) { 
-    
+    this.storage.create();
   }
 
   ngOnInit() {
@@ -24,6 +26,7 @@ export class StartPage implements OnInit {
       console.log(this.translate.instant('TUTORIAL_WELCOME_HEAD1'));
     }, 100);
     this.initData();
+		this.storage.set('startPage', '1');
   }
   initData() {
     this.imgList=[

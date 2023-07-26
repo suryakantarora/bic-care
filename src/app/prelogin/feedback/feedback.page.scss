@@ -20,16 +20,4 @@ ion-card {
     --border-radius: 8px !important;
   }
 }
-.checkbox-box {
-  ion-checkbox {
-    margin-top: 16px !important;
 
-    --size: 20px;
-    --checkbox-background-checked: var(--ion-color-secondary);
-  }
-
-  ion-checkbox::part(container) {
-    border-radius: 3px;
-    border: 2px solid var(--ion-color-secondary);;
-  }
-}
