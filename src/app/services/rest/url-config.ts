@@ -1,4 +1,8 @@
 export const suburl = {
+    APP_STORE_URL: 'https://apps.apple.com/la/app/bic-best/1479992379',
+    PLAY_STORE_URL: 'https://play.google.com/store/apps/details?id=com.biclaos.bic',
+    TNC_URL: 'https://biclaos.com/policy/T&C.html',
+    WHATSAPP_URL: 'https://api.whatsapp.com/send/?phone=',
     ATM_LIST: 'atmList',
     INTEREST_RATE: 'interestRates',
     TXN_FEE: 'feeList',
@@ -12,10 +16,10 @@ export const suburl = {
     POST_SERVICE_WITH_DATA: 'postServiceWithData',
     GET_SERVICE: 'getService',
     REGISTER_USER: 'register',
-
     LOGIN_USER: 'loginUser',
-
-    APP_STORE_URL: 'https://apps.apple.com/la/app/bic-best/1479992379',
-    PLAY_STORE_URL: 'https://play.google.com/store/apps/details?id=com.biclaos.bic',
-    TNC_URL: 'https://biclaos.com/policy/T&C.html'
+    FORGOT_PIN: 'forgotMpin',
+    RESET_PIN: 'resetMpin',
+    USER_INFO: 'userInfo',
+    WALLET_INFO: 'wallet/info',
+    GENERATE_QR: 'qr/generation',
 }

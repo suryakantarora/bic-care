@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-
 const routes: Routes = [
   {
     path: 'home',
@@ -13,7 +12,7 @@ const routes: Routes = [
   },
   {
     path: 'dashboard',
-    loadChildren: () => import('./pages/account/dashboard/dashboard.module').then( m => m.DashboardPageModule)
+    loadChildren: () => import('./pages/account/dashboard/dashboard.module').then( m => m.DashboardPageModule),
   },
   {
     path: 'acc-details',
@@ -65,7 +64,7 @@ const routes: Routes = [
   },
   {
     path: 'scan-qr',
-    loadChildren: () => import('./pages/scan-qr/scan-qr.module').then( m => m.ScanQrPageModule)
+    loadChildren: () => import('./pages/qr/scan-qr/scan-qr.module').then( m => m.ScanQrPageModule)
   },
   {
     path: 'user-login',
@@ -111,6 +110,22 @@ const routes: Routes = [
     path: 'select-date',
     loadChildren: () => import('./shared/popovers/select-date/select-date.module').then( m => m.SelectDatePageModule)
   },
+  {
+    path: 'settings',
+    loadChildren: () => import('./pages/tabs/settings/settings.module').then(m => m.SettingsPageModule)
+  },
+  {
+    path: 'kyc-status',
+    loadChildren: () => import('./pages/wallet/kyc/kyc-status/kyc-status.module').then( m => m.KycStatusPageModule)
+  },
+  {
+    path: 'wallet-qr',
+    loadChildren: () => import('./pages/qr/wallet-qr/wallet-qr.module').then( m => m.WalletQrPageModule)
+  },
+  {
+    path: 'account-qr',
+    loadChildren: () => import('./pages/qr/account-qr/account-qr.module').then( m => m.AccountQrPageModule)
+  }
 ];
 
 @NgModule({

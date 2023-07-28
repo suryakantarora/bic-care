@@ -3,9 +3,7 @@ import { IonModal, ModalController, NavController, PopoverController } from '@io
 import { TranslateService } from '@ngx-translate/core';
 import { GlobalService } from 'src/app/services/global/global.service';
 import { StorageService } from 'src/app/services/storage/storage.service';
-import { SelectLangPage } from 'src/app/shared/popovers/select-lang/select-lang.page';
 import { PinLoginPage } from '../pin-login/pin-login.page';
-import { Observable } from 'rxjs';
 import { AlertService } from 'src/app/services/alert/alert.service';
 import { LoadingPage } from 'src/app/shared/popovers/loading/loading.page';
 import { RestService } from 'src/app/services/rest/rest.service';
@@ -26,7 +24,7 @@ export class LoginPage implements OnInit {
   reversedSentence: string = '';
   position = 0;
   pin = '';
-  randomKey:string='';
+  randomKey: string = '';
   deviceId: any;
   constructor(
     private translate: TranslateService,
@@ -47,13 +45,13 @@ export class LoginPage implements OnInit {
   async getDeviceId() {
     await Device.getId().then(res => {
       console.log('Device ID: ' + JSON.stringify(res));
-      this.deviceId= res.identifier;
+      this.deviceId = res.identifier;
     }).catch((err) => {
       console.error(err)
     });
   }
   openTnC = async () => {
-    const option:OpenOptions​ = {
+    const option: OpenOptions = {
       url: 'https://biclaos.com/policy/T&C.html',
       presentationStyle: 'fullscreen'
     }
@@ -64,9 +62,9 @@ export class LoginPage implements OnInit {
     console.log('App Status: ' + name);
     this.global.getDefaultLang();
     this.getDeviceId();
-    this.randomKey= this.global.generateRandomKey();
+    this.randomKey = this.global.generateRandomKey();
   }
-  
+
   openUserLogin() {
     this.navCtrl.navigateForward(['/user-login']);
   }
@@ -91,15 +89,16 @@ export class LoginPage implements OnInit {
       this.pin += pin;
       console.log(this.pin);
       if (this.position === 6) {
-        this.initPinLogin('MP');
+        this.initPinLogin('MP', this.pin);
       }
     }
   }
-  async initPinLogin(type:string) {
+  async initPinLogin(type: string, pin: string) {
     this.modal.dismiss();
+    this.deleteAll();
     // this.navCtrl.navigateRoot(['/tabs']);
     // this.navCtrl.navigateRoot(['/wallet-dashboard']);
-    this.initLogin(type);
+    this.initLogin(type, pin);
   }
   deletePin() {
     if (this.position) {
@@ -145,25 +144,25 @@ export class LoginPage implements OnInit {
     });
   }
 
-  async performBiometricVerificatin(){
+  async performBiometricVerificatin() {
     const result = await NativeBiometric.isAvailable();
-  
-    if(!result.isAvailable) {
+
+    if (!result.isAvailable) {
       console.log('Biometric isn\'t availble')
       return;
     }
     const isFaceID = result.biometryType == BiometryType.FACE_ID;
-  
+
     const verified = await NativeBiometric.verifyIdentity({
       reason: "For easy log in",
       title: "Biometric",
       subtitle: "Place your finger on the fingerprint scanner",
     }).then(() => true).catch(() => false);
-  
-    if(!verified) return;
-    this.initPinLogin('MP');
+
+    if (!verified) return;
+    this.initPinLogin('FP', '');
     this.saveCredentials();
-    
+
   }
   async getCredentials() {
     const credentials = await NativeBiometric.getCredentials({
@@ -173,13 +172,13 @@ export class LoginPage implements OnInit {
   }
   saveCredentials() {
     // Save user's credentials
-    NativeBiometric.setCredentials({ 
+    NativeBiometric.setCredentials({
       username: "bicbank",
       password: "bicbank",
       server: "www.bicbank.com",
     }).then(() => {
     });
-    
+
   }
   deleteCredentials() {
     // Delete user's credentials
@@ -188,17 +187,49 @@ export class LoginPage implements OnInit {
     }).then();
   }
 
-  async initLogin(type:string='FP', pin:string='') {
+  async initLogin(type: string = 'FP', pin: string = '') {
+    console.log('Plain PIN: ' + pin);
+    if(type==='MP' && (pin==='' || !pin)) {
+      console.log('Invalid PIN');
+      return;
+    }
+    const hashedPin = this.global.getHashData(this.global.getHashData(pin), this.randomKey);
+    console.log('Hashed PIN: ' + hashedPin);
     const postData = {
-			loginType: type,
-			mpin: this.global.getHashData(this.global.getHashData(pin), this.randomKey),
-			deviceId: this.deviceId,
-			loginKey: this.randomKey
-		};
-		this.rest.loginUser(postData).then(res=>{
-
-    }).catch(err=> {
-
+      loginType: type,
+      mpin: hashedPin,
+      deviceId: this.deviceId,
+      loginKey: this.randomKey
+    };
+    this.rest.loginUser(postData).then(resp => {
+      if (resp.RESP_CODE == 'MPAY1008') {
+				this.global.setRoot('home');
+			} else if (resp.RESP_STATUS === 'SUCCESS') {
+        this.rest.authToken= resp.TOKEN;
+        this.storage.setData('walletid', resp.walletId);
+        this.storage.setData('custId', resp.custId);
+        this.global.setRoot('tabs/dashboard');
+        const userDetail= {
+          lastLogin: resp.lastLogin,
+          kycStatus: resp.kycStatus,
+          walletId: resp.walletId,
+          custId: resp.custId,
+        };
+        this.rest.userDetail=userDetail;
+        if (resp?.custId) {
+          console.log("wallet id" + resp.walletId);
+          this.global.setRoot('tabs/dashboard');
+        } else {
+          this.storage.remove('custId');
+          this.global.setRoot('wallet-dashboard');
+          //this.navCtrl.setRoot(HomePage);
+        }
+      } else {
+        this.alertService.showAlert('ALERT', resp.REASON || resp.RESP_CODE);
+      }
+    }).catch(err => {
+      console.log(err);
+      this.rest.closePopover();
     });
   }
 }

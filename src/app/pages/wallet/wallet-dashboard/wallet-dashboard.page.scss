@@ -1,3 +1,13 @@
+/* .bg {
+    --background: none;
+    background-image: url("../../../../assets/imgs/wallet/bg.png");
+    background-size: 100% 100%;
+} */
+.bg {
+    // --background: var(--ion-color-light);
+    // --background: linear-gradient(var(--ion-color-primary) 60%, var(--ion-color-light) 40%);
+    --background: linear-gradient(to bottom, var(--ion-color-primary), var(--ion-color-light));
+}
 .brand-banner {
     max-height: 30px;
     margin-left: 16px;
@@ -26,6 +36,89 @@ ion-button {
     color: var(--ion-color-primary) !important;
     font-weight: bold;
 }
-.profilePic{
-    
+.side-profile-pic {
+    background: linear-gradient(to bottom, var(--ion-color-light), #a4aaf1);
+    border-radius: 0px 40px 40px 0px;
+}
+.profile-pic{
+    height: 60px;
+    width: 60px;
+    border-radius: 50% !important;
+    margin-right:5px !important;
+    margin-top:5px !important;
+}
+.last-login {
+    font-size: xx-small;
+}
+.header-bg {
+    padding-top: 0px !important;
+    padding-bottom: 5px !important;
+}
+.profile-details {
+    h2 {
+        font-size: large;
+        color: var(--ion-color-light);
+        font-weight: bolder;
+    }
+    p {
+        color: var(--ion-color-secondary);
+        // font-size: smaller;
+        font-weight: bold;
+    }
+}
+.card-header {
+    h2 {
+        margin-left:10px;
+        margin-top:7px;
+        font-weight: bolder;
+        font-size: large;
+        color: #000;
+    }
+}
+
+.menu_item {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    padding: 10px 0 10px 0;
+    background-color: #a4aaf121;
+    border-radius: 10px;
+
+    .icon_box {
+        display: block;
+        width: 60px;
+        height: 60px;
+        margin: 0 auto;
+        margin-bottom: 0px;
+    }
+
+    p {
+        margin: 0;
+        font-weight: 500;
+        font-size: 9px;
+        letter-spacing: 0;
+        // color: var(--ion-color-primary);
+    }
+
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        width: 50px;
+        height: 3px;
+        margin: auto;
+        // background: #1207ad;
+    }
+}
+.menu_item:active{
+    background-color: #d9d9db;
+    border-radius: 10px;
+}
+.recent-card {
+    min-height: 300px;
+    .no-data{
+        margin-top:80px;
+    }
 }

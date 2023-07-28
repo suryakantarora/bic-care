@@ -1,5 +1,13 @@
+<ion-header class="ion-no-border" mode="md">
+  <ion-toolbar color="primary">
+    <ion-title>{{'SETTINGS' | translate}}</ion-title>
+    <ion-buttons slot="end">
+      <ion-back-button icon="close"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
 <ion-content>
-  <div class="ion-margin-top">
+  <div class="">
 		<div class="setting-header">
 			<img [src]="selectedImage" class="profile" (click)="openActionSheet()" onerror="this.src='assets/imgs/setting.png'">
       <ion-title color="light">{{'SETTINGS' | translate}}</ion-title>

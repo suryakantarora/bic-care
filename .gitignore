@@ -19,6 +19,7 @@ log.txt
 
 # Ionic
 /.ionic
+/.vscode
 /www
 /platforms
 /plugins

@@ -17,6 +17,7 @@ export class RestService {
   playStoreUrl = suburl.PLAY_STORE_URL;
   tcUrl = suburl.TNC_URL;
   baseUrl = environment.baseUrl;
+  userDetail:any={};
   constructor(private httpClient: HttpClient, private popoverCtrl: PopoverController) { }
 
   public setData(data: any) {
@@ -198,6 +199,79 @@ export class RestService {
     const loading = await this.loading();
     const options = {
       url: this.baseUrl + suburl.LOGIN_USER,
+      headers: { 'Content-Type': 'application/json' },
+      data: postData
+    };
+    console.log("Request Data: " + JSON.stringify(options));
+    const response: HttpResponse = await CapacitorHttp.post(options);
+    console.log("Response Data: " + JSON.stringify(response.data));
+    loading.dismiss();
+    return response?.data;
+  }
+  async forgotMpin(postData: any) {
+    const loading = await this.loading();
+    const options = {
+      url: this.baseUrl + suburl.FORGOT_PIN,
+      headers: { 'Content-Type': 'application/json' },
+      data: postData
+    };
+    console.log("Request Data: " + JSON.stringify(options));
+    const response: HttpResponse = await CapacitorHttp.post(options);
+    console.log("Response Data: " + JSON.stringify(response.data));
+    loading.dismiss();
+    return response?.data;
+  }
+  async resetMpin(postData: any) {
+    const loading = await this.loading();
+    const options = {
+      url: this.baseUrl + suburl.RESET_PIN,
+      headers: { 'Content-Type': 'application/json' },
+      data: postData
+    };
+    console.log("Request Data: " + JSON.stringify(options));
+    const response: HttpResponse = await CapacitorHttp.post(options);
+    console.log("Response Data: " + JSON.stringify(response.data));
+    loading.dismiss();
+    return response?.data;
+  }
+
+  // Post Login Services, Need token in each Service
+  async getUserInfo(postData: any) {
+    postData.TOKEN=this.authToken;
+    const loading = await this.loading();
+    const options = {
+      url: this.baseUrl + suburl.USER_INFO,
+      headers: { 'Content-Type': 'application/json' },
+      data: postData
+    };
+    console.log("Request Data: " + JSON.stringify(options));
+    const response: HttpResponse = await CapacitorHttp.post(options);
+    console.log("Response Data: " + JSON.stringify(response.data));
+    loading.dismiss();
+    return response?.data;
+  }
+
+  async walletInfo(postData: any) {
+    postData.TOKEN=this.authToken;
+    postData.SUBURL= suburl.WALLET_INFO;
+    const loading = await this.loading();
+    const options = {
+      url: this.baseUrl + suburl.POST_SERVICE_WITH_DATA,
+      headers: { 'Content-Type': 'application/json' },
+      data: postData
+    };
+    console.log("Request Data: " + JSON.stringify(options));
+    const response: HttpResponse = await CapacitorHttp.post(options);
+    console.log("Response Data: " + JSON.stringify(response.data));
+    loading.dismiss();
+    return response?.data;
+  }
+  async generateQr(postData: any) {
+    postData.TOKEN=this.authToken;
+    postData.SUBURL= suburl.GENERATE_QR;
+    const loading = await this.loading();
+    const options = {
+      url: this.baseUrl + suburl.POST_SERVICE_WITH_DATA,
       headers: { 'Content-Type': 'application/json' },
       data: postData
     };

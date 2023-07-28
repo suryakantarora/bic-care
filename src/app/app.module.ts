@@ -20,7 +20,7 @@ import { LoaderInterceptor } from './shared/interceptors/loader-interceptor.serv
 import { MaskitoModule } from '@maskito/angular';
 import { WalletSidebarComponent } from './pages/wallet/wallet-sidebar/wallet-sidebar.component';
 import { ROUND_PROGRESS_DEFAULTS, RoundProgressModule } from 'angular-svg-round-progressbar';
-
+import { QRCodeModule } from 'angularx-qrcode';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -46,7 +46,8 @@ export function createTranslateLoader(http: HttpClient) {
     FormsModule,
     ReactiveFormsModule,
     MaskitoModule,
-    RoundProgressModule
+    RoundProgressModule,
+    QRCodeModule
   ],
   providers: [
     LoaderService,

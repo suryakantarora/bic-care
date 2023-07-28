@@ -37,7 +37,7 @@
     </ion-card>
     <ion-card class="menu-item">
       <ion-menu-toggle>
-        <ion-item lines="none" button detail="true">
+        <ion-item lines="none" button detail="true" (click)="openPage('wallet-qr')">
           <ion-buttons slot="start">
             <ion-button>
               <ion-icon name="qr-code-outline" slot="icon-only"></ion-icon>
@@ -101,6 +101,20 @@
           </ion-buttons>
           <ion-label>
             <h2>Change Password</h2>
+          </ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+    </ion-card>
+    <ion-card class="menu-item">
+      <ion-menu-toggle>
+        <ion-item lines="none" button detail="true" (click)="openPage('settings')">
+          <ion-buttons slot="start">
+            <ion-button>
+              <ion-icon name="settings" slot="icon-only"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+          <ion-label>
+            <h2>Settings</h2>
           </ion-label>
         </ion-item>
       </ion-menu-toggle>

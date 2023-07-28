@@ -32,7 +32,7 @@ export class RegisterPage implements OnInit {
   }
 
   ngOnInit() {
-    this.setOpen(false);
+    this.setOpen(true);
   }
   setOpen(isOpen: boolean) {
     this.isModalOpen = isOpen;

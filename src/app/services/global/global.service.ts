@@ -33,6 +33,7 @@ export class GlobalService {
     });
   };
   push(page: string) {
+    console.log('Open Page: ' + page);
     this.ngZone.run(() => {
       this.navCtrl.navigateForward(['/' + page]).catch(err => {
         this.showToast('Page not found: ' + page);
@@ -44,6 +45,11 @@ export class GlobalService {
       this.navCtrl.navigateRoot(['/' + page]).catch(err => {
         this.showToast('Page not found: ' + page);
       });
+    });
+  }
+  timeout() {
+    this.ngZone.run(() => {
+      this.navCtrl.navigateRoot(['/home']);
     });
   }
   pop() {

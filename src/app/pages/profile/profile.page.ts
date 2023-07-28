@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Camera, CameraResultType, CameraPluginPermissions, CameraOptions, ImageOptions, CameraSource } from '@capacitor/camera';
+import { NavController } from '@ionic/angular';
 import { Storage } from '@ionic/storage-angular';
+import { AlertService } from 'src/app/services/alert/alert.service';
+import { GlobalService } from 'src/app/services/global/global.service';
+import { RestService } from 'src/app/services/rest/rest.service';
 
 @Component({
   selector: 'app-profile',
@@ -8,27 +12,23 @@ import { Storage } from '@ionic/storage-angular';
   styleUrls: ['./profile.page.scss'],
 })
 export class ProfilePage implements OnInit {
-  user:any={
-    name: 'Suryakant Kumar',
-    mobile: '+856 2052 592 794',
-    email: 'surya@cgs.com',
-    dob: '08-MAR-1989',
-    gender: 'M',
-    maritalStatus:'Married',
-    nationality:'Indian',
-    address:'Chennai, Saidapet-India',
-    documentNumber:'12PCCAG65RT'
-  };
+  user:any={};
 	base64Image: any;
 	selectedImage: any = 'assets/imgs/contactavatar.png';
   constructor(
-    private storage: Storage
+    private storage: Storage,
+    private navCtrl: NavController,
+    private global: GlobalService,
+    private rest: RestService,
+    private alertService: AlertService
   ) { 
     this.storage.create();
    }
 
   ngOnInit() {
     this.checkProfilePic();
+    // this.navCtrl.navigateRoot('login');
+    this.initProfile();
   }
   async checkProfilePic() {
     await this.storage.get('profilePic').then(data => {
@@ -72,5 +72,21 @@ export class ProfilePage implements OnInit {
 
   openActionSheet() {
 
+  }
+  async initProfile() {
+    const postData={};
+    this.rest.getUserInfo(postData).then(resp=> {
+      if (resp.RESP_CODE === 'MPAY1019') {
+        this.alertService.showAlert('TIMEOUT', 'TIMEOUT_MSG');
+        this.global.timeout();
+      } else if(resp.RESP_STATUS === 'SUCCESS') {
+        this.user = resp;
+      } else {
+        this.alertService.showAlert('ALERT', resp.REASON || resp.RESP_CODE);
+      }
+    }).catch(err=> {
+      console.error(err);
+      this.rest.closePopover();
+    })
   }
 }

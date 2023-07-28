@@ -53,8 +53,8 @@ ion-modal#alert-modal {
 .custom-loading {
   --background: transparent !important;
   background-color: rgba(0, 0, 0, 0.2);
-  --width: 100px;
-  --min-width: 100px;
+  --width: 200px;
+  --min-width: 150px;
   --height: fit-content;
   --border-radius: 6px;
   --box-shadow: none !important;
@@ -68,9 +68,10 @@ ion-modal#alert-modal {
 .action-sheet-modal {
   --border-radius: 16px 16px 0px 0px !important;
   ion-content {
-    border: 1px solid var(--ion-color-secondary) !important;
+    border: 1px solid var(--ion-color-secondary) !important; 
   }
 }
+
 ion-item-divider {
   ion-label {
     width: 100% !important;
