@@ -86,7 +86,7 @@ export class ProfilePage implements OnInit {
       }
     }).catch(err=> {
       console.error(err);
-      this.rest.closePopover();
+      this.rest.closeLoader();
     })
   }
 }

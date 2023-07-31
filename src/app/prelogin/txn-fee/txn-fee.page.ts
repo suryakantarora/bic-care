@@ -29,8 +29,9 @@ export class TxnFeePage implements OnInit {
   async fetchTxnFee() {
     this.rest.fetchTxnFee().then(res => {
       console.log('TXN Fee: ' + JSON.stringify(res));
-    }, err => {
-      console.log('Error: ' + err);
+    }).catch(err => {
+      console.log(err);
+      this.rest.closeLoader();
     });
   }
 }

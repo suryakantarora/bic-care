@@ -32,13 +32,13 @@ export class RestService {
   public setDeviceDetail(data: any) {
     this.deviceDetail = data;
   }
-  async closePopover() {
+  async closeLoader() {
     try {
       this.popoverCtrl.dismiss().catch(err => {
-        console.log('Cannot close popover')
+        console.log('Cannot close loading popover')
       });
     } catch (err) {
-      console.log('Already closed');
+      console.log('Loading Already closed');
     }
   }
   // Capacitor http request starts here.
@@ -254,7 +254,7 @@ export class RestService {
   async walletInfo(postData: any) {
     postData.TOKEN=this.authToken;
     postData.SUBURL= suburl.WALLET_INFO;
-    const loading = await this.loading();
+    // const loading = await this.loading();
     const options = {
       url: this.baseUrl + suburl.POST_SERVICE_WITH_DATA,
       headers: { 'Content-Type': 'application/json' },
@@ -263,13 +263,13 @@ export class RestService {
     console.log("Request Data: " + JSON.stringify(options));
     const response: HttpResponse = await CapacitorHttp.post(options);
     console.log("Response Data: " + JSON.stringify(response.data));
-    loading.dismiss();
+    // loading.dismiss();
     return response?.data;
   }
   async generateQr(postData: any) {
     postData.TOKEN=this.authToken;
     postData.SUBURL= suburl.GENERATE_QR;
-    const loading = await this.loading();
+    // const loading = await this.loading();
     const options = {
       url: this.baseUrl + suburl.POST_SERVICE_WITH_DATA,
       headers: { 'Content-Type': 'application/json' },
@@ -278,7 +278,7 @@ export class RestService {
     console.log("Request Data: " + JSON.stringify(options));
     const response: HttpResponse = await CapacitorHttp.post(options);
     console.log("Response Data: " + JSON.stringify(response.data));
-    loading.dismiss();
+    // loading.dismiss();
     return response?.data;
   }
 

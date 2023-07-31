@@ -1,0 +1,108 @@
+<ion-header>
+  <ion-toolbar color="primary" mode="md">
+    <ion-title>{{'UPDATE_EKYC' | translate}}</ion-title>
+    <ion-buttons slot="end">
+      <ion-back-button icon="close"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-toolbar class="stepper" color="primary">
+    <div class="md-stepper-horizontal orange">
+      <div class="md-step" [ngClass]="activeIndex>=1?'active':''">
+        <div class="md-step-circle"><span>1</span></div>
+        <div class="md-step-bar-left"></div>
+        <div class="md-step-bar-right"></div>
+      </div>
+      <div class="md-step" [ngClass]="activeIndex>=2?'active':''">
+        <div class="md-step-circle"><span>2</span></div>
+        <div class="md-step-bar-left"></div>
+        <div class="md-step-bar-right"></div>
+      </div>
+      <div class="md-step" [ngClass]="activeIndex>=3?'active':''">
+        <div class="md-step-circle"><span>3</span></div>
+        <div class="md-step-bar-left"></div>
+        <div class="md-step-bar-right"></div>
+      </div>
+      <div class="md-step" [ngClass]="activeIndex>=4?'active':''">
+        <div class="md-step-circle"><span>4</span></div>
+        <div class="md-step-bar-left"></div>
+        <div class="md-step-bar-right"></div>
+      </div>
+      <div class="md-step" [ngClass]="activeIndex>=5?'active':''">
+        <div class="md-step-circle"><span>5</span></div>
+        <div class="md-step-bar-left"></div>
+        <div class="md-step-bar-right"></div>
+      </div>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card class="card-bg" *ngIf="activeIndex===1">
+    <ion-item lines="full" color="secondary">
+      <ion-label class="ion-text-center ion-text-wrap">
+        <p>{{'PLEASE_CAPTURE_YOUR_SELFIE_WITH_ID' | translate}}</p>
+      </ion-label>
+    </ion-item>
+    <div class="ion-text-center ion-padding">
+      <img src="assets/imgs/selfie.png">
+    </div>
+  </ion-card>
+  <ion-card class="card-bg" *ngIf="activeIndex===2">
+    <app-capture-selfie (sendSelfieData)="captureSelfie($event)"></app-capture-selfie>
+  </ion-card>
+
+  <ion-card *ngIf="activeIndex===3" class="card-bg">
+    <ion-item lines="full" color="primary">
+      <ion-label class="ion-text-center ion-text-wrap">
+        <p>{{'PLEASE_CAPTURE_YOUR_ID_CARD' | translate}}</p>
+      </ion-label>
+    </ion-item>
+    <div class="ion-text-center ion-padding">
+      <img src="assets/imgs/id-card.png">
+    </div>
+  </ion-card>
+  <ion-card class="card-bg" *ngIf="activeIndex===4">
+    <app-capture-selfie (proceedIdCard)="captureIdCard($event)"></app-capture-selfie>
+  </ion-card>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar color="primary">
+    <ion-row *ngIf="activeIndex===2">
+      <ion-col *ngIf="selfie">
+          <div>
+            <ion-button expand="block" mode="ios" class="custom-btn" color="light" fill="outline" (click)="reTakePicture()">{{'RECAPTURE' | translate}}</ion-button>
+          </div>
+      </ion-col>
+      <ion-col *ngIf="!selfie">
+          <ion-button expand="block" mode="ios" class="custom-btn" color="secondary" (click)="takePicture()">{{'CAPTURE' | translate}}</ion-button>
+      </ion-col>
+      <ion-col *ngIf="selfie">
+          <ion-button expand="block" mode="ios" class="custom-btn" color="secondary" (click)="proceedForIdCard()">{{'PROCEED' | translate}}</ion-button>
+      </ion-col>
+  </ion-row>
+   <ion-row *ngIf="activeIndex===1 || activeIndex===3">
+    <ion-col>
+      <ion-button mode="ios" color="light" fill="outline" expand="block" class="custom-btn" (click)="goBack()">{{'BACK' | translate}}</ion-button>
+    </ion-col>
+    <ion-col>
+      <ion-button mode="ios" color="secondary" expand="block" class="custom-btn" (click)="openCamera()">{{'PROCEED' | translate}}</ion-button>
+    </ion-col>
+   </ion-row>
+
+   <ion-row *ngIf="activeIndex===4">
+    <ion-col *ngIf="selfie">
+        <div>
+          <ion-button expand="block" mode="ios" class="custom-btn" color="light" fill="outline" (click)="reTakeIdPicture()">{{'RECAPTURE' | translate}}</ion-button>
+        </div>
+    </ion-col>
+    <ion-col *ngIf="!selfie">
+        <ion-button expand="block" mode="ios" class="custom-btn" color="secondary" (click)="takeIdPicture()">{{'CAPTURE' | translate}}</ion-button>
+    </ion-col>
+    <ion-col *ngIf="selfie">
+        <ion-button expand="block" mode="ios" class="custom-btn" color="secondary" (click)="submitForm()">{{'PROCEED' | translate}}</ion-button>
+    </ion-col>
+</ion-row>
+
+  </ion-toolbar>
+</ion-footer>

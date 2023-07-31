@@ -8,37 +8,39 @@
 </ion-header>
 
 <ion-content>
-  <div class="qr-box ion-text-center">
-    <img [src]="profilePicture" class="avatar">
-    <ion-label class="ion-text-center user-detail">
-      <h2>{{userName}}</h2>
-      <p>{{walletMobileNo}}</p>
-    </ion-label>
-    <div class="qr"> 
-      <div *ngIf="!qrString">
-        <ion-skeleton-text [animated]="true" class="qr-skelton" *ngFor="let i of [1,2,3,4,5,6,7,8,9,10]"></ion-skeleton-text>
+  <div #qr_screen class="qr-bg">
+    <div class="qr-box ion-text-center">
+      <img [src]="profilePicture" class="avatar">
+      <ion-label class="ion-text-center user-detail">
+        <h2>{{userName}}</h2>
+        <p>{{walletMobileNo}}</p>
+      </ion-label>
+      <div class="qr"> 
+        <div *ngIf="!qrString">
+          <ion-skeleton-text [animated]="true" class="qr-skelton" *ngFor="let i of [1,2,3,4,5,6,7,8,9,10]"></ion-skeleton-text>
+        </div>
+        <div class="qrcodeImage">
+          <qrcode *ngIf="qrString"
+            [qrdata]="qrString"
+            [allowEmptyString]="true"
+            [ariaLabel]="'BIC QR Code'"
+            [cssClass]="'center'"
+            [colorDark]="'#000000ff'"
+            [colorLight]="'#ffffffff'"
+            [elementType]="'canvas'"
+            [errorCorrectionLevel]="'M'"
+            [imageSrc]="'./assets/imgs/bic-logo.png'"
+            [imageHeight]="75"
+            [imageWidth]="75"
+            [margin]="1"
+            [scale]="1"
+            [title]="'A custom title attribute'"
+            [width]="300"
+          ></qrcode>
+        </div>
       </div>
-      <div class="qrcodeImage">
-        <qrcode *ngIf="qrString"
-          [qrdata]="qrString"
-          [allowEmptyString]="true"
-          [ariaLabel]="'QR Code image with the following content...'"
-          [cssClass]="'center'"
-          [colorDark]="'#000000ff'"
-          [colorLight]="'#ffffffff'"
-          [elementType]="'canvas'"
-          [errorCorrectionLevel]="'M'"
-          [imageSrc]="'./assets/imgs/bic-logo.png'"
-          [imageHeight]="75"
-          [imageWidth]="75"
-          [margin]="1"
-          [scale]="1"
-          [title]="'A custom title attribute'"
-          [width]="300"
-        ></qrcode>
-      </div>
+      <br>
     </div>
-    <br>
   </div>
   <ion-item lines="none">
     <ion-label class="ion-text-wrap user-detail">
@@ -47,16 +49,21 @@
     </ion-label>
   </ion-item>
   <br>
+  <div id="download" hidden>
+    <img #qr_canvas>
+    <a #qr_downloadLink></a>
+  </div>
 </ion-content>
 <ion-footer>
   <ion-toolbar color="primary">
-    <ion-row>
+    <!-- <ion-row>
       <ion-col size="6">
         <ion-button color="light" fill="outline" mode="ios" expand="block" class="custom-btn">{{'SHARE_SCREENSHOT' | translate}}</ion-button>
       </ion-col>
       <ion-col size="6">
-        <ion-button color="secondary" mode="ios" expand="block" class="custom-btn">{{'SHARE_QR' | translate}}</ion-button>
+        <ion-button color="secondary" mode="ios" expand="block" class="custom-btn" (click)="downloadImage()">{{'SHARE_QR' | translate}}</ion-button>
       </ion-col>
-    </ion-row>
+    </ion-row> -->
+    <ion-button color="secondary" mode="ios" expand="block" class="custom-btn" (click)="downloadImage()">{{'SHARE_QR' | translate}}</ion-button>
   </ion-toolbar>
 </ion-footer>

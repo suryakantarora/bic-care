@@ -193,3 +193,6 @@ ion-radio.ios::part(container) {
   font-size: x-small;
   color: red !important;
 }
+.transparent-bg {
+  --background: transparent;
+}

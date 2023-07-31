@@ -73,6 +73,7 @@ export class WelcomePage implements OnInit {
       this.deviceInfoResp(res, val);
     }).catch(err=> {
       console.log(err);
+      this.rest.closeLoader();
     });
   }
   async deviceInfoResp(resp:any, val:string) {
@@ -100,6 +101,7 @@ export class WelcomePage implements OnInit {
       this.appVersionResp(res, this.startPage);
     }).catch(err=> {
       console.log(err);
+      this.rest.closeLoader();
     });
   }
   appVersionResp(resp:any, startPage:string) {

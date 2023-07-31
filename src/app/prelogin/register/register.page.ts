@@ -154,7 +154,7 @@ export class RegisterPage implements OnInit {
         this.alertService.showAlert('ALERT', 'USER_REG_FAIL_ERR');
       }
     }).catch(err=> {
-      this.rest.closePopover();
+      this.rest.closeLoader();
       this.alertService.showFailedAlert('ERROR', 'SOMETHING_WENT_WRONG');
     })
   }

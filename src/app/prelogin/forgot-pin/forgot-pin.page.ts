@@ -123,7 +123,7 @@ export class ForgotPinPage implements OnInit {
       this.forgotMpinResp(res);
     }).catch(err => {
       console.error(err);
-      this.rest.closePopover();
+      this.rest.closeLoader();
     });
   }
   async forgotMpinResp(resp: any) {
@@ -152,7 +152,7 @@ export class ForgotPinPage implements OnInit {
       this.validateOtpResp(res);
     }).catch(err => {
       console.error(err);
-      this.rest.closePopover();
+      this.rest.closeLoader();
     });
   }
   validateOtpResp(resp: any) {
@@ -180,7 +180,7 @@ export class ForgotPinPage implements OnInit {
       this.setNewPinResp(res);
     }).catch(err => {
       console.error(err);
-      this.rest.closePopover();
+      this.rest.closeLoader();
     });
   }
   setNewPinResp(resp:any) {

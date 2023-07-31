@@ -22,11 +22,17 @@ export class RatesPage implements OnInit {
         this.exchangeRates=res.data;
       }
       this.fetchInterestRate();
+    }).catch(err => {
+      console.log(err);
+      this.rest.closeLoader();
     });
   }
   async fetchInterestRate() {
     this.rest.fetchInterestRate().then(res => {
       console.log(res);
+    }).catch(err => {
+      console.log(err);
+      this.rest.closeLoader();
     });
   }
   getCurrency(cur:any) {

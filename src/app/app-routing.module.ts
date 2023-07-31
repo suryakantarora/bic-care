@@ -125,7 +125,15 @@ const routes: Routes = [
   {
     path: 'account-qr',
     loadChildren: () => import('./pages/qr/account-qr/account-qr.module').then( m => m.AccountQrPageModule)
-  }
+  },
+  {
+    path: 'link-card',
+    loadChildren: () => import('./pages/wallet/link-card/link-card.module').then( m => m.LinkCardPageModule)
+  },
+  {
+    path: 'update-kyc',
+    loadChildren: () => import('./pages/wallet/kyc/update-kyc/update-kyc.module').then( m => m.UpdateKycPageModule)
+  },
 ];
 
 @NgModule({

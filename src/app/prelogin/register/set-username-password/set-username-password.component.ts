@@ -87,7 +87,10 @@ export class SetUsernamePasswordComponent  implements OnInit {
     let postData = {
       userName: this.userForm.controls['username'].value
     };
-    this.rest.checkUserName(postData).then(res => this.userNameResp(res));
+    this.rest.checkUserName(postData).then(res => this.userNameResp(res)).catch(err => {
+      console.log(err);
+      this.rest.closeLoader();
+    });
   }
   userNameResp(resp: any) {
     this.errMsg = '';

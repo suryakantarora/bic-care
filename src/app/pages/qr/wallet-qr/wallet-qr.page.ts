@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Device } from '@capacitor/device';
+import html2canvas from 'html2canvas';
 import { AlertService } from 'src/app/services/alert/alert.service';
 import { GlobalService } from 'src/app/services/global/global.service';
 import { RestService } from 'src/app/services/rest/rest.service';
+import { SocialShareService } from 'src/app/services/social-share/social-share.service';
 
 @Component({
   selector: 'app-wallet-qr',
@@ -10,21 +12,25 @@ import { RestService } from 'src/app/services/rest/rest.service';
   styleUrls: ['./wallet-qr.page.scss'],
 })
 export class WalletQrPage implements OnInit {
+  @ViewChild('qr_screen') screen: ElementRef;
+  @ViewChild('qr_canvas') canvas: ElementRef;
+  @ViewChild('qr_downloadLink') downloadLink: ElementRef;
   deviceId: string;
   profilePic: string = 'assets/imgs/home/man-icon-256x256.png';
   qrString: string;
-  userName: any;
-  wallCur: any;
+  userName: string;
+  wallCur: string;
   walletMobileNo: string;
   constructor(
     private rest: RestService,
     private alertService: AlertService,
-    private global: GlobalService
+    private global: GlobalService,
+    private socialService: SocialShareService
   ) { }
 
   ngOnInit() {
     this.getDeviceId();
-    this.qrString = '';
+    this.qrString = ''; // 'Hello my friend this is the TEST QR, You can scan it pay in my wallet id';
   }
   get profilePicture() {
     return this.profilePic;
@@ -55,7 +61,7 @@ export class WalletQrPage implements OnInit {
         this.alertService.showAlert('ALERT', res.REASON || res.RESP_CODE)
       }
     }).catch(err => {
-      this.rest.closePopover();
+      this.rest.closeLoader();
     });
   }
   async getQrSting(mob: string) {
@@ -73,7 +79,22 @@ export class WalletQrPage implements OnInit {
         this.alertService.showAlert('ALERT', res.REASON || res.RESP_CODE)
       }
     }).catch(err => {
-      this.rest.closePopover();
+      this.rest.closeLoader();
     });
   }
+
+  downloadImage() {
+    html2canvas(this.screen.nativeElement).then(canvas => {
+      this.canvas.nativeElement.src = canvas.toDataURL();
+      this.downloadLink.nativeElement.href = canvas.toDataURL('image/png');
+      this.downloadLink.nativeElement.download = 'marble-diagram.png';
+      // this.downloadLink.nativeElement.click();
+      /* console.log('QR Base64: ' + this.canvas.nativeElement.src);
+      console.log('this.downloadLink.nativeElement.href: ' + this.downloadLink.nativeElement.href); */
+      console.log('this.downloadLink.nativeElement.download: ' + this.downloadLink.nativeElement);
+      this.socialService.shareFile(this.canvas.nativeElement.src, 'BIC_QR.png');
+
+    });
+  }
+  
 }

@@ -7,7 +7,9 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 })
 export class StepperComponent  implements OnInit {
   @Input() activeIndex:number=1;
+  @Input() totalSteppers:number=5;
   @Output() clickedTab = new EventEmitter<number>();
+  steppers:any=[];
   constructor() { }
 
   ngOnInit() {}
