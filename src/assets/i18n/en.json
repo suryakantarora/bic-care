@@ -1011,5 +1011,6 @@
 	"404":"Data not found",
 	"SET_USERNAME_PASSWORD":"Set Username & Password",
 	"UPDATE_APP":"Update App",
-	"UPDATE_AVAILABLE":"Update Available"
+	"UPDATE_AVAILABLE":"Update Available",
+	"DOCUMENT_UPLOAD_FAILED":"Failed to upload the KYC document, Please try again later."
 }

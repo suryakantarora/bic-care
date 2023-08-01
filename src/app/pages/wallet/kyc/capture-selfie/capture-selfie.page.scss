@@ -1,6 +1,14 @@
 .selfie-preview{
     min-height: 430px;
     height: auto !important;
-    width:300px !important;
+    width:100vw !important;
     margin: auto;
+    background: transparent !important;
+    box-shadow: none !important;
+}
+.id-pic{
+    width: 512px;
+    height:256px;
+    margin-left:auto;
+    margin-right:auto;
 }

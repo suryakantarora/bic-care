@@ -1,4 +1,4 @@
-.stepper{
+.stepper {
     .md-stepper-horizontal {
         display: table;
         width: 100% !important;
@@ -115,5 +115,62 @@
         right: 50%;
         margin-right: 20px;
     }
-    
+}
+.transparent {
+    --background: transparent !important;
+}
+.kyc-result {
+    min-height: 350px;
+    text-align: center;
+}
+.kyc-icon {
+    height: 70px;
+    width: 70px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+}
+.kyc-msg {
+    h2 {
+        font-weight: bolder;
+        font-size: x-large;
+    }
+    p {
+        color: var(--ion-color-secondary);
+    }
+    .success {
+        color: var(--ion-color-success);
+    }
+    .failed {
+        color: var(--ion-color-danger);
+    }
+}
+.kyc-btn {
+    min-width: 150px;
+}
+.lottie-player {
+    max-width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.lottie-player-failed {
+    max-width: 150px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.uploading-label {
+    margin-top: 16px;
+    h2 {
+        color: var(--ion-color-primary);
+        font-weight: bolder;
+        font-size: x-large;
+    }
+    p {
+        color: var(--ion-color-secondary);
+    }
+}
+.ref-num {
+    color: var(--ion-color-primary);
+    font-weight: bold;
+    font-size: large !important;
 }

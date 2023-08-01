@@ -1,5 +1,9 @@
-
-<div class="transparent-bg selfie-preview" id="cameraPreview">
-  <img *ngIf="idCard" [src]="idCard">
+<div class="transparent-bg selfie-preview ion-text-center" id="cameraPreview">
+  <ion-item lines="full" color="secondary">
+    <ion-label class="ion-text-center ion-text-wrap">
+      <p>{{'PLEASE_CAPTURE_YOUR_ID_CARD' | translate}}</p>
+    </ion-label>
+  </ion-item>
+  <img *ngIf="idCard" [src]="idCard" class="id-pic">
+  <img *ngIf="!idCard" [src]="idCardBg">
 </div>
-

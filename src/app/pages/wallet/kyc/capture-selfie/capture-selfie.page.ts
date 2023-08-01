@@ -10,13 +10,20 @@ export class CaptureSelfiePage implements OnInit {
   @Output() sendSelfieData: EventEmitter<any> = new EventEmitter();
   captureStatus=1;
   selfie: any;
+  selfieBg='assets/imgs/selfie-bg.png';
   constructor() { }
 
   ngOnInit() {
-    this.stopCamera();
-    setTimeout(() => {
+    this.startCapture();
+  }
+  startCapture() {
+    this.selfie='';
+    this.captureStatus=1;
+    CameraPreview.stop().then(() => {
       this.openCameraPreview();
-    }, 1000);
+    }).catch(err=> {
+      this.openCameraPreview();
+    });
   }
   captureSelfie() {
     console.log('Selfie captured called');
@@ -39,19 +46,19 @@ export class CaptureSelfiePage implements OnInit {
   */
   async openCameraPreview() {
     const cameraPreviewOptions: CameraPreviewOptions = {
-      position: 'front',
+      position: 'back',
       parent: 'cameraPreview',
       x: 0, y: 130,
-      height: window.screen.height / 2,
+      height: window.screen.height / 3,
       className: 'selfie-preview',
-      toBack: false,
+      toBack: true,
       enableOpacity: true
     };
     CameraPreview.start(cameraPreviewOptions);
   }
   async takePicture() {
     const cameraPreviewOptions: CameraPreviewPictureOptions = {
-      height: 512, width:512,quality: 100
+      height: 300, width:300,quality: 100,
     };
     CameraPreview.capture(cameraPreviewOptions).then(res=> {
       console.log('Camera Picture: ' + JSON.stringify(res));
@@ -62,6 +69,12 @@ export class CaptureSelfiePage implements OnInit {
   stopCamera() {
     CameraPreview.stop().then(() =>{
       this.proceedIdCard();
+    });
+  }
+
+  closePreview() {
+    CameraPreview.stop().catch(() =>{
+      console.log('Already closed');
     });
   }
   proceedIdCard() {

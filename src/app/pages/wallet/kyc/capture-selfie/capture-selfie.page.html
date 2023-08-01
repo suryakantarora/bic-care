@@ -1,5 +1,10 @@
-
-<div class="transparent-bg selfie-preview" id="cameraPreview">
-  <img *ngIf="selfie" [src]="selfie">
+<div class="transparent-bg selfie-preview ion-text-center" id="cameraPreview">
+    <ion-item lines="full" color="secondary">
+        <ion-label class="ion-text-center ion-text-wrap">
+            <p >{{'PLEASE_CAPTURE_YOUR_SELFIE_WITH_ID' | translate}}</p>
+            <p *ngIf="!selfie">Place your face inside the circle</p>
+        </ion-label>
+    </ion-item>
+    <img *ngIf="selfie" [src]="selfie" class="selfie-pic">
+    <img *ngIf="!selfie" [src]="selfieBg">
 </div>
-

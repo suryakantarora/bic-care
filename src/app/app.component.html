@@ -22,7 +22,6 @@
   </ion-header>
   <ion-content mode="md" color="light">
     <ion-card class="menu-item">
-      <ion-menu-toggle>
         <ion-item lines="none" button detail="true">
           <ion-buttons slot="start">
             <ion-button>
@@ -33,10 +32,8 @@
             <h2>Home</h2>
           </ion-label>
         </ion-item>
-      </ion-menu-toggle>
     </ion-card>
     <ion-card class="menu-item">
-      <ion-menu-toggle>
         <ion-item lines="none" button detail="true" (click)="openPage('wallet-qr')">
           <ion-buttons slot="start">
             <ion-button>
@@ -47,11 +44,9 @@
             <h2>My QR</h2>
           </ion-label>
         </ion-item>
-      </ion-menu-toggle>
     </ion-card>
     <ion-card class="menu-item">
-      <ion-menu-toggle>
-        <ion-item lines="none" button detail="true">
+        <ion-item lines="none" button detail="true" (click)="openPage('link-card')">
           <ion-buttons slot="start">
             <ion-button>
               <ion-icon name="card" slot="icon-only"></ion-icon>
@@ -61,11 +56,10 @@
             <h2> Card Link</h2>
           </ion-label>
         </ion-item>
-      </ion-menu-toggle>
     </ion-card>
     <ion-card class="menu-item">
       <ion-menu-toggle>
-        <ion-item lines="none" button detail="true" (click)="openPage('update-kyc')">
+        <ion-item lines="none" button detail="true" (click)="checkKycStatus()">
           <ion-buttons slot="start">
             <ion-button>
               <ion-icon name="document" slot="icon-only"></ion-icon>

@@ -36,10 +36,10 @@ export class WalletDashboardPage implements OnInit {
     return this.profilePic;
   }
   ionViewWillLeave() {
-    this.menu.enable(false);
+    // this.menu.enable(false);
   }
   ionViewWillEnter() {
-    this.menu.enable(true);
+    // this.menu.enable(true);
   }
   getProfilePic() {
     this.storage.get('profilePic').then(res => {

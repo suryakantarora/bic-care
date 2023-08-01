@@ -215,6 +215,7 @@ export class LoginPage implements OnInit {
           walletId: resp.walletId,
           custId: resp.custId,
         };
+        this.storage.setData('kycStatus', resp.kycStatus);
         this.rest.userDetail=userDetail;
         if (resp?.custId) {
           console.log("wallet id" + resp.walletId);

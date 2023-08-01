@@ -1,4 +1,4 @@
-<ion-header>
+<ion-header class="ion-no-borderx">
   <ion-toolbar color="primary" mode="md">
     <ion-title>{{'UPDATE_EKYC' | translate}}</ion-title>
     <ion-buttons slot="end">
@@ -36,7 +36,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content [ngClass]="(activeIndex===2 || activeIndex===4)?'transparent-bg':''">
   <ion-card class="card-bg" *ngIf="activeIndex===1">
     <ion-item lines="full" color="secondary">
       <ion-label class="ion-text-center ion-text-wrap">
@@ -47,9 +47,9 @@
       <img src="assets/imgs/selfie.png">
     </div>
   </ion-card>
-  <ion-card class="card-bg" *ngIf="activeIndex===2">
+  <div *ngIf="activeIndex===2">
     <app-capture-selfie (sendSelfieData)="captureSelfie($event)"></app-capture-selfie>
-  </ion-card>
+  </div>
 
   <ion-card *ngIf="activeIndex===3" class="card-bg">
     <ion-item lines="full" color="primary">
@@ -61,8 +61,48 @@
       <img src="assets/imgs/id-card.png">
     </div>
   </ion-card>
-  <ion-card class="card-bg" *ngIf="activeIndex===4">
-    <app-capture-selfie (proceedIdCard)="captureIdCard($event)"></app-capture-selfie>
+  <div *ngIf="activeIndex===4">
+    <app-capture-id (captureIdCard)="captureIdCard($event)"></app-capture-id>
+  </div>
+  <ion-card class="card-bg kyc-result" *ngIf="activeIndex===5">
+    <!-- <div *ngIf="kycStatus==='S'">
+      <img src="assets/imgs/success.png" *ngIf="kycStatus==='S'" class="kyc-icon">
+      
+    </div> -->
+    <div class="ion-padding ion-text-center" *ngIf="kycStatus==='P'">
+      <lottie-player autoplay="true" loop="true" src="assets/json/spinner.json" class="lottie-player"> </lottie-player>
+      <ion-item lines="none" class="transparent-item">
+        <ion-label class="ion-text-center ion-text-wrap uploading-label">
+          <h2>{{'UPLOADING' | translate}}...</h2>
+          <p>Please wait while your KYC document is uploaded</p>
+        </ion-label>
+      </ion-item>
+    </div>
+    <div class="ion-padding ion-text-center" *ngIf="kycStatus==='S'">
+      <lottie-player autoplay src="assets/json/success-2.json" class="lottie-player"> </lottie-player>
+      <ion-item lines="none" class="transparent-item">
+        <ion-label class="ion-text-center ion-text-wrap kyc-msg">
+          <h2 class="success">{{'SUCCESS' | translate}}</h2>
+          <p>{{'DOCUMENT_UPLOAD_SUCCESSFULLY' | translate}}</p>
+          <h2 class="ref-num">{{'REF_NUMBER' | translate}} : <br/>{{kycId}}</h2>
+        </ion-label>
+      </ion-item>
+      <div class="ion-padding">
+        <ion-button mode="ios" color="secondary" shape="round" (click)="goHome()" class="kyc-btn">{{'HOME' | translate}}</ion-button>
+      </div>
+    </div>
+    <div class="ion-padding ion-text-center" *ngIf="kycStatus==='F'">
+      <lottie-player autoplay src="assets/json/bouncy-fail.json" class="lottie-player-failed"> </lottie-player>
+      <ion-item lines="none" class="transparent-item">
+        <ion-label class="ion-text-center ion-text-wrap kyc-msg">
+          <h2 class="failed">{{'FAILED' | translate}}</h2>
+          <p>{{'DOCUMENT_UPLOAD_FAILED' | translate}}</p>
+        </ion-label>
+      </ion-item>
+      <div class="ion-padding">
+        <ion-button mode="ios" color="secondary" shape="round" (click)="retry()" class="kyc-btn">{{'RETRY' | translate}}</ion-button>
+      </div>
+    </div>
   </ion-card>
 </ion-content>
 
@@ -70,39 +110,55 @@
   <ion-toolbar color="primary">
     <ion-row *ngIf="activeIndex===2">
       <ion-col *ngIf="selfie">
-          <div>
-            <ion-button expand="block" mode="ios" class="custom-btn" color="light" fill="outline" (click)="reTakePicture()">{{'RECAPTURE' | translate}}</ion-button>
-          </div>
+        <div>
+          <ion-button expand="block" mode="ios" class="custom-btn" color="light" fill="outline"
+            (click)="reTakePicture()">{{'RECAPTURE' | translate}}</ion-button>
+        </div>
       </ion-col>
       <ion-col *ngIf="!selfie">
-          <ion-button expand="block" mode="ios" class="custom-btn" color="secondary" (click)="takePicture()">{{'CAPTURE' | translate}}</ion-button>
+        <ion-button expand="block" mode="ios" class="custom-btn" color="secondary" (click)="takePicture()">
+          {{'CAPTURE' | translate}}
+        </ion-button>
       </ion-col>
       <ion-col *ngIf="selfie">
-          <ion-button expand="block" mode="ios" class="custom-btn" color="secondary" (click)="proceedForIdCard()">{{'PROCEED' | translate}}</ion-button>
+        <ion-button expand="block" mode="ios" class="custom-btn" color="secondary"
+          (click)="proceedForIdCard()">{{'PROCEED' | translate}}</ion-button>
       </ion-col>
-  </ion-row>
-   <ion-row *ngIf="activeIndex===1 || activeIndex===3">
-    <ion-col>
-      <ion-button mode="ios" color="light" fill="outline" expand="block" class="custom-btn" (click)="goBack()">{{'BACK' | translate}}</ion-button>
-    </ion-col>
-    <ion-col>
-      <ion-button mode="ios" color="secondary" expand="block" class="custom-btn" (click)="openCamera()">{{'PROCEED' | translate}}</ion-button>
-    </ion-col>
-   </ion-row>
-
-   <ion-row *ngIf="activeIndex===4">
-    <ion-col *ngIf="selfie">
+    </ion-row>
+    <ion-row *ngIf="activeIndex===1 || activeIndex===3">
+      <ion-col>
+        <ion-button mode="ios" color="light" fill="outline" expand="block" class="custom-btn"
+          (click)="goBack()">{{'BACK' | translate}}</ion-button>
+      </ion-col>
+      <ion-col>
+        <ion-button mode="ios" color="secondary" expand="block" class="custom-btn" (click)="openCamera()">
+          {{'PROCEED' | translate}}
+        </ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="activeIndex===4">
+      <ion-col *ngIf="idCard">
         <div>
-          <ion-button expand="block" mode="ios" class="custom-btn" color="light" fill="outline" (click)="reTakeIdPicture()">{{'RECAPTURE' | translate}}</ion-button>
+          <ion-button expand="block" mode="ios" class="custom-btn" color="light" fill="outline" (click)="reTakeIdPicture()">
+            {{'RECAPTURE' | translate}}
+          </ion-button>
         </div>
-    </ion-col>
-    <ion-col *ngIf="!selfie">
-        <ion-button expand="block" mode="ios" class="custom-btn" color="secondary" (click)="takeIdPicture()">{{'CAPTURE' | translate}}</ion-button>
-    </ion-col>
-    <ion-col *ngIf="selfie">
-        <ion-button expand="block" mode="ios" class="custom-btn" color="secondary" (click)="submitForm()">{{'PROCEED' | translate}}</ion-button>
-    </ion-col>
-</ion-row>
-
+      </ion-col>
+      <ion-col *ngIf="!idCard">
+        <ion-button expand="block" mode="ios" class="custom-btn" color="light" fill="outline" (click)="openGallery()">
+          {{'OPEN_GALLERY' | translate}}
+        </ion-button>
+      </ion-col>
+      <ion-col *ngIf="!idCard">
+        <ion-button expand="block" mode="ios" class="custom-btn" color="secondary" (click)="takeIdPicture()">
+          {{'CAPTURE' | translate}}
+        </ion-button>
+      </ion-col>
+      <ion-col *ngIf="idCard">
+        <ion-button expand="block" mode="ios" class="custom-btn" color="secondary" (click)="submitForm()">
+          {{'PROCEED' | translate}}
+        </ion-button>
+      </ion-col>
+    </ion-row>
   </ion-toolbar>
 </ion-footer>

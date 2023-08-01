@@ -282,6 +282,20 @@ export class RestService {
     return response?.data;
   }
 
+  async ekycRegister(postData: any) {
+    postData.SESSIONID=this.authToken;
+    postData.SUBURL= suburl.EKYC_REGISTER;
+    const options = {
+      url: this.baseUrl + suburl.ULOAD_EKYC_DOC,
+      headers: { 'Content-Type': 'application/json' },
+      data: postData
+    };
+    console.log("Request Data: " + JSON.stringify(options));
+    const response: HttpResponse = await CapacitorHttp.post(options);
+    console.log("Response Data: " + JSON.stringify(response.data));
+    return response?.data;
+  }
+
   async postTest(postData: any) {
     const options = {
       url: this.baseUrl + suburl.ATM_LIST,

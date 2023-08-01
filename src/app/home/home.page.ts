@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { App } from '@capacitor/app';
-import { NavController } from '@ionic/angular';
+import { MenuController, NavController } from '@ionic/angular';
 import { RestService } from '../services/rest/rest.service';
 import { Device } from '@capacitor/device';
 
@@ -9,11 +9,15 @@ import { Device } from '@capacitor/device';
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage implements OnInit{
+export class HomePage implements OnInit {
 
-  constructor(private navCtrl: NavController, private rest: RestService) {}
+  constructor(
+    private navCtrl: NavController,
+    private menuController: MenuController,
+    private rest: RestService
+  ) { }
   ngOnInit(): void {
-      
+    this.menuController.enable(false);
   }
 
   async getAppInfo() {
@@ -22,12 +26,12 @@ export class HomePage implements OnInit{
       this.getDeviceInfo(res);
     });
   }
-  async getDeviceInfo(appInfo:any) {
+  async getDeviceInfo(appInfo: any) {
     await Device.getInfo().then((res) => {
       console.log('Device Info: ' + JSON.stringify(res));
     }).catch((err) => {
       console.error(err)
-    }); 
+    });
   }
   async getDeviceId() {
     await Device.getId().then(res => {

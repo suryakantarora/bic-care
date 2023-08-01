@@ -7,52 +7,65 @@ import { CameraPreview, CameraPreviewOptions, CameraPreviewPictureOptions } from
   styleUrls: ['./capture-id.page.scss'],
 })
 export class CaptureIdPage implements OnInit {
-  idCard:string;
-  @Output() sendIdData: EventEmitter<any> = new EventEmitter();
-  captureStatus=1;
+  idCard: string;
+  @Output() captureIdCard: EventEmitter<any> = new EventEmitter();
+  captureStatus = 1;
+  idCardBg = 'assets/imgs/id-card-bg.png';
   constructor() { }
 
   ngOnInit() {
-    this.stopCamera();
-    setTimeout(() => {
+    this.captureId();
+
+  }
+  captureId() {
+    this.idCard = '';
+    CameraPreview.stop().then(() => {
       this.openCameraPreview();
-    }, 1000);
+    }).catch(err=> {
+      this.openCameraPreview();
+    });
   }
   captureSelfie() {
     console.log('Selfie captured called');
     // this.sendSelfieData.emit('Captured Selfie');
   }
   back() {
-    this.sendIdData.emit('BACK');
+    this.captureIdCard.emit('BACK');
   }
   async openCameraPreview() {
     const cameraPreviewOptions: CameraPreviewOptions = {
-      position: 'front',
+      position: 'back',
       parent: 'cameraPreview',
       x: 0, y: 130,
-      height: window.screen.height / 2,
+      height: window.screen.height / 3,
+      width: window.screen.width,
       className: 'selfie-preview',
-      toBack: false,
+      toBack: true,
       enableOpacity: true
     };
     CameraPreview.start(cameraPreviewOptions);
   }
   async takePicture() {
     const cameraPreviewOptions: CameraPreviewPictureOptions = {
-      height: 512, width:512,quality: 100
+      height: 256, width: 512, quality: 100
     };
-    CameraPreview.capture(cameraPreviewOptions).then(res=> {
+    CameraPreview.capture(cameraPreviewOptions).then(res => {
       console.log('Camera Picture: ' + JSON.stringify(res));
-      this.idCard='data:image/png;base64,' + res.value;
+      this.idCard = 'data:image/png;base64,' + res.value;
       this.stopCamera();
     });
   }
   stopCamera() {
-    CameraPreview.stop().then(() =>{
+    CameraPreview.stop().then(() => {
       this.proceedIdCard();
     });
   }
   proceedIdCard() {
-    this.sendIdData.emit(this.idCard);
+    this.captureIdCard.emit(this.idCard);
+  }
+  closePreview() {
+    CameraPreview.stop().catch(() =>{
+      console.log('Already closed');
+    });
   }
 }
