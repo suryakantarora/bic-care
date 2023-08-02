@@ -98,6 +98,9 @@ export class DeviceValidationComponent implements OnInit {
       this.verifyOtp();
     }
   }
+  resendOtp() {
+   this.getOTP();
+  }
   getOTP() {
     this.showTimer = true;
     this.initTimer();
@@ -111,7 +114,7 @@ export class DeviceValidationComponent implements OnInit {
     }
   }
   initTimer() {
-    this.timer = 10;
+    this.timer = 30;
   }
   activateTimer() {
     if (this.timer > 0) {

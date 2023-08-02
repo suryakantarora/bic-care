@@ -2,7 +2,7 @@
   <ion-toolbar color="primary">
     <img src="assets/imgs/BIC-logo1-white.png" class="brand-banner" />
     <ion-buttons slot="end">
-      <ion-button>
+      <ion-button (click)="showOption($event)">
         <img src="assets/imgs/qr-code.svg" slot="icon-only" class="qr-logo" />
       </ion-button>
       <ion-button (click)="showConfirmLogout()">

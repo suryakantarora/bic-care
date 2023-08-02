@@ -10,7 +10,7 @@
   <div class="setting-header">
     <img [src]="selectedImage" class="profile" (click)="openCamera(0)" onerror="this.src='assets/imgs/setting.png'">
     <ion-label class="label-header">
-      <h2>{{user?.name}}</h2>
+      <h2>{{user?.name || user?.userName}}</h2>
       <p>{{user?.mobile}}</p>
     </ion-label>
   </div>

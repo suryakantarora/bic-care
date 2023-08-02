@@ -1,11 +1,12 @@
 import { Injectable, NgZone } from '@angular/core';
-import { NavController, PopoverController } from '@ionic/angular';
+import { ModalController, NavController, PopoverController } from '@ionic/angular';
 import { Storage } from '@ionic/storage-angular';
 import { TranslateService } from '@ngx-translate/core';
 import { SelectLangPage } from 'src/app/shared/popovers/select-lang/select-lang.page';
 import { Device } from '@capacitor/device';
 import { Toast } from '@capacitor/toast';
 import { SHA512 } from 'crypto-js';
+import { AccountListPage } from 'src/app/shared/modals/account-list/account-list.page';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +20,7 @@ export class GlobalService {
     private storage: Storage,
     private popover: PopoverController,
     private navCtrl: NavController,
+    public modalCtrl: ModalController,
     private ngZone: NgZone
   ) {
     this.storage.create();
@@ -39,6 +41,29 @@ export class GlobalService {
         this.showToast('Page not found: ' + page);
       });
     });
+  }
+  getAccType(accType:string) {
+    if (accType === '10') {
+      return 'SAVING';
+    } else if (accType === '16') {
+      return 'CREDIT';
+    } else {
+      return accType;
+    }
+  }
+  async selectFromAccount(accList:any){
+    const modal=await this.modalCtrl.create({
+      component: AccountListPage,
+      cssClass: 'action-sheet-modal',
+      componentProps: {accList},
+      initialBreakpoint: 0.5,
+      breakpoints: [0.4,0.5,0.6,0.7,0.8,0.9],
+      backdropBreakpoint: 0.3
+    });
+    await modal.present();
+    const {data} = await modal.onDidDismiss();
+    console.log(JSON.stringify(data));
+    return data;
   }
   setRoot(page: string) {
     this.ngZone.run(() => {
@@ -267,5 +292,16 @@ export class GlobalService {
 			resultKey += characters.charAt(Math.floor(Math.random() * charactersLength));
 		}
 		return resultKey;
+  }
+
+  async getPrimaryAccount(accList:any) {
+    let primaryAcc='';
+    accList.forEach((acc:any) => {
+      if(acc.accountState==='P') {
+        primaryAcc=acc;
+      }
+    });
+    console.log('primaryAcc: ' + JSON.stringify(primaryAcc));
+    return primaryAcc;
   }
 }

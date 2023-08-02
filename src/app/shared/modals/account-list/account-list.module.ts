@@ -4,19 +4,19 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { LinkCardPageRoutingModule } from './link-card-routing.module';
+import { AccountListPageRoutingModule } from './account-list-routing.module';
 
-import { LinkCardPage } from './link-card.page';
+import { AccountListPage } from './account-list.page';
 import { TranslateModule } from '@ngx-translate/core';
-import { MaskitoModule } from '@maskito/angular';
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    LinkCardPageRoutingModule,
-    TranslateModule, MaskitoModule
+    AccountListPageRoutingModule,
+    TranslateModule
   ],
-  declarations: [LinkCardPage]
+  declarations: [AccountListPage]
 })
-export class LinkCardPageModule {}
+export class AccountListPageModule {}

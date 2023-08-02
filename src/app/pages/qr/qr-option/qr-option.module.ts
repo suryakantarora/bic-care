@@ -4,19 +4,19 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { LinkCardPageRoutingModule } from './link-card-routing.module';
+import { QrOptionPageRoutingModule } from './qr-option-routing.module';
 
-import { LinkCardPage } from './link-card.page';
+import { QrOptionPage } from './qr-option.page';
 import { TranslateModule } from '@ngx-translate/core';
-import { MaskitoModule } from '@maskito/angular';
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    LinkCardPageRoutingModule,
-    TranslateModule, MaskitoModule
+    QrOptionPageRoutingModule,
+    TranslateModule
   ],
-  declarations: [LinkCardPage]
+  declarations: [QrOptionPage]
 })
-export class LinkCardPageModule {}
+export class QrOptionPageModule {}

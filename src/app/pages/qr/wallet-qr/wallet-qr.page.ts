@@ -1,10 +1,12 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { Device } from '@capacitor/device';
-import html2canvas from 'html2canvas';
 import { AlertService } from 'src/app/services/alert/alert.service';
 import { GlobalService } from 'src/app/services/global/global.service';
 import { RestService } from 'src/app/services/rest/rest.service';
 import { SocialShareService } from 'src/app/services/social-share/social-share.service';
+import { Device } from '@capacitor/device';
+import html2canvas from 'html2canvas';
+import { Storage } from '@ionic/storage-angular';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-wallet-qr',
@@ -21,16 +23,28 @@ export class WalletQrPage implements OnInit {
   userName: string;
   wallCur: string;
   walletMobileNo: string;
+  testForm = new FormGroup({
+    test: new FormControl('')
+  });
   constructor(
     private rest: RestService,
     private alertService: AlertService,
     private global: GlobalService,
-    private socialService: SocialShareService
-  ) { }
+    private socialService: SocialShareService,
+    private storage: Storage
+  ) { 
+    this.storage.create();
+  }
 
   ngOnInit() {
-    this.getDeviceId();
+    // this.getDeviceId();
+    this.getProfilePic();
     this.qrString = ''; // 'Hello my friend this is the TEST QR, You can scan it pay in my wallet id';
+  }
+  getProfilePic() {
+    this.storage.get('profilePic').then(res => {
+      if (res) this.profilePic=res;
+    });
   }
   get profilePicture() {
     return this.profilePic;
@@ -93,7 +107,6 @@ export class WalletQrPage implements OnInit {
       console.log('this.downloadLink.nativeElement.href: ' + this.downloadLink.nativeElement.href); */
       console.log('this.downloadLink.nativeElement.download: ' + this.downloadLink.nativeElement);
       this.socialService.shareFile(this.canvas.nativeElement.src, 'BIC_QR.png');
-
     });
   }
   

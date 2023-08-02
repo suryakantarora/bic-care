@@ -134,6 +134,14 @@ const routes: Routes = [
     path: 'update-kyc',
     loadChildren: () => import('./pages/wallet/kyc/update-kyc/update-kyc.module').then( m => m.UpdateKycPageModule)
   },
+  {
+    path: 'qr-option',
+    loadChildren: () => import('./pages/qr/qr-option/qr-option.module').then( m => m.QrOptionPageModule)
+  },
+  {
+    path: 'account-list',
+    loadChildren: () => import('./shared/modals/account-list/account-list.module').then( m => m.AccountListPageModule)
+  },
 ];
 
 @NgModule({

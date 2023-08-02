@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController, NavController } from '@ionic/angular';
+import { ModalController, NavController, PopoverController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { AlertService } from 'src/app/services/alert/alert.service';
 import { GlobalService } from 'src/app/services/global/global.service';
 import { LoaderService } from 'src/app/services/loader/loader.service';
 import { FtOptionsPage } from 'src/app/shared/modals/ft-options/ft-options.page';
+import { QrOptionPage } from '../../qr/qr-option/qr-option.page';
 
 @Component({
   selector: 'app-dashboard',
@@ -29,6 +30,7 @@ export class DashboardPage implements OnInit {
   constructor(
     private navCtrl: NavController,
     private alertService: AlertService,
+    private popoverCtrl: PopoverController,
     private translate: TranslateService,
     private loaderService: LoaderService,
     private global: GlobalService,
@@ -76,5 +78,21 @@ export class DashboardPage implements OnInit {
         this.navCtrl.navigateRoot(['/login'])
       }
     })
+  }
+  async showOption(ev:Event) {
+    const popover = await this.popoverCtrl.create({
+      component: QrOptionPage,
+      event: ev,
+      mode: 'ios',
+      cssClass: 'custom-popover'
+    });
+    await popover.present();
+    const {data} = await popover.onDidDismiss();
+    console.log(data);
+    if(data && data==='W') {
+      this.global.push('wallet-qr');
+    } else if (data && data==='A') {
+      this.global.push('account-qr');
+    }
   }
 }

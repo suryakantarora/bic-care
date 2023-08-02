@@ -52,6 +52,7 @@
     "crypto-js": "^4.1.1",
     "html2canvas": "^1.4.1",
     "ionicons": "^7.0.0",
+    "ng2-currency-mask": "^13.0.3",
     "rxjs": "~7.8.0",
     "sha512": "^0.0.1",
     "swiper": "^9.4.1",

@@ -23,5 +23,8 @@ export const suburl = {
     WALLET_INFO: 'wallet/info',
     GENERATE_QR: 'qr/generation',
     EKYC_REGISTER: 'customer/ekyc/register',
-    ULOAD_EKYC_DOC: 'uploadKycDoc'
+    ULOAD_EKYC_DOC: 'uploadKycDoc',
+    VERIFY_CREDENTIALS: 'verifyCredentials',
+    LINKED_ACCOUNT_LIST: 'getLinkedAccounts',
+
 }

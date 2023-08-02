@@ -59,7 +59,7 @@ export function createTranslateLoader(http: HttpClient) {
         color: '#f00',
         background: '#0f0'
       }
-    }
+    },
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

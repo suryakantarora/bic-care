@@ -184,7 +184,7 @@ export class ForgotPinPage implements OnInit {
     });
   }
   setNewPinResp(resp:any) {
-    if (resp.RESP_STATUS === 'SUCCESS' && resp.otpStatus==='S') {
+    if (resp.RESP_STATUS === 'SUCCESS' && resp.status==='S') {
       this.pageStatus = 3;
       this.current = 100;
     } else {

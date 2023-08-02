@@ -642,7 +642,7 @@
 	"OTP_DIGIT": "Please enter 6-digits OTP",
 	"NOT_STARTED": "Not started.",
 	"NO_IDLE": "No longer idle.",
-	"TIMED_OUT": "Timed out!",
+	"TIMED_OUT": "Time out!",
 	"GONE_IDLE": "You've gone idle!",
 	"TIME_OUT": "You will time out in",
 	"SECONDS": "seconds!",
@@ -1012,5 +1012,7 @@
 	"SET_USERNAME_PASSWORD":"Set Username & Password",
 	"UPDATE_APP":"Update App",
 	"UPDATE_AVAILABLE":"Update Available",
-	"DOCUMENT_UPLOAD_FAILED":"Failed to upload the KYC document, Please try again later."
+	"DOCUMENT_UPLOAD_FAILED":"Failed to upload the KYC document, Please try again later.",
+	"WALLET_QR":"Wallet QR",
+	"ACCOUNT_QR":"Account QR"
 }
