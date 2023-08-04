@@ -24,4 +24,7 @@ export class AccountListPage implements OnInit {
   closModal(data:any) {
     this.global.modalCtrl.dismiss(data);
   }
+  getCurrency(cur:string) {
+    return this.global.getTextCurrency(cur);
+  }
 }

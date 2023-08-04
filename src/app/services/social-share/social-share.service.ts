@@ -12,6 +12,18 @@ export class SocialShareService {
   constructor(
     private translate: TranslateService
   ) { }
+  async shareText(title:string='', text:string, url:string='') {
+    await Share.share({
+      title: title,
+      text: text,
+      url: url,
+      dialogTitle: 'BIC Care',
+    }).then(res => {
+      console.log('Shared Successfully')
+    }).catch(err => {
+      console.error('Sharing failed: ' + JSON.stringify(err));
+    });
+  }
   async share(url: any, title:string='', text:string='') {
     await Share.share({
       title: 'BIC QR Code',

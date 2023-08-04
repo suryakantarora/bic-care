@@ -5,6 +5,7 @@ import { RestService } from 'src/app/services/rest/rest.service';
 import { AlertService } from 'src/app/services/alert/alert.service';
 import { GlobalService } from 'src/app/services/global/global.service';
 import { Storage } from '@ionic/storage-angular';
+import "@lottiefiles/lottie-player";
 
 @Component({
   selector: 'app-register',

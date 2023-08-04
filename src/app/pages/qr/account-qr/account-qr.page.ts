@@ -19,55 +19,72 @@ export class AccountQrPage implements OnInit {
   @ViewChild('qr_screen') screen: ElementRef;
   @ViewChild('qr_canvas') canvas: ElementRef;
   @ViewChild('qr_downloadLink') downloadLink: ElementRef;
-  profilePic='assets/imgs/home/man-icon-256x256.png';
-  pageStatus=1;
-  enterAmount='N';
-  amount:any;
-  selectedCurrency='LAK';
-  accList:any=[
-    {"accountState":"P","accountCCY":"418","accountPriority":"1","accountNo":"000030200181803","accountType":"10"},
-    {"accountState":"S","accountCCY":"764","accountPriority":"1","accountNo":"000030200181802","accountType":"10"},
-    {"accountState":"S","accountCCY":"840","accountPriority":"1","accountNo":"000030200181801","accountType":"10"},
-  ];
+  profilePic = 'assets/imgs/home/man-icon-256x256.png';
+  pageStatus = 1;
+  enterAmount = 'N';
+  amount: any;
+  selectedCurrency = 'LAK';
+  accList: any = []; /* [{ "accountPriority": "1", "accountType": "10", "accountCCY": "418", "accountState": "P", "accountNo": "000030200181803" },
+  { "accountPriority": "2", "accountType": "10", "accountCCY": "840", "accountState": "S", "accountNo": "000010200667601" }]; */
   qrForm = new FormGroup({
-    enterAmount: new FormControl('N', [Validators.required]),
-    amount: new FormControl('', [Validators.required]),
+    enterAmount: new FormControl('N'),
+    amount: new FormControl(''),
     fromAccount: new FormControl('', [Validators.required]),
     remarks: new FormControl(''),
+    askEnterAmount: new FormControl(false),
   })
-  userDetail: any={};
+  userDetail: any = {};
   deviceId: any;
-  qrCodeString='';
-  test:any;
+  qrCodeString = '';
+  fromAccDetail: any = {}; // { "accountPriority": "1", "accountType": "10", "accountCCY": "418", "accountState": "P", "accountNo": "000030200181803" };
   constructor(
     private global: GlobalService,
     private rest: RestService,
     private alertService: AlertService,
     private socialService: SocialShareService,
     private storage: Storage
-  ) { 
+  ) {
     this.storage.create();
   }
 
   ngOnInit() {
     this.getProfilePic();
-    this.userDetail.userName='';
-    // this.getUserInfo();
+    this.userDetail.userName = '';
+    this.getUserInfo();
     this.getDeviceId();
-    this.global.getPrimaryAccount(this.accList).then((res:any)=> {
-      this.qrForm.controls.fromAccount.setValue(res.accountNo);
-    });
-    
+
+  }
+  get accType() {
+    return this.global.getAccType(this.fromAccDetail.accountType);
+  }
+  maskAcc(acc: string) {
+    return this.global.maskedAccountNumber(acc);
+  }
+  getCurrency(accountCCY:string) {
+    return this.global.getTextCurrency(accountCCY);
+  }
+  onSelectEnterAmount(ev: any) {
+    console.log('Enter Amount: ' + ev);
+    if (ev === true) {
+      this.qrForm.controls.enterAmount.setValue('Y');
+      this.qrForm.controls.amount.addValidators(Validators.required);
+    } else {
+      this.qrForm.controls.enterAmount.setValue('N');
+      this.qrForm.controls.amount.setValue('');
+      this.qrForm.controls.amount.removeValidators(Validators.required);
+      this.qrForm.controls.amount.clearValidators();
+      this.qrForm.controls.amount.setErrors(null);
+    }
   }
   get showEnterAmountField() {
-    if(this.qrForm.controls.enterAmount.value === 'Y') {
+    if (this.qrForm.controls.enterAmount.value === 'Y') {
       return true;
     }
     return false;
   }
   getProfilePic() {
     this.storage.get('profilePic').then(res => {
-      if (res) this.profilePic=res;
+      if (res) this.profilePic = res;
     });
   }
   get profilePicture() {
@@ -86,37 +103,17 @@ export class AccountQrPage implements OnInit {
 
   }
   generateQR() {
-    if(this.qrForm.valid) {
-      this.pageStatus=2;
+    if (this.qrForm.valid) {
+      this.pageStatus = 2;
       this.generateAccQr();
     }
   }
-  currencyText(cur:string) {
+  currencyText(cur: string) {
     return this.global.getTextCurrency(cur);
   }
-  getLinkedAccountNum() {
-    this.rest.fetchLinkedAccount().then(resp=>{
-      if (resp.RESP_CODE === 'MPAY1019') {
-        this.global.timeout()
-      } else if (resp.RESP_STATUS == 'SUCCESS') {
-        this.accList = [];
-        this.accList = resp.data;
-      } else {
-        this.alertService.showAlert('ALERT', 'FAILED_LINKED_ACC');
-      }
-    }).catch(err=>{
-      this.rest.closeLoader();
-    });
-  }
-  async selectFromAccount(){
-    await this.global.selectFromAccount(this.accList).then(data => {
-      console.log(JSON.stringify(data));
-      this.qrForm.controls.fromAccount.setValue(data.accountNo);
-      this.selectedCurrency=data.accountCCY;
-    });
-  }
+
   getUserInfo() {
-    this.rest.getUserInfo({}).then(resp=> {
+    this.rest.getUserInfo({}).then(resp => {
       if (resp.RESP_CODE === 'MPAY1019') {
         this.global.timeout()
       } else if (resp.RESP_STATUS == 'SUCCESS') {
@@ -125,8 +122,43 @@ export class AccountQrPage implements OnInit {
       } else {
         this.alertService.showAlert('ALERT', resp.REASON || resp.RESP_CODE);
       }
-    }).catch(err=>{
+    }).catch(err => {
       this.rest.closeLoader();
+    });
+  }
+
+  getLinkedAccountNum() {
+    this.rest.fetchLinkedAccount().then(resp => {
+      if (resp.RESP_CODE === 'MPAY1019') {
+        this.global.timeout()
+      } else if (resp.RESP_STATUS == 'SUCCESS') {
+        this.accList = [];
+        this.accList = resp.data;
+        this.global.getDefaultAccNumber(this.accList).then(res => {
+          this.fromAccDetail = res;
+          this.qrForm.controls.fromAccount.setValue(res.accountNo);
+          this.selectedCurrency = res.accountCCY;
+          this.getPrimaryAcc();
+        });
+      } else {
+        this.alertService.showAlert('ALERT', 'FAILED_LINKED_ACC');
+      }
+    }).catch(err => {
+      this.rest.closeLoader();
+    });
+  }
+  getPrimaryAcc() {
+    this.global.getPrimaryAccount(this.accList).then((res: any) => {
+      this.qrForm.controls.fromAccount.setValue(res.accountNo);
+    });
+  }
+  async selectFromAccount() {
+    await this.global.selectFromAccount(this.accList).then(res => {
+      if(!res) return;
+      console.log(JSON.stringify(res));
+      this.qrForm.controls.fromAccount.setValue(res.accountNo);
+      this.selectedCurrency = res.accountCCY;
+      this.fromAccDetail=res;
     });
   }
   generateAccQr() {
@@ -140,7 +172,7 @@ export class AccountQrPage implements OnInit {
       name: this.userDetail.userName,
       purpose: this.qrForm.controls.remarks.value
     };
-    this.rest.generateQr(postData).then(resp=>{
+    this.rest.generateQr(postData).then(resp => {
       if (resp.RESP_CODE === 'MPAY1019') {
         this.global.timeout()
       } else if (resp.RESP_STATUS == 'SUCCESS') {
@@ -154,12 +186,12 @@ export class AccountQrPage implements OnInit {
       } else {
         this.alertService.showAlert('ALERT', resp.REASON || resp.RESP_CODE);
       }
-    }).catch(er=>{
+    }).catch(er => {
       this.rest.closeLoader();
     });
   }
-  generateQRCode(qrString:string) {
-    this.pageStatus=2;
+  generateQRCode(qrString: string) {
+    this.pageStatus = 2;
   }
 
   downloadQrImage() {

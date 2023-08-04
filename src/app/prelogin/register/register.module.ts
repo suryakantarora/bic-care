@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -26,6 +26,7 @@ import { SetUserDetailComponent } from './set-user-detail/set-user-detail.compon
     MaskitoModule
   ],
   declarations: [RegisterPage, StepperComponent,
-  DeviceValidationComponent, SetUsernamePasswordComponent, SetMpinComponent, SetUserDetailComponent]
+  DeviceValidationComponent, SetUsernamePasswordComponent, SetMpinComponent, SetUserDetailComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class RegisterPageModule {}

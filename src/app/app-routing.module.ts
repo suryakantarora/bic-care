@@ -142,6 +142,34 @@ const routes: Routes = [
     path: 'account-list',
     loadChildren: () => import('./shared/modals/account-list/account-list.module').then( m => m.AccountListPageModule)
   },
+  {
+    path: 'verify-otp',
+    loadChildren: () => import('./shared/modals/verify-otp/verify-otp.module').then( m => m.VerifyOtpPageModule)
+  },
+  {
+    path: 'manage-card',
+    loadChildren: () => import('./pages/account/manage-card/manage-card.module').then( m => m.ManageCardPageModule)
+  },
+  {
+    path: 'ft-bic-bic',
+    loadChildren: () => import('./pages/account/transfer/ft-bic-bic/ft-bic-bic.module').then( m => m.FtBicBicPageModule)
+  },
+  {
+    path: 'ft-bic-bcel',
+    loadChildren: () => import('./pages/account/transfer/ft-bic-bcel/ft-bic-bcel.module').then( m => m.FtBicBcelPageModule)
+  },
+  {
+    path: 'ft-bic-lapnet',
+    loadChildren: () => import('./pages/account/transfer/ft-bic-lapnet/ft-bic-lapnet.module').then( m => m.FtBicLapnetPageModule)
+  },
+  {
+    path: 'ft-bic-umoney',
+    loadChildren: () => import('./pages/account/transfer/ft-bic-umoney/ft-bic-umoney.module').then( m => m.FtBicUmoneyPageModule)
+  },
+  {
+    path: 'ft-bic-mmoney',
+    loadChildren: () => import('./pages/account/transfer/ft-bic-mmoney/ft-bic-mmoney.module').then( m => m.FtBicMmoneyPageModule)
+  },
 ];
 
 @NgModule({

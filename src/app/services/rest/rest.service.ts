@@ -154,6 +154,7 @@ export class RestService {
     return response?.data;
   }
   async verifyOtp(postData: any) {
+    postData.TOKEN=this.authToken;
     const loading = await this.loading();
     const options = {
       url: this.baseUrl + suburl.VERIFY_OTP,
@@ -315,9 +316,39 @@ export class RestService {
       TOKEN:this.authToken
     };
     const loading = await this.loading();
-    postData.TOKEN=this.authToken;
     const options = {
       url: this.baseUrl + suburl.LINKED_ACCOUNT_LIST,
+      headers: { 'Content-Type': 'application/json' },
+      data: postData
+    };
+    console.log("Request Data: " + JSON.stringify(options));
+    const response: HttpResponse = await CapacitorHttp.post(options);
+    console.log("Response Data: " + JSON.stringify(response.data));
+    loading.dismiss();
+    return response?.data;
+  }
+  async getAccountDetails(postData:any) {
+    const loading = await this.loading();
+    postData.TOKEN=this.authToken
+    const options = {
+      url: this.baseUrl + suburl.ACCOUNT_DETAILS,
+      headers: { 'Content-Type': 'application/json' },
+      data: postData
+    };
+    console.log("Request Data: " + JSON.stringify(options));
+    const response: HttpResponse = await CapacitorHttp.post(options);
+    console.log("Response Data: " + JSON.stringify(response.data));
+    loading.dismiss();
+    return response?.data;
+  }
+  async getAccountBalance(accNum: string) {
+    const loading = await this.loading();
+    const postData:any = {
+      defacc: accNum,
+      TOKEN:this.authToken
+    };
+    const options = {
+      url: this.baseUrl + suburl.BALANCE_ENQUIRY,
       headers: { 'Content-Type': 'application/json' },
       data: postData
     };

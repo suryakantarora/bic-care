@@ -26,5 +26,7 @@ export const suburl = {
     ULOAD_EKYC_DOC: 'uploadKycDoc',
     VERIFY_CREDENTIALS: 'verifyCredentials',
     LINKED_ACCOUNT_LIST: 'getLinkedAccounts',
+    ACCOUNT_DETAILS: 'accountDetails',
+    BALANCE_ENQUIRY:"balanceEnquiry"
 
 }

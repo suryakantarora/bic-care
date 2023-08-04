@@ -14,7 +14,7 @@ import { AccountListPage } from 'src/app/shared/modals/account-list/account-list
 export class GlobalService {
   defaultLang: string = 'en';
   flagImage: string = 'assets/imgs/logo/enflag.png';
-
+  profilePicAvatar = 'assets/imgs/home/man-icon-256x256.png';
   constructor(
     private translate: TranslateService,
     private storage: Storage,
@@ -42,13 +42,13 @@ export class GlobalService {
       });
     });
   }
-  getAccType(accType:string) {
-    if (accType === '10') {
+  getAccType(accType:any) {
+    if (accType === '10' || accType === 10) {
       return 'SAVING';
-    } else if (accType === '16') {
+    } else if (accType === '20' || accType === 20) {
       return 'CREDIT';
     } else {
-      return accType;
+      return 'FIXED';
     }
   }
   async selectFromAccount(accList:any){
@@ -65,6 +65,15 @@ export class GlobalService {
     console.log(JSON.stringify(data));
     return data;
   }
+  async getDefaultAccNumber(accList:any) {
+    let accDetail:any={};
+    await accList.forEach((acc:any) => {
+      if(acc.accountState === 'P') {
+        accDetail=acc;
+      }
+    });
+    return accDetail;
+  }
   setRoot(page: string) {
     this.ngZone.run(() => {
       this.navCtrl.navigateRoot(['/' + page]).catch(err => {
@@ -74,7 +83,7 @@ export class GlobalService {
   }
   timeout() {
     this.ngZone.run(() => {
-      this.navCtrl.navigateRoot(['/home']);
+      this.navCtrl.navigateRoot(['/login']);
     });
   }
   pop() {
@@ -155,6 +164,15 @@ export class GlobalService {
     return masked;
   }
   maskedCardNumber(number: string) {
+    // Ex:- 00001-02-XXXXXX-03
+    let num = '' + number;
+    const firstFour = num.substring(0, 4);
+    const lastTwo = num.substr(num.length - 4);
+    let masked = firstFour + '' + '-XXXX-' + ' ' + 'XXXX-' + '' + lastTwo;
+    //console.log('Raw Data : '+num + ' Masked : '+masked);
+    return masked;
+  }
+  maskedAccountNumber(number: string) {
     // Ex:- 00001-02-XXXXXX-03
     let num = '' + number;
     const firstFour = num.substring(0, 4);
@@ -303,5 +321,14 @@ export class GlobalService {
     });
     console.log('primaryAcc: ' + JSON.stringify(primaryAcc));
     return primaryAcc;
+  }
+
+  getProfilePic() {
+    let res='';
+    this.storage.get('profilePic').then(res => {
+      return res;
+    }).catch(() => {
+      return this.profilePicAvatar;
+    });
   }
 }

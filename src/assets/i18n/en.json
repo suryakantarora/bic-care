@@ -1014,5 +1014,6 @@
 	"UPDATE_AVAILABLE":"Update Available",
 	"DOCUMENT_UPLOAD_FAILED":"Failed to upload the KYC document, Please try again later.",
 	"WALLET_QR":"Wallet QR",
-	"ACCOUNT_QR":"Account QR"
+	"ACCOUNT_QR":"Account QR",
+	"CARD_LINKED_SUCCESS":"Card Linked Successfully"
 }

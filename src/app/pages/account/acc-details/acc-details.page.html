@@ -1,11 +1,106 @@
-<ion-header>
+<ion-header mode="md" class="ion-no-border">
   <ion-toolbar color="primary">
-    <ion-buttons slot="start">
-      <ion-back-button name=""></ion-back-button>
+    <ion-title>{{'ACCOUNT_DETAIL' | translate}}</ion-title>
+    <ion-buttons slot="end">
+      <ion-back-button text="" icon="close"></ion-back-button>
     </ion-buttons>
-    <ion-title>Account Details</ion-title>
+  </ion-toolbar>
+  <ion-toolbar color="primary">
+  <div class="ion-text-center">
+    <img src="assets/imgs/logo.png" class="profile">
+    <ion-label class="label-header">
+      <h2>{{accDetail.userName}}</h2>
+			<p> {{accDetail.email}}</p>
+    </ion-label>
+  </div>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <div class="card-bg" *ngIf="showAccDetails">
+    <ion-card mode="md" class="item-card">
+      <ion-item lines="none" button detail="false">
+        <ion-icon name="card-outline" slot="start"></ion-icon>
+        <ion-label class="label ion-text-wrap">
+          <p>{{ 'ACCOUNT_NUM' | translate }}</p>
+				  <h2>{{maskedNumber(accDetail.accountNo)}}</h2>
+        </ion-label>
+      </ion-item>
+    </ion-card>
+    <ion-card mode="md" class="item-card">
+      <ion-item lines="none" button detail="false">
+        <ion-icon name="person-circle-outline" slot="start"></ion-icon>
+        <ion-label class="label ion-text-wrap">
+          <p>{{ 'ACCOUNT_HOLDER' | translate }}</p>
+				  <h2>{{accDetail.userName}}</h2>
+        </ion-label>
+      </ion-item>
+    </ion-card>
+    <ion-card mode="md" class="item-card">
+      <ion-item lines="none" button detail="false">
+        <ion-icon name="layers-outline" slot="start"></ion-icon>
+        <ion-label class="label ion-text-wrap">
+          <p>{{ 'ACCOUNT_TYPE' | translate }}</p>
+				  <h2>{{getAccType(accDetail.accountType) | translate}} {{'ACCOUNT' | translate}}</h2>
+        </ion-label>
+      </ion-item>
+    </ion-card>
+    <ion-card mode="md" class="item-card">
+      <ion-item lines="none" button detail="false">
+        <ion-icon name="id-card-outline" slot="start"></ion-icon>
+        <ion-label class="label ion-text-wrap">
+          <p>{{ 'BANK_ID' | translate }}</p>
+				  <h2>{{accDetail.bankId}}</h2>
+        </ion-label>
+      </ion-item>
+    </ion-card>
+    <ion-card mode="md" class="item-card">
+      <ion-item lines="none" button detail="false">
+        <ion-icon name="add-circle-outline" slot="start"></ion-icon>
+        <ion-label class="label ion-text-wrap">
+          <p>{{ 'BRANCH' | translate }}</p>
+				  <h2>{{accDetail.branch}}</h2>
+        </ion-label>
+      </ion-item>
+    </ion-card>
+    <ion-card mode="md" class="item-card">
+      <ion-item lines="none" button detail="false">
+        <ion-icon name="locate" slot="start"></ion-icon>
+        <ion-label class="label ion-text-wrap">
+          <p>{{ 'ADDRESS' | translate }}</p>
+				  <h2>{{accDetail.branchAddress}}</h2>
+        </ion-label>
+      </ion-item>
+    </ion-card>
+    <ion-card mode="md" class="item-card">
+      <ion-item lines="none" button detail="false">
+        <ion-icon name="call-outline" slot="start"></ion-icon>
+        <ion-label class="label ion-text-wrap">
+          <p>{{ 'CONTACT_NUM' | translate }}</p>
+				  <h2>{{maskedMobile(accDetail.mobile)}}</h2>
+        </ion-label>
+      </ion-item>
+    </ion-card>
+  </div>
+
+  <div class="card-bg" *ngIf="!showAccDetails">
+    <ion-card mode="md" class="item-card" *ngFor="let i of [1,2,3,4,5,6,7,8,9,10]">
+      <ion-item lines="none">
+        <ion-avatar slot="start">
+          <ion-skeleton-text [animated]="true"></ion-skeleton-text>
+        </ion-avatar>
+        <ion-label>
+          <ion-skeleton-text style="height:16px;width:100px"></ion-skeleton-text>
+          <ion-skeleton-text [animated]="true" style="height:10px;width:200px"></ion-skeleton-text>
+        </ion-label>
+      </ion-item>
+    </ion-card>
+  </div>
 </ion-content>
+<ion-footer>
+  <ion-toolbar color="primary" class="ion-text-center">
+    <ion-item lines="none" button detail="false" color="primary" (click)="sharevia()">
+      <ion-label class="ion-text-center">{{ 'SHARE_ACC_DETAIL' | translate }}</ion-label>
+    </ion-item>
+  </ion-toolbar>
+</ion-footer>

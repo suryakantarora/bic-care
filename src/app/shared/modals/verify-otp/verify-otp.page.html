@@ -1,0 +1,31 @@
+<ion-content>
+  <ion-item lines="none" mode="md" color="primary">
+    <ion-avatar slot="start">
+      <img src="assets/imgs/otp.png">
+    </ion-avatar>
+    <ion-label class="ion-text-wrap otp-header">
+      <h2>{{'VERIFY_OTP' | translate}}</h2>
+    </ion-label>
+    <ion-buttons slot="end">
+      <ion-button (click)="close('')"> 
+        <ion-icon name="close" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-item>
+  <ion-item lines="none">
+    <ion-label class="ion-text-wrap">
+      <p class="otp-msg"> {{'OTP_DIGIT' | translate}}. {{'SMS_SENT' | translate}}</p>
+    </ion-label>
+  </ion-item>
+  <br>
+  <form [formGroup]="formGroup" (ngSubmit)="sendOtp()">
+    <div class="form-field" mode="md">
+      <ion-input type="tel" maxlength="6" placeholder="{{'OTP_DIGIT' | translate}}" fill="outline" mode="md"
+        label="{{'ENTER_OTP' | translate}}" labelPlacement="floating" clearInput="true" formControlName="otp"></ion-input>
+    </div>
+    <br>
+    <div class="ion-padding">
+      <ion-button expand="block" mode="md" class="custom-btn" type="submit" [disabled]="!formGroup.valid">{{'VERIFY_OTP' | translate}}</ion-button>
+    </div>
+  </form>
+</ion-content>

@@ -215,3 +215,22 @@ ion-radio.ios::part(container) {
   align-items: center;
   justify-content: center;
 }
+.default-acc{
+  box-shadow: none !important;
+  border:1px dotted var(--ion-color-secondary);
+  margin:10px !important;
+  ion-img {
+    background-color: #ddd;
+    padding: 6px !important;
+    border-radius: 50%;
+  }
+  ion-label{
+    p{
+      color: var(--ion-color-secondary) !important;
+      font-size: small;
+    }
+    h2{
+      font-weight: bolder;
+    }
+  }
+}

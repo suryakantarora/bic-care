@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { AccDetailsPageRoutingModule } from './acc-details-routing.module';
 
 import { AccDetailsPage } from './acc-details.page';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    AccDetailsPageRoutingModule
+    AccDetailsPageRoutingModule,
+    TranslateModule
   ],
   declarations: [AccDetailsPage]
 })

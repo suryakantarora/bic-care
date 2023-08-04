@@ -5,7 +5,25 @@
     </ion-buttons>
     <ion-title>{{'MY_QR' | translate}}</ion-title>
   </ion-toolbar>
-  <ion-item lines="full" color="light">
+  <ion-toolbar color="primary" *ngIf="pageStatus===1" mode="md">
+    <ion-card class="default-acc">
+      <ion-item color="primary" lines="none" button detail="false" (click)="selectFromAccount()">
+        <ion-thumbnail slot="start">
+          <ion-img src="assets/imgs/logo.png"></ion-img>
+        </ion-thumbnail>
+        <ion-label>
+          <p>{{accType | translate}} - {{getCurrency(fromAccDetail.accountCCY)}}{{'ACCOUNT' | translate}}</p>
+          <h2>{{maskAcc(fromAccDetail.accountNo)}} </h2>
+        </ion-label>
+        <ion-buttons slot="end">
+          <ion-button>
+            <ion-icon slot="icon-only" name="chevron-down-outline"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-item>
+    </ion-card>
+  </ion-toolbar>
+  <ion-item lines="full" color="light" *ngIf="pageStatus===1" mode="md">
     <ion-label class="ion-text-center">
       <p>{{'MPAY1039' | translate}}</p>
     </ion-label>
@@ -20,21 +38,24 @@
   </div> -->
   <div *ngIf="pageStatus===1" mode="md">
     <form [formGroup]="qrForm">
-      <div class="form-field">
+      <!-- <div class="form-field">
         <div class="input-field">
           <ion-input labelPlacement="floating" label="{{'FROM_ACC' | translate}} *" readonly fill="outline"
             formControlName="fromAccount" placeholder="{{'SELECT_UR_ACC' | translate}}" (click)="selectFromAccount()">
             <ion-icon name="caret-down" class="input-icon" color="medium"></ion-icon>
           </ion-input>
         </div>
-      </div>
+      </div> -->
       <div class="form-field">
         <div class="input-field">
-          <ion-select fill="outline" labelPlacement="stacked" label="{{'ENTER_AMOUNT' | translate}}?"
+          <!-- <ion-select fill="outline" labelPlacement="stacked" label="{{'ENTER_AMOUNT' | translate}}?" (ngModelChange)="onSelectEnterAmount($event)"
             formControlName="enterAmount" placeholder="Do you want to enter amount?">
             <ion-select-option value="N">{{'NO' | translate}}</ion-select-option>
             <ion-select-option value="Y">{{'YES' | translate}}</ion-select-option>
-          </ion-select>
+          </ion-select> -->
+          <ion-item lines="none" fill="outline">
+            <ion-toggle mode="md" [checked]="false" formControlName="askEnterAmount" (ngModelChange)="onSelectEnterAmount($event)">{{'ENTER_AMOUNT' | translate}}?</ion-toggle>
+          </ion-item>
         </div>
       </div>
       <div class="form-field" *ngIf="showEnterAmountField">

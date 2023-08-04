@@ -1,0 +1,34 @@
+<ion-header mode="md">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{'FUND_TRANSFER' | translate}}</ion-title>
+  </ion-toolbar>
+  <ion-toolbar color="primary" mode="md">
+    <ion-card class="default-acc">
+      <ion-item color="primary" lines="none" button detail="false" (click)="selectFromAccount()">
+        <ion-thumbnail slot="start">
+          <ion-img src="assets/imgs/logo.png"></ion-img>
+        </ion-thumbnail>
+        <ion-label>
+          <p>{{accType | translate}} {{'ACCOUNT' | translate}} - {{getCurrency(fromAccDetail.accountCCY)}}</p>
+          <h2>{{maskAcc(fromAccDetail.accountNo)}} </h2>
+        </ion-label>
+        <ion-buttons slot="end">
+          <ion-button>
+            <ion-icon slot="icon-only" name="chevron-down-outline"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-item>
+    </ion-card>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+</ion-content>
+<ion-footer>
+  <ion-toolbar color="primary">
+
+  </ion-toolbar>
+</ion-footer>

@@ -58,6 +58,18 @@ export class DashboardPage implements OnInit {
     await modal.present();
     const {data} = await modal.onDidDismiss();
     console.log('data returned: ' + data);
+    if(!data) return;
+    if(data === 'BICTOBIC') {
+      this.openPage('ft-bic-bic');
+    } else if(data === 'BICTOBCEL') {
+      this.openPage('ft-bic-bcel');
+    } else if(data === 'LAPNET') {
+      this.openPage('ft-bic-lapnet');
+    } else if(data === 'UMONEY') {
+      this.openPage('ft-bic-umoney');
+    } else if(data === 'MMONEY') {
+      this.openPage('ft-bic-mmoney');
+    }
   }
   openPage(page:string) {
     console.log('Opening Page: ' + page);

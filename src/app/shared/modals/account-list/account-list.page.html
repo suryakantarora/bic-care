@@ -14,7 +14,7 @@
       </ion-avatar>
       <ion-label>
         <h2>{{a.accountNo}}</h2>
-        <p>{{getAccType(a.accountType) | translate}} {{'ACCOUNT' | translate}}</p>
+        <p>{{getAccType(a.accountType) | translate}} {{'ACCOUNT' | translate}} - {{getCurrency(a.accountCCY)}}</p>
       </ion-label>
     </ion-item>
   </ion-card>

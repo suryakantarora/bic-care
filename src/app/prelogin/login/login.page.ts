@@ -143,6 +143,10 @@ export class LoginPage implements OnInit {
       console.log('No page found');
     });
   }
+  // delete this method after testing and use performBiometricVerificatin()
+  testBiometric() {
+    this.initPinLogin('FP', '');
+  }
 
   async performBiometricVerificatin() {
     const result = await NativeBiometric.isAvailable();
@@ -208,7 +212,6 @@ export class LoginPage implements OnInit {
         this.rest.authToken= resp.TOKEN;
         this.storage.setData('walletid', resp.walletId);
         this.storage.setData('custId', resp.custId);
-        this.global.setRoot('tabs/dashboard');
         const userDetail= {
           lastLogin: resp.lastLogin,
           kycStatus: resp.kycStatus,
@@ -223,7 +226,6 @@ export class LoginPage implements OnInit {
         } else {
           this.storage.remove('custId');
           this.global.setRoot('wallet-dashboard');
-          //this.navCtrl.setRoot(HomePage);
         }
       } else {
         this.alertService.showAlert('ALERT', resp.REASON || resp.RESP_CODE);

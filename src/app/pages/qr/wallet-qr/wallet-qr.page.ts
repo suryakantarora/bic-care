@@ -37,7 +37,7 @@ export class WalletQrPage implements OnInit {
   }
 
   ngOnInit() {
-    // this.getDeviceId();
+    this.getDeviceId();
     this.getProfilePic();
     this.qrString = ''; // 'Hello my friend this is the TEST QR, You can scan it pay in my wallet id';
   }
