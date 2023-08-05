@@ -10,6 +10,7 @@ import { RestService } from 'src/app/services/rest/rest.service';
 import { BiometryType, NativeBiometric } from "capacitor-native-biometric";
 import { Browser, OpenOptions } from '@capacitor/browser';
 import { Device } from '@capacitor/device';
+import { SmsRetriever } from '@awesome-cordova-plugins/sms-retriever';
 // import { IonicSlides } from '@ionic/angular';
 @Component({
   selector: 'app-login',
@@ -34,10 +35,19 @@ export class LoginPage implements OnInit {
     private alertService: AlertService,
     private popoverCtrl: PopoverController,
     private rest: RestService,
-    private navCtrl: NavController
+    private navCtrl: NavController,
 
   ) {
     const data = [{ data: { students: { name: 'surya' } } }];
+  }
+  testSms() {
+    console.log('Test SMS');
+    SmsRetriever.getAppHash()
+      .then((res: any) => console.log(res))
+      .catch((error: any) => console.error(error));
+    SmsRetriever.startWatching()
+      .then((res: any) => console.log(res))
+      .catch((error: any) => console.error(error));
   }
   cancelModal() {
     this.modal.dismiss()
@@ -58,6 +68,7 @@ export class LoginPage implements OnInit {
     await Browser.open(option);
   };
   async ngOnInit() {
+    this.testSms();        
     const name = await this.storage.getData('app');
     console.log('App Status: ' + name);
     this.global.getDefaultLang();
@@ -193,7 +204,7 @@ export class LoginPage implements OnInit {
 
   async initLogin(type: string = 'FP', pin: string = '') {
     console.log('Plain PIN: ' + pin);
-    if(type==='MP' && (pin==='' || !pin)) {
+    if (type === 'MP' && (pin === '' || !pin)) {
       console.log('Invalid PIN');
       return;
     }
@@ -207,19 +218,19 @@ export class LoginPage implements OnInit {
     };
     this.rest.loginUser(postData).then(resp => {
       if (resp.RESP_CODE == 'MPAY1008') {
-				this.global.setRoot('home');
-			} else if (resp.RESP_STATUS === 'SUCCESS') {
-        this.rest.authToken= resp.TOKEN;
+        this.global.setRoot('home');
+      } else if (resp.RESP_STATUS === 'SUCCESS') {
+        this.rest.authToken = resp.TOKEN;
         this.storage.setData('walletid', resp.walletId);
         this.storage.setData('custId', resp.custId);
-        const userDetail= {
+        const userDetail = {
           lastLogin: resp.lastLogin,
           kycStatus: resp.kycStatus,
           walletId: resp.walletId,
           custId: resp.custId,
         };
         this.storage.setData('kycStatus', resp.kycStatus);
-        this.rest.userDetail=userDetail;
+        this.rest.userDetail = userDetail;
         if (resp?.custId) {
           console.log("wallet id" + resp.walletId);
           this.global.setRoot('tabs/dashboard');

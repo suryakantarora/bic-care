@@ -169,7 +169,43 @@ const routes: Routes = [
   {
     path: 'ft-bic-mmoney',
     loadChildren: () => import('./pages/account/transfer/ft-bic-mmoney/ft-bic-mmoney.module').then( m => m.FtBicMmoneyPageModule)
+  },  {
+    path: 'qr-details',
+    loadChildren: () => import('./pages/qr/qr-details/qr-details.module').then( m => m.QrDetailsPageModule)
   },
+  {
+    path: 'wallet-to-wallet',
+    loadChildren: () => import('./pages/wallet/transfer/wallet-to-wallet/wallet-to-wallet.module').then( m => m.WalletToWalletPageModule)
+  },
+  {
+    path: 'wallet-to-account',
+    loadChildren: () => import('./pages/wallet/transfer/wallet-to-account/wallet-to-account.module').then( m => m.WalletToAccountPageModule)
+  },
+  {
+    path: 'account-to-wallet',
+    loadChildren: () => import('./pages/wallet/transfer/account-to-wallet/account-to-wallet.module').then( m => m.AccountToWalletPageModule)
+  },
+  {
+    path: 'edl-payment',
+    loadChildren: () => import('./pages/bill-payment/edl-payment/edl-payment.module').then( m => m.EdlPaymentPageModule)
+  },
+  {
+    path: 'water-bill',
+    loadChildren: () => import('./pages/bill-payment/water-bill/water-bill.module').then( m => m.WaterBillPageModule)
+  },
+  {
+    path: 'road-tax',
+    loadChildren: () => import('./pages/bill-payment/road-tax/road-tax.module').then( m => m.RoadTaxPageModule)
+  },
+  {
+    path: 'internet',
+    loadChildren: () => import('./pages/bill-payment/internet/internet.module').then( m => m.InternetPageModule)
+  },
+  {
+    path: 'bill-payment',
+    loadChildren: () => import('./pages/bill-payment/bill-payment.module').then( m => m.BillPaymentPageModule)
+  },
+
 ];
 
 @NgModule({

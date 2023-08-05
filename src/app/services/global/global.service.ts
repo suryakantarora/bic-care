@@ -173,12 +173,10 @@ export class GlobalService {
     return masked;
   }
   maskedAccountNumber(number: string) {
-    // Ex:- 00001-02-XXXXXX-03
     let num = '' + number;
-    const firstFour = num.substring(0, 4);
-    const lastTwo = num.substr(num.length - 4);
-    let masked = firstFour + '' + '-XXXX-' + ' ' + 'XXXX-' + '' + lastTwo;
-    //console.log('Raw Data : '+num + ' Masked : '+masked);
+    const firstTwo = num.substring(0, 2);
+    const lastFour = num.substring(num.length - 4);
+    let masked = firstTwo + '' + '-XXXX-' + ' ' + 'XXXX-' + '' + lastFour;
     return masked;
   }
   getNumericCurrency(currency: string) {

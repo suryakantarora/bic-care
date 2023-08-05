@@ -10,6 +10,7 @@ import { PopoverController } from '@ionic/angular';
   providedIn: 'root'
 })
 export class RestService {
+  private qrCode:any;
   authToken: any;
   private _data: any;
   private deviceDetail: any;
@@ -19,7 +20,12 @@ export class RestService {
   baseUrl = environment.baseUrl;
   userDetail:any={};
   constructor(private httpClient: HttpClient, private popoverCtrl: PopoverController) { }
-
+  public setQrCode(qrCode:any) {
+    this.qrCode=qrCode;
+  }
+  public getQrCode() {
+    return this.qrCode;
+  }
   public setData(data: any) {
     this._data = data;
   }

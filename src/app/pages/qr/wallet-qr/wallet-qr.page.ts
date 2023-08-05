@@ -98,16 +98,22 @@ export class WalletQrPage implements OnInit {
   }
 
   downloadImage() {
+    const load:any=this.alertService.showLoading('');
     html2canvas(this.screen.nativeElement).then(canvas => {
-      this.canvas.nativeElement.src = canvas.toDataURL();
-      this.downloadLink.nativeElement.href = canvas.toDataURL('image/png');
-      this.downloadLink.nativeElement.download = 'marble-diagram.png';
+      this.canvas.nativeElement.src = canvas.toDataURL('MIME');
+      // this.downloadLink.nativeElement.href = canvas.toDataURL('image/png');
+      // this.downloadLink.nativeElement.download = 'wallet_qr.png'; 
       // this.downloadLink.nativeElement.click();
       /* console.log('QR Base64: ' + this.canvas.nativeElement.src);
       console.log('this.downloadLink.nativeElement.href: ' + this.downloadLink.nativeElement.href); */
-      console.log('this.downloadLink.nativeElement.download: ' + this.downloadLink.nativeElement);
-      this.socialService.shareFile(this.canvas.nativeElement.src, 'BIC_QR.png');
+      // console.log('this.downloadLink.nativeElement.download: ' + this.downloadLink.nativeElement);
+      this.socialService.fileShare(this.canvas.nativeElement.src).then(()=>{
+        load.dismiss();
+      }).catch((err)=>{
+        load.dismiss();
+      });
     });
+
   }
   
 }

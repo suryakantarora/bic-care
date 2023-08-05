@@ -3,6 +3,7 @@ import { PopoverController } from '@ionic/angular';
 import { AlertPage } from 'src/app/shared/popovers/alert/alert.page';
 import { Toast } from '@capacitor/toast';
 import { TranslateService } from '@ngx-translate/core';
+import { LoadingPage } from 'src/app/shared/popovers/loading/loading.page';
 @Injectable({
   providedIn: 'root'
 })
@@ -20,6 +21,26 @@ export class AlertService {
       position: 'top'
     });
   };
+  async showAlertsForKycVerification(kycStatus:string) {
+    const title='ALERT';
+    let message='E-KYC Verification is in progress';
+    if(kycStatus==='N') {
+      message='ALERT_EKYC_WAIT';
+    }else if (kycStatus==='R') {
+      message='ALERT_EKYC_REJECTED';
+    }
+    const type = 'ALERT';
+    const img = 'assets/imgs/alert-2.png';
+    const popover = await this.popover.create({
+      component: AlertPage,
+      componentProps: { title, message, type, img },
+      mode: 'ios',
+      backdropDismiss: true,
+      showBackdrop: true,
+      cssClass: 'custom-alert'
+    });
+    await popover.present();
+  }
   async showAlert(title: string, message: string=this.defaultMsg) {
     console.log('Message: ' + message);
     const msg=message;
@@ -75,5 +96,16 @@ export class AlertService {
       cssClass: 'custom-alert'
     });
     await popover.present();
+  }
+  
+  async showLoading(title: string, message: string=this.defaultMsg) {
+    const popover = await this.popover.create({
+      component: LoadingPage,
+      cssClass: 'custom-loading',
+      backdropDismiss: false,
+      showBackdrop: true
+    });
+    popover.present();
+    return popover;
   }
 }

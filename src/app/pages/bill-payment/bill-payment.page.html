@@ -1,0 +1,102 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{'BILL_PAY' | translate}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content mode="md" class="bg">
+  <ion-card class="card-bg">
+    <ion-item lines="full" color="secondary">
+      <ion-label class="ion-text-center">{{'BILL_PAY_DESC' | translate}}</ion-label>
+    </ion-item>
+    <ion-card class="card-item" (click)="openPage('edl-payment')">
+      <ion-item button lines="none" detail="true">
+        <ion-avatar slot="start">
+          <img src="assets/imgs/bill/electricity-bill-512x512.png" style="background-color:rgba(128, 128, 0,0.2)">
+        </ion-avatar>
+        <ion-label class="header-text">
+          <h2>{{'ELECTRICITY' | translate}}</h2>
+          <p>{{'ELECTRICITY_BILL_PAYMENT' | translate}}</p>
+        </ion-label>
+      </ion-item>
+    </ion-card>
+    <ion-card class="card-item" (click)="openPage('water-bill')">
+      <ion-item button lines="none" detail="true">
+        <ion-avatar slot="start">
+          <img src="assets/imgs/bill/water-bill-512x512.png" style="background-color:rgba(128, 0, 0,0.2)">
+        </ion-avatar>
+        <ion-label class="header-text">
+          <h2>{{'WATER' | translate}}</h2>
+          <p>{{'WATER_BILL_PAYMENT' | translate}}</p>
+        </ion-label>
+      </ion-item>
+    </ion-card>
+    <ion-card class="card-item" id="internet-option">
+      <ion-item button lines="none" detail="true">
+        <ion-avatar slot="start">
+          <img src="assets/imgs/bill/landlin-broadband-bill-512x512.png" style="background-color:rgba(0, 128, 0,0.2)">
+        </ion-avatar>
+        <ion-label class="header-text">
+          <h2>{{'INTERNET' | translate}}</h2>
+          <p>{{'INTERNET_BILL_PAYMENT' | translate}}</p>
+        </ion-label>
+      </ion-item>
+    </ion-card>
+    <ion-card class="card-item" (click)="openPage('road-tax')">
+      <ion-item button lines="none" detail="true">
+        <ion-avatar slot="start">
+          <img src="assets/imgs/bill/electricity-bill-512x512.png" style="background-color:rgba(128, 128, 0,0.2)">
+        </ion-avatar>
+        <ion-label class="header-text">
+          <h2>{{'ROADTAX' | translate}}</h2>
+          <p>{{'ROADTAX_BILL_PAYMENT' | translate}}</p>
+        </ion-label>
+      </ion-item>
+    </ion-card>
+  </ion-card>
+  <div class="road-tax-option">
+    <ion-modal #modal trigger="internet-option" [breakpoints]="[0.1,0.2,0.3,0.4]" initialBreakpoint="0.4" class="action-sheet-modal" showBackdrop="true" backdropBreakpoint="0.1">
+      <ng-template>
+        <ion-header>
+          <ion-toolbar color="primary">
+            <ion-title>{{'SELECT' | translate}}</ion-title>
+            <ion-buttons slot="end">
+              <ion-button (click)="modal.dismiss()">
+                <ion-icon name="close" slot="icon-only"></ion-icon>
+              </ion-button>
+            </ion-buttons>
+          </ion-toolbar>
+        </ion-header>
+        <ion-content>
+          <ion-card class="card-bg">
+            <ion-card class="card-item">
+              <ion-item button lines="none" detail="true">
+                <ion-avatar slot="start">
+                  <img src="assets/imgs/unitel.png" style="background-color:rgba(128, 128, 0,0.2)">
+                </ion-avatar>
+                <ion-label class="header-text">
+                  <h2>{{'UNITEL' | translate}}</h2>
+                  <p>{{'BILL_PAYMENT_TO_UNITEL' | translate}}</p>
+                </ion-label>
+              </ion-item>
+            </ion-card>
+            <ion-card class="card-item">
+              <ion-item button lines="none" detail="true">
+                <ion-avatar slot="start">
+                  <img src="assets/imgs/skytel.png" style="background-color:rgba(128, 128, 0,0.2)">
+                </ion-avatar>
+                <ion-label class="header-text">
+                  <h2>{{'BEST_TEL' | translate}}</h2>
+                  <p>{{'BILL_PAYMENT_TO_TELECOM' | translate}}</p>
+                </ion-label>
+              </ion-item>
+            </ion-card>
+          </ion-card>
+        </ion-content>
+      </ng-template>
+    </ion-modal>
+  </div>
+</ion-content>

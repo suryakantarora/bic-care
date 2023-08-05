@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { BarcodeScanner } from '@capacitor-community/barcode-scanner';
+import { NavController } from '@ionic/angular';
+import { NavigationOptions } from '@ionic/angular/providers/nav-controller';
+import { Storage } from '@ionic/storage-angular';
+import { AlertService } from 'src/app/services/alert/alert.service';
+import { GlobalService } from 'src/app/services/global/global.service';
+import { RestService } from 'src/app/services/rest/rest.service';
 // import { Camera, CameraResultType, CameraPluginPermissions, CameraOptions, ImageOptions, CameraSource } from '@capacitor/camera';
 
 @Component({
@@ -9,29 +15,26 @@ import { BarcodeScanner } from '@capacitor-community/barcode-scanner';
 })
 export class ScanQrPage implements OnInit {
   imgPath = '';
+  kycStatus: any;
   constructor(
-  ) { }
+    private navCtrl: NavController,
+    private alertService: AlertService,
+    private global: GlobalService,
+    private rest: RestService,
+    private storage: Storage
+  ) { 
+    this.storage.create();
+  }
 
   ngOnInit() {
-    /* Camera.checkPermissions().then((res) => {
-      console.log('Permission is given: ' + res);
-      let options: ImageOptions = {
-        resultType: CameraResultType.Base64,
-        correctOrientation: true,
-        source: CameraSource.Camera
-      }
-      Camera.getPhoto(options).then(res => {
-        console.log('Camera is open: ' + JSON.stringify(res));
-        if(res?.base64String) {
-          this.imgPath='data:image/jpeg;base64,'+res.base64String;
-        }
-      }).catch(err =>{
-        console.log('Error in camera: ' + err);
-      });
-    }).catch(er => {
-      console.error('Permission is not given: ' + er)
-    }); */
+    this.rest.setQrCode('');
     this.startScan();
+  }
+  checkKycStatus() {
+    this.storage.get('kycStatus').then((kycStatus) => {
+      console.log('kycStatus : ' + kycStatus);
+      this.kycStatus = kycStatus;
+    }).catch(err=> {});
   }
   startScan() {
     console.log('start scanning');
@@ -87,7 +90,8 @@ export class ScanQrPage implements OnInit {
     didUserGrantPermission().then(value => {
       console.log('Permission Granted Value: ' + value);
       if (value) {
-        askUser();
+        this.alertService.showToast('PLACE_YOUR_CAMERA');
+        startScan();
       }
     });
 
@@ -102,22 +106,68 @@ export class ScanQrPage implements OnInit {
       if (result.hasContent) {
         console.log('Scanned Something: ' + result.content);
         stopScan();
+        this.getQRDetail(result.content);
       }
     };
     
-    const askUser = () => {
-      const c = confirm('Do you want to scan a barcode?');
-    
-      if (c) {
-        startScan();
-      } else{
-        stopScan();
-      }
-    };
     
   }
   ionViewWillLeave() {
     BarcodeScanner.showBackground();
     BarcodeScanner.stopScan();
+  }
+
+  getQRDetail(code:any){
+    if (code.substr(0, 1) !== '{') {
+			console.log('Normal String : ' + code);
+			this.navCtrl.pop().then(() => {
+				// this.getMerchantInfo(code);
+				if (code.length <= 27) {
+					console.log('Properietary QR');
+					this.getMerchantInfo(code);
+				} else {
+					console.log('BOL Standard QR');
+					this.getBcelQRInfo(code);
+					// this.getMerchantInfo(code);
+				}
+			});
+		} else {
+			console.log('JSON String : ' + (code));
+			const qr = JSON.parse(code);
+			if (qr.type == 'P2P') {
+				this.navCtrl.pop().then(() => {
+          const qrData={ qr: qr, account: qr.ACC, currency: qr.CURRENCY, amount: qr.AMOUNT, name: qr.NAME };
+          this.rest.setQrCode(qrData);
+					this.navCtrl.navigateForward(['/qr-details']);
+				});
+			} else if (qr.type == 'w2w') {
+				console.log('W2W QR');
+				this.openW2W(qr);
+			} else if (qr.type === 'M') {
+				console.log('Merchant QR Code');
+				const qrId = qr.qrId;
+				this.getMerchantInfo(qrId);
+			} else {
+				this.navCtrl.pop().then(() => {
+					this.alertService.showToast('Invalid QR Code');
+				});
+			}
+		}
+  }
+  openW2W(qrCode:any) {
+    if (this.kycStatus === 'S') {
+      this.navCtrl.pop().then(() => {
+        const data={ qr: qrCode, mobile: qrCode.wallet, name: qrCode.name };
+        // this.navCtrl.push(WalletQrpayPage, );
+      });
+    } else if (this.kycStatus === 'N') {
+      this.alertService.showAlertsForKycVerification(this.kycStatus);
+    }
+  }
+  getMerchantInfo(qrCode:any) {
+
+  }
+  getBcelQRInfo(qrCode:any) {
+
   }
 }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Share } from '@capacitor/share';
-import { FileSharer } from '@byteowls/capacitor-filesharer';
+import { FileSharer, ShareFileOptions } from '@byteowls/capacitor-filesharer';
 import { Toast } from '@capacitor/toast';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -36,12 +36,39 @@ export class SocialShareService {
       console.error('Sharing failed: ' + JSON.stringify(err));
     });
   }
+  async fileShare(base64Data:string){
+    FileSharer.share({
+      filename: "qr.png",
+      contentType: "image/png",
+      base64Data: base64Data
+  }).then(() => {
+      // do sth
+      console.error("File sharing Success");
+  }).catch(error => {
+      console.error("File sharing failed", error.message);
+  });
+  }
+  async androidFileShare(base64Data:any, fileName:string='BIC_QR.png'){
+    const img=base64Data.replace(/^data:image\/[a-z]+;base64,/, "");
+    const option: ShareFileOptions = {
+      filename: fileName,
+      contentType: 'png',
+      base64Data: img,
+      path: img,
+    };
+    FileSharer.share(option).then(() => {
+      console.log('Shared Successfully')
+    }).catch(error => {
+      console.error("File sharing failed", error.message);
+      this.showToast('File sharing failed');
+    });
+  }
   async shareFile(base64Data: any, fileName: string='') {
     const img=base64Data.replace(/^data:image\/[a-z]+;base64,/, "");
     FileSharer.share({
       filename: fileName,
       contentType: '',
-      base64Data: img,
+      base64Data: base64Data,
     }).then(() => {
       console.log('Shared Successfully')
     }).catch(error => {
