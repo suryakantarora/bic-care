@@ -1017,5 +1017,6 @@
 	"ACCOUNT_QR":"Account QR",
 	"CARD_LINKED_SUCCESS":"Card Linked Successfully",
 	"ROADTAX":"Road Tax",
-	"ROADTAX_BILL_PAYMENT":"Roadtax Bill Payment"
+	"ROADTAX_BILL_PAYMENT":"Roadtax Bill Payment",
+	"FIXED_ACC": "Fixed Account"
 }

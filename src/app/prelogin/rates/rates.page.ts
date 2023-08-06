@@ -39,6 +39,6 @@ export class RatesPage implements OnInit {
     return this.global.getTextCurrency(cur)
   }
   formatAmount(amt:string) {
-    return this.global.formatNumber(amt)
+    return this.global.formatAmmount(amt)
   }
 }

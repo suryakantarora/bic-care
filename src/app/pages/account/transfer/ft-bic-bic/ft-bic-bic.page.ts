@@ -11,14 +11,22 @@ import { RestService } from 'src/app/services/rest/rest.service';
 })
 export class FtBicBicPage implements OnInit {
   accList: any=[];
-  fromAccDetail: any={};
+  transferType='OWN';
+  fromAccDetail: any={
+    accountType: '10', 
+    accountCCY:'418',
+    accountNo:'43758848658765567'
+  };
   userDetail: any={};
-  selectedCurrency: any;
+  selectedCurrency: any='418';
   ftForm:FormGroup = new FormGroup({
-    fromAccount: new FormControl(''),
-    txnAmount: new FormControl('')
+    fromAccount: new FormControl('1234567890'),
+    toAccount: new FormControl(''),
+    toCurrency: new FormControl(''),
+    txnAmount: new FormControl(''),
+    remarks: new FormControl(''),
   });
-  accountBalance: number;
+  accountBalance: any='123331323.99';
   constructor(
     private global: GlobalService,
     private alertService: AlertService,
@@ -26,7 +34,7 @@ export class FtBicBicPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.getUserInfo();
+    // this.getUserInfo();
   }
   get accType() {
     return this.global.getAccType(this.fromAccDetail.accountType);
@@ -36,6 +44,9 @@ export class FtBicBicPage implements OnInit {
   }
   getCurrency(accountCCY:string) {
     return this.global.getTextCurrency(accountCCY);
+  }
+  maskBalance(accountBalance:any) {
+    return this.global.formatAmmount(accountBalance);
   }
   getUserInfo() {
     this.rest.getUserInfo({}).then(resp => {
@@ -86,6 +97,14 @@ export class FtBicBicPage implements OnInit {
       this.selectedCurrency = res.accountCCY;
       this.fromAccDetail=res;
       this.getAccountBalance(res.accountNo);
+    });
+  }
+  async openOwnToAccount() {
+    await this.global.selectFromAccount(this.accList).then(res => {
+      if(!res) return;
+      console.log(JSON.stringify(res));
+      this.ftForm.controls['toAccount'].setValue(res.accountNo);
+      this.ftForm.controls['toCurrency'].setValue(res.accountCCY);
     });
   }
   getAccountBalance(accNum: any) {

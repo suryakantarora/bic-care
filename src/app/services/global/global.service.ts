@@ -42,34 +42,34 @@ export class GlobalService {
       });
     });
   }
-  getAccType(accType:any) {
+  getAccType(accType: any) {
     if (accType === '10' || accType === 10) {
-      return 'SAVING';
+      return 'SAVING_ACC';
     } else if (accType === '20' || accType === 20) {
-      return 'CREDIT';
+      return 'CREDIT_ACC';
     } else {
-      return 'FIXED';
+      return 'FIXED_ACC';
     }
   }
-  async selectFromAccount(accList:any){
-    const modal=await this.modalCtrl.create({
+  async selectFromAccount(accList: any) {
+    const modal = await this.modalCtrl.create({
       component: AccountListPage,
       cssClass: 'action-sheet-modal',
-      componentProps: {accList},
+      componentProps: { accList },
       initialBreakpoint: 0.5,
-      breakpoints: [0.4,0.5,0.6,0.7,0.8,0.9],
+      breakpoints: [0.4, 0.5, 0.6, 0.7, 0.8, 0.9],
       backdropBreakpoint: 0.3
     });
     await modal.present();
-    const {data} = await modal.onDidDismiss();
+    const { data } = await modal.onDidDismiss();
     console.log(JSON.stringify(data));
     return data;
   }
-  async getDefaultAccNumber(accList:any) {
-    let accDetail:any={};
-    await accList.forEach((acc:any) => {
-      if(acc.accountState === 'P') {
-        accDetail=acc;
+  async getDefaultAccNumber(accList: any) {
+    let accDetail: any = {};
+    await accList.forEach((acc: any) => {
+      if (acc.accountState === 'P') {
+        accDetail = acc;
       }
     });
     return accDetail;
@@ -88,7 +88,7 @@ export class GlobalService {
   }
   pop() {
     this.ngZone.run(() => {
-      this.navCtrl.pop().catch(err=>{
+      this.navCtrl.pop().catch(err => {
         this.showToast('No page to remove');
       });
     });
@@ -209,42 +209,17 @@ export class GlobalService {
   }
 
 
-  formatNumber(num: any) {
+  // Amount Masking code
+  formatAmmount(num: any) {
+    if(!num) return;
     var num_parts = num.toString().split(".");
     num_parts[0] = num_parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     return num_parts.join(",");
   }
 
-  // Amount Masking code
-  formatAmmount(data: any) {
-    if (data) {
-      let floatNum = (data.split(",")[1]);
-      let firstPart = (data.split(",")[0]);
-      if (floatNum == undefined || floatNum == null || floatNum == '') {
-        floatNum = '00';
-      }
-      var float_cut = '';
-      if (floatNum.length > 2) {
-        for (var i = 0; i <= 1; i++) {
-          var str = floatNum.charAt(i);
-          float_cut = float_cut + str;
-        }
-        floatNum = float_cut;
-      }
-      // console.log('First Part : '+firstPart);
-      // console.log('Second Part : '+floatNum); 
-      this.formatToNumeric('' + firstPart, '' + floatNum);
-      return this.thousandSeperator((firstPart * 1.0).toFixed(2));
-    }
-  }
-
-  parseNumericData(data: any) {
-    let number = this.getInteger(data);
-  }
-
 
   thousandSeperator(data: any) {
-    data = data.toString().replace(/[.]*/g, '')
+    data = data.toString().replace(/[.]*/g, '');
     return data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
   }
   actualAmount(data: any) {
@@ -296,25 +271,25 @@ export class GlobalService {
     console.log('Mobile: ' + mobileNum)
     return mobileNum;
   }
-  getHashData(data:string, key:string='BICBANK') {
-		return SHA512(data+key) + '';
-	}
+  getHashData(data: string, key: string = 'BICBANK') {
+    return SHA512(data + key) + '';
+  }
   generateRandomKey() {
     var resultKey = '';
-		var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-		var charactersLength = characters.length;
-		var length = 10;
-		for (var i = 0; i < length; i++) {
-			resultKey += characters.charAt(Math.floor(Math.random() * charactersLength));
-		}
-		return resultKey;
+    var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var charactersLength = characters.length;
+    var length = 10;
+    for (var i = 0; i < length; i++) {
+      resultKey += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return resultKey;
   }
 
-  async getPrimaryAccount(accList:any) {
-    let primaryAcc='';
-    accList.forEach((acc:any) => {
-      if(acc.accountState==='P') {
-        primaryAcc=acc;
+  async getPrimaryAccount(accList: any) {
+    let primaryAcc = '';
+    accList.forEach((acc: any) => {
+      if (acc.accountState === 'P') {
+        primaryAcc = acc;
       }
     });
     console.log('primaryAcc: ' + JSON.stringify(primaryAcc));
@@ -322,7 +297,7 @@ export class GlobalService {
   }
 
   getProfilePic() {
-    let res='';
+    let res = '';
     this.storage.get('profilePic').then(res => {
       return res;
     }).catch(() => {

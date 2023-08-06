@@ -8,20 +8,20 @@
   <ion-toolbar color="primary" mode="md">
     <ion-card class="default-acc">
       <ion-item color="primary" lines="none" button detail="false" *ngIf="!fromAccDetail.accountNo">
-        <ion-thumbnail slot="start">
-          <ion-skeleton-text [animated]="true"></ion-skeleton-text>
-        </ion-thumbnail>
-        <ion-label>
-          <ion-skeleton-text [animated]="true" *ngFor="let i of [1,2,3,4]"></ion-skeleton-text>
-        </ion-label>
+        <ion-thumbnail slot="start"> <ion-skeleton-text [animated]="true"></ion-skeleton-text></ion-thumbnail>
+        <ion-label> <ion-skeleton-text [animated]="true" *ngFor="let i of [1,2,3,4]"></ion-skeleton-text> </ion-label>
       </ion-item>
       <ion-item color="primary" lines="none" button detail="false" (click)="selectFromAccount()" *ngIf="fromAccDetail.accountNo">
         <ion-thumbnail slot="start">
           <ion-img src="assets/imgs/logo.png"></ion-img>
         </ion-thumbnail>
         <ion-label>
-          <p>{{accType | translate}} {{'ACCOUNT' | translate}} - {{getCurrency(fromAccDetail.accountCCY)}}</p>
+          <p>{{accType | translate}} - {{getCurrency(fromAccDetail.accountCCY)}}</p>
           <h2>{{maskAcc(fromAccDetail.accountNo)}} </h2>
+          <ion-chip color="secondary" class="balance">
+            {{getCurrency(fromAccDetail.accountCCY)}} 
+            {{maskBalance(accountBalance)}}
+          </ion-chip>
         </ion-label>
         <ion-buttons slot="end">
           <ion-button>
@@ -31,18 +31,46 @@
       </ion-item>
     </ion-card>
   </ion-toolbar>
+  <ion-toolbar mode="md" class="custom-segment" color="primary">
+    <ion-segment [(ngModel)]="transferType" mode="ios">
+      <ion-segment-button value="OWN" class="ion-text-capitalize" [ngClass]="transferType==='OWN'?'active':''">{{'TO_OWN_ACC' | translate}}</ion-segment-button>
+      <ion-segment-button value="BIC" class="ion-text-capitalize" [ngClass]="transferType==='BIC'?'active':''">{{'TO_BIC_ACC' | translate}}</ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+  <ion-item lines="full">
+    <ion-label class="ion-text-center ion-text-wrap">{{transferType==='OWN'?('OWN_ACC_TRANSFER' | translate):'BIC_TO_BIC_TRANSFER' | translate}}</ion-label>
+  </ion-item>
 </ion-header>
 
-<ion-content>
+<ion-content mode="md">
   <form [formGroup]="ftForm">
+    <div class="form-field">
+      <div class="input-field" (click)="openOwnToAccount()">
+        <ion-input type="text" maxlength="30" formControlName="toAccount" fill="outline" readonly
+        label="{{'TO_ACC' | translate}}" labelPlacement="stacked" placeholder="{{'SELECT_UR_ACC' | translate}}">
+        <ion-icon name="chevron-down-outline" color="medium" class="dropdown-icon"></ion-icon>
+      </ion-input>
+      </div>
+    </div>
     <div class="form-field">
       <div class="input-field">
         <div class="custom-input-box">
-          <div class="material-textfield">
+          <div class="material-textfield" *ngIf="getCurrency(fromAccDetail.accountCCY)==='LAK'">
+            <input placeholder="0.00" type="tel" maxlength="15" lakCurrencyMask formControlName="txnAmount">
+            <label>{{'AMOUNT' | translate}}</label>
+          </div> 
+          <div class="material-textfield" *ngIf="getCurrency(fromAccDetail.accountCCY)!=='LAK'">
             <input placeholder="0.00" type="tel" maxlength="15" usdCurrencyMask formControlName="txnAmount">
             <label>{{'AMOUNT' | translate}}</label>
           </div> 
         </div>
+      </div>
+    </div>
+    
+    <div class="form-field">
+      <div class="input-field">
+        <ion-input type="text" maxlength="30" formControlName="remarks" fill="outline" 
+        label="{{'REMARKS' | translate}}" labelPlacement="floating" placeholder="{{'ENTER_REMARKS' | translate}}"></ion-input>
       </div>
     </div>
   </form>

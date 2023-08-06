@@ -246,7 +246,7 @@ ion-radio.ios::part(container) {
   box-shadow: none !important;
   border: 1px dotted var(--ion-color-secondary);
   margin: 10px !important;
-
+  border-radius: 10px;
   ion-img {
     background-color: #ddd;
     padding: 6px !important;
@@ -255,12 +255,18 @@ ion-radio.ios::part(container) {
 
   ion-label {
     p {
-      color: var(--ion-color-secondary) !important;
-      font-size: small;
+      // color: var(--ion-color-secondary) !important;
+      // font-size: small;
     }
 
     h2 {
       font-weight: bolder;
+    }
+    .balance{
+      color: #fff;
+      background-color: var(--ion-color-secondary);
+      border: 2px solid #fff;
+      font-weight: bold;
     }
   }
 }
@@ -325,4 +331,9 @@ ion-radio.ios::part(container) {
     transform: translateY(-50%) scale(0.9);
   }
 
+}
+.dropdown-icon{
+  position: absolute;
+  right: 16px !important;
+  top:20px !important;
 }
