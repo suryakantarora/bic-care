@@ -3,8 +3,6 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AlertService } from 'src/app/services/alert/alert.service';
 import { GlobalService } from 'src/app/services/global/global.service';
 import { RestService } from 'src/app/services/rest/rest.service';
-import { CurrencyMaskDirective } from "../../../services/directives/currency-mask.directive";
-import { AccountListPage } from 'src/app/shared/modals/account-list/account-list.page';
 import { SocialShareService } from 'src/app/services/social-share/social-share.service';
 import { Device } from '@capacitor/device';
 

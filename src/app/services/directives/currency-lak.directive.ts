@@ -2,9 +2,9 @@ import { Directive, HostListener } from "@angular/core";
 import { NgControl } from "@angular/forms";
 
 @Directive({
-  selector: "[formControlName][appCurrencyMask]"
+  selector: "[formControlName][lakCurrencyMask]"
 })
-export class CurrencyMaskDirective {
+export class CurrencyLakDirective {
   constructor(public ngControl: NgControl) {}
 
   @HostListener("ngModelChange", ["$event"])

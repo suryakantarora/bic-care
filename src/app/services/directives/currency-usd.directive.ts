@@ -3,13 +3,13 @@ import { NgControl, NgModel } from "@angular/forms";
 import { CurrencyPipe, DecimalPipe } from "@angular/common";
 
 @Directive({
-  selector: "[appCurrencyI18n]",
+  selector: "[usdCurrencyMask]",
   providers: [NgModel, CurrencyPipe, DecimalPipe],
   host: {
     "(blur)": "onInputChange($event)"
   }
 })
-export class CurrencyI18nDirective {
+export class CurrencyUsdDirective {
   constructor(
     private model: NgModel,
     private currencyPipe: CurrencyPipe,

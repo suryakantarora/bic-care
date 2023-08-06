@@ -9,4 +9,16 @@
 
 
 <ion-content>
+  <form [formGroup]="edlEnquiryForm">
+    <div class="form-field">
+      <div class="input-field">
+        <div class="custom-input-box">
+          <div class="material-textfield">
+            <input placeholder="0.00" type="tel" lakCurrencyMask formControlName="txnAmount">
+            <label>{{'AMOUNT' | translate}}</label>
+          </div> 
+        </div>
+      </div>
+    </div>
+  </form>
 </ion-content>

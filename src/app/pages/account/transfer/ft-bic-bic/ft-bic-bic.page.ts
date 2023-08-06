@@ -16,6 +16,7 @@ export class FtBicBicPage implements OnInit {
   selectedCurrency: any;
   ftForm:FormGroup = new FormGroup({
     fromAccount: new FormControl(''),
+    txnAmount: new FormControl('')
   });
   accountBalance: number;
   constructor(
