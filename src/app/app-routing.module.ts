@@ -209,6 +209,10 @@ const routes: Routes = [
     path: 'acc-statement',
     loadChildren: () => import('./pages/account/acc-statement/acc-statement.module').then( m => m.AccStatementPageModule)
   },
+  {
+    path: 'province-list',
+    loadChildren: () => import('./shared/modals/province-list/province-list.module').then( m => m.ProvinceListPageModule)
+  },
 
 ];
 

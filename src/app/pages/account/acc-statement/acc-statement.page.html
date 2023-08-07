@@ -8,7 +8,7 @@
   <div class="bgBox"></div>
   <div class="innerBox">
     <ion-card class="card-bg">
-      <ion-item lines="full" button detail="false">
+      <ion-item lines="full" button detail="false" (click)="selectAccountNumber()">
         <ion-label class="header-text">
           <p>{{'ACC_NUM' | translate}}</p>
           <h2>{{maskAccount(selectedAccount.accountNo)}}</h2>
@@ -18,10 +18,10 @@
       <ion-item lines="none">
         <ion-label class="header-text">
           <p>{{'AVAILABLE_BAL' | translate}}</p>
-          <h2>{{getTxnCurrency(selectedAccount.accountCurrency)}} {{formatAmount(selectedAccount.accountBalance)}}</h2>
+          <h2>{{getTxnCurrency(selectedAccount.accountCCY)}} {{formatAmount(selectedAccount.accountBalance)}}</h2>
         </ion-label>
         <ion-buttons slot="end">
-          <ion-button>
+          <ion-button (click)="getLinkedAccountNum()">
             <ion-icon name="refresh-outline" color="primary" slot="icon-only"></ion-icon>
           </ion-button>
         </ion-buttons>
@@ -49,17 +49,17 @@
       </ion-buttons>
     </ion-item>
   </div>
-  <div *ngIf="!accStatments || accStatments.length<=0">
+  <div *ngIf="!accStatments || accStatments.length>=0">
     <ion-item lines="full" *ngFor="let stmt of accStatments">
-      <ion-avatar slot="start" [ngClass]="stmt.txnType === 'debit'?'debit-text-avatar':'credit-text-avatar'">
-        <ion-icon [name]="stmt.txnType === 'debit'?'cloud-upload':'cloud-download'" [color]="stmt.txnType === 'debit'?'danger':'secondary'"></ion-icon>
+      <ion-avatar slot="start">
+        <ion-img [src]="stmt.txnType === 'debit'?'assets/imgs/debit.png':'assets/imgs/credit.png'"></ion-img>
       </ion-avatar>
-      <ion-label>
-        <p>{{stmt.date}}</p>
-        <h2 text-wrap class="stmt-desc">{{stmt.description}}</h2>
+      <ion-label class="ion-text-wrap">
+        <p class="txn-date">{{stmt.date}}</p>
+        <h2 class="stmt-desc">{{stmt.description}}</h2>
       </ion-label>
-      <ion-label slot="end">
-        <span [ngClass]="stmt.txnType === 'debit'?'dr':'cr'">{{getTxnCurrency(selectedAccount.accountCurrency)}}</span><br>
+      <ion-label slot="end" class="ion-text-end"> 
+        <span [ngClass]="stmt.txnType === 'debit'?'dr':'cr'">{{getTxnCurrency(selectedAccount.accountCCY)}}</span><br>
         <span [ngClass]="stmt.txnType === 'debit'?'dr':'cr'" class="stmt-amount">
               {{formatNumber(stmt.amount)}}</span>
       </ion-label>

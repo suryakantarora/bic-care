@@ -10,7 +10,7 @@ import { RestService } from 'src/app/services/rest/rest.service';
 })
 export class AccStatementPage implements OnInit {
   selectedAccount:any={};
-  accStatments:any=[];
+  accStatments:any= [];
   accList:any=[];
   constructor(
     private global: GlobalService,
@@ -19,9 +19,6 @@ export class AccStatementPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.selectedAccount.accountCurrency='418';
-    this.selectedAccount.accountBalance='1000000,88';
-    this.selectedAccount.accountNo='123456789123456789';
     this.getLinkedAccountNum();
   }
   getTxnCurrency(accountCurrency:string) {
@@ -43,7 +40,6 @@ export class AccStatementPage implements OnInit {
         this.global.getDefaultAccNumber(this.accList).then(res => {
           this.selectedAccount = res;
           this.getAccountBalance(res.accountNo);
-          this.fetchAccStatement(res.accountNo);
         });
       } else {
         this.alertService.showAlert('ALERT', 'FAILED_LINKED_ACC');
@@ -53,12 +49,12 @@ export class AccStatementPage implements OnInit {
     });
   }
   getAccountBalance(accNum: any) {
+    this.fetchAccStatement(accNum);
 		this.selectedAccount.accountBalance = 0;
     this.rest.getAccountBalance(accNum).then(res => {
       if (res.RESP_STATUS == 'SUCCESS') {
         this.selectedAccount.accountBalance = res.BALANCE;
-      }
-      else {
+      } else {
         this.alertService.showAlert('ALERT', res.REASON || res.RESP_CODE);
       }
     }).catch(err=>{
@@ -80,9 +76,18 @@ export class AccStatementPage implements OnInit {
     });
   }
   formatNumber(amt:string) {
-    this.global.formatAmmount(amt);
+    return this.global.formatAmmount(amt);
   }
   goBack(){
     this.global.pop();
+  }
+  async selectAccountNumber() {
+    this.global.selectFromAccount(this.accList).then(res =>{
+      if(res) {
+        this.selectedAccount= res;
+        this.getAccountBalance(res.accountNo);
+      }
+    });
+
   }
 }

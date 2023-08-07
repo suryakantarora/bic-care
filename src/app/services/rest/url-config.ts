@@ -27,6 +27,7 @@ export const suburl = {
     VERIFY_CREDENTIALS: 'verifyCredentials',
     LINKED_ACCOUNT_LIST: 'getLinkedAccounts',
     ACCOUNT_DETAILS: 'accountDetails',
-    BALANCE_ENQUIRY:"balanceEnquiry"
-
+    BALANCE_ENQUIRY:"balanceEnquiry",
+    MINI_STATEMENT:"ministatement",
+    PROVINCE_LIST:'edl/list'
 }

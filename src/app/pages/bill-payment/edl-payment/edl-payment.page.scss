@@ -1,0 +1,24 @@
+.img-banner{
+    width:90%;
+    margin:auto;
+    // margin:10px;
+    border-radius: 10px;
+    border:1px solid var(--ion-color-secondary);
+}
+.bg{
+    --background: linear-gradient(var(--ion-color-primary) 40%, var(--ion-color-light) 40%);
+}
+.card-bg{
+    background-color: #fff;
+}
+.counter-list-box{
+    width:200px;
+    margin:auto;
+    text-align: center;
+    // background-color: #fff;
+    border-radius: 20px;
+    ion-icon {
+        font-size: larger;
+        margin-top: 5px;
+    }
+}

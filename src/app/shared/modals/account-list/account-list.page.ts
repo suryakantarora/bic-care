@@ -9,11 +9,13 @@ import { GlobalService } from 'src/app/services/global/global.service';
 })
 export class AccountListPage implements OnInit {
   accList:any=[];
+  disabledAcc: any;
   constructor(
     private navParams: NavParams,
     private global:GlobalService
   ) { 
     this.accList=this.navParams.data;
+    this.disabledAcc=this.navParams.get('disabledAcc') || '';
   }
 
   ngOnInit() {

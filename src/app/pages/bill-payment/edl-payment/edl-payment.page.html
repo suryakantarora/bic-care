@@ -5,39 +5,56 @@
     </ion-buttons>
     <ion-title>{{'ELECTRICITY_BILL' | translate}}</ion-title>
   </ion-toolbar>
-  <ion-toolbar color="primary">
-    <img src="assets/imgs/banners/electricity.png" style="width:100%"> 
-  </ion-toolbar>
+  <!-- <ion-toolbar color="primary" class="ion-text-center">
+    <img src="assets/imgs/banners/electricity.png" class="img-banner"> 
+  </ion-toolbar> -->
 </ion-header>
 
 
-<ion-content mode="md">
-  <form [formGroup]="edlEnquiryForm">
-    <div class="form-field">
-      <div class="input-field">
-        <ion-input fill="outline" readonly label="{{'PROVINCE' | translate}}" (click)="showProvince()"
-        labelPlacement="stacked" placeholder="{{'SELECT_PROVINCE' | translate}}" formControlName="province">
-          <ion-buttons slot="end" class="dropdown-icon-btn">
-            <ion-button>
-              <ion-icon name="chevron-down"></ion-icon>
-            </ion-button>
-          </ion-buttons>
-        </ion-input>
+<ion-content mode="md" class="bg">
+  <ion-card class="card-bg">
+    <img src="assets/imgs/banners/electricity.png">
+    <ion-item-divider mode="md" color="secondary">
+      <div class="counter-list-box">
+        <ion-icon [name]="pageStatus>=1?'radio-button-on':'radio-button-off'" color="light"></ion-icon> &nbsp;
+        <ion-icon [name]="pageStatus>=2?'radio-button-on':'radio-button-off'" color="light"></ion-icon> &nbsp;
+        <ion-icon [name]="pageStatus>=3?'radio-button-on':'radio-button-off'" color="light"></ion-icon>
       </div>
-    </div>
-    <div class="form-field">
-      <div class="input-field">
-        <ion-input fill="outline" label="{{'ACCOUNT_NO' | translate}}"
-        labelPlacement="stacked" placeholder="{{'ACC_NUM' | translate}}" formControlName="province">
-          <ion-buttons slot="end" class="dropdown-icon-btn">
-            <ion-button (click)="searchBillNumber()">
-              <ion-icon name="search"></ion-icon>
-            </ion-button>
-          </ion-buttons>
-        </ion-input>
+    </ion-item-divider>
+    <form [formGroup]="edlEnquiryForm">
+      <div class="form-field">
+        <div class="input-field">
+          <ion-input fill="outline" readonly label="{{'PROVINCE' | translate}}" (click)="openProvinceList()"
+            labelPlacement="stacked" placeholder="{{'SELECT_PROVINCE' | translate}}" formControlName="province">
+            <ion-buttons slot="end" class="dropdown-icon-btn">
+              <ion-button>
+                <ion-icon name="chevron-down"></ion-icon>
+              </ion-button>
+            </ion-buttons>
+          </ion-input>
+        </div>
       </div>
-    </div>
-  </form>
+      <div class="form-field">
+        <div class="input-field">
+          <ion-input fill="outline" label="{{'ACCOUNT_NO' | translate}}" labelPlacement="stacked"
+            placeholder="{{'ACC_NUM' | translate}}" formControlName="province">
+            <!-- <ion-buttons slot="end" class="dropdown-icon-btn">
+              <ion-button (click)="searchBillNumber()">
+                <ion-icon name="search"></ion-icon>
+              </ion-button>
+            </ion-buttons> -->
+          </ion-input>
+        </div>
+      </div>
+      <br>
+      <div class="form-field">
+        <ion-button mode="md" expand="block" class="custom-btn">
+          <ion-icon name="search"></ion-icon> &nbsp;
+          {{'SEARCH' | translate}}</ion-button>
+      </div>
+      <br>
+    </form>
+  </ion-card>
 
 
   <!-- <div class="form-field">
@@ -50,4 +67,5 @@
       </div>
     </div>
   </div> -->
+  
 </ion-content>

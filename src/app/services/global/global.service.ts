@@ -51,11 +51,11 @@ export class GlobalService {
       return 'FIXED_ACC';
     }
   }
-  async selectFromAccount(accList: any) {
+  async selectFromAccount(accList: any, disabledAcc:string='') {
     const modal = await this.modalCtrl.create({
       component: AccountListPage,
       cssClass: 'action-sheet-modal',
-      componentProps: { accList },
+      componentProps: { accList:accList, disabledAcc:disabledAcc },
       initialBreakpoint: 0.5,
       breakpoints: [0.4, 0.5, 0.6, 0.7, 0.8, 0.9],
       backdropBreakpoint: 0.3
