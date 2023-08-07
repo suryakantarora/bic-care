@@ -38,6 +38,9 @@ export class RestService {
   public setDeviceDetail(data: any) {
     this.deviceDetail = data;
   }
+  getTermsAndCondition() {
+    return suburl.TNC_URL;
+  }
   async closeLoader() {
     try {
       this.popoverCtrl.dismiss().catch(err => {
@@ -45,6 +48,7 @@ export class RestService {
       });
     } catch (err) {
       console.log('Loading Already closed');
+      console.log(err);
     }
   }
   // Capacitor http request starts here.
@@ -351,6 +355,23 @@ export class RestService {
     const loading = await this.loading();
     const postData:any = {
       defacc: accNum,
+      TOKEN:this.authToken
+    };
+    const options = {
+      url: this.baseUrl + suburl.BALANCE_ENQUIRY,
+      headers: { 'Content-Type': 'application/json' },
+      data: postData
+    };
+    console.log("Request Data: " + JSON.stringify(options));
+    const response: HttpResponse = await CapacitorHttp.post(options);
+    console.log("Response Data: " + JSON.stringify(response.data));
+    loading.dismiss();
+    return response?.data;
+  }
+  async fetchMiniStatement(accNum: string) {
+    const loading = await this.loading();
+    const postData:any = {
+      accountNO: accNum,
       TOKEN:this.authToken
     };
     const options = {

@@ -1,0 +1,34 @@
+ion-header{
+    background-color: var(--ion-color-light);
+}
+.bgBox {
+    height: 120px;
+    width: 100%;
+    background-color: var(--ion-color-primary);
+    border-radius: 0 0 100% 100%;
+}
+.innerMostBox {
+    margin-top: 35px;
+    height: 120px;
+    width: 100%;
+    background-color: var(--ion-color-primary);
+    border-radius: 100% 100% 0 0;
+}
+.innerBox {
+    margin-top: -120px;
+}
+.header-text {
+    p {
+        color: var(--ion-color-secondary);
+    }
+    h2 {
+        font-weight: bold;
+        font-size: larger;
+        color: var(--ion-color-primary);
+    }
+}
+.accNo {
+    font-weight: bold;
+    font-size: 1.1em;
+    color: var(--ion-color-primary);
+}

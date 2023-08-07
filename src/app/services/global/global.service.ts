@@ -65,15 +65,7 @@ export class GlobalService {
     console.log(JSON.stringify(data));
     return data;
   }
-  async getDefaultAccNumber(accList: any) {
-    let accDetail: any = {};
-    await accList.forEach((acc: any) => {
-      if (acc.accountState === 'P') {
-        accDetail = acc;
-      }
-    });
-    return accDetail;
-  }
+ 
   setRoot(page: string) {
     this.ngZone.run(() => {
       this.navCtrl.navigateRoot(['/' + page]).catch(err => {
@@ -295,7 +287,15 @@ export class GlobalService {
     console.log('primaryAcc: ' + JSON.stringify(primaryAcc));
     return primaryAcc;
   }
-
+  async getDefaultAccNumber(accList: any) {
+    let accDetail: any = {};
+    await accList.forEach((acc: any) => {
+      if (acc.accountState === 'P') {
+        accDetail = acc;
+      }
+    });
+    return accDetail;
+  }
   getProfilePic() {
     let res = '';
     this.storage.get('profilePic').then(res => {

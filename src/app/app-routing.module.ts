@@ -205,6 +205,10 @@ const routes: Routes = [
     path: 'bill-payment',
     loadChildren: () => import('./pages/bill-payment/bill-payment.module').then( m => m.BillPaymentPageModule)
   },
+  {
+    path: 'acc-statement',
+    loadChildren: () => import('./pages/account/acc-statement/acc-statement.module').then( m => m.AccStatementPageModule)
+  },
 
 ];
 

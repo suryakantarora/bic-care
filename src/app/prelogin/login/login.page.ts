@@ -10,7 +10,7 @@ import { RestService } from 'src/app/services/rest/rest.service';
 import { BiometryType, NativeBiometric } from "capacitor-native-biometric";
 import { Browser, OpenOptions } from '@capacitor/browser';
 import { Device } from '@capacitor/device';
-import { SmsRetriever } from '@awesome-cordova-plugins/sms-retriever';
+// import { SmsRetriever } from '@awesome-cordova-plugins/sms-retriever';
 // import { IonicSlides } from '@ionic/angular';
 @Component({
   selector: 'app-login',
@@ -42,12 +42,6 @@ export class LoginPage implements OnInit {
   }
   testSms() {
     console.log('Test SMS');
-    SmsRetriever.getAppHash()
-      .then((res: any) => console.log(res))
-      .catch((error: any) => console.error(error));
-    SmsRetriever.startWatching()
-      .then((res: any) => console.log(res))
-      .catch((error: any) => console.error(error));
   }
   cancelModal() {
     this.modal.dismiss()
@@ -62,7 +56,7 @@ export class LoginPage implements OnInit {
   }
   openTnC = async () => {
     const option: OpenOptions = {
-      url: 'https://biclaos.com/policy/T&C.html',
+      url: this.rest.getTermsAndCondition(), // 'https://biclaos.com/policy/T&C.html',
       presentationStyle: 'fullscreen'
     }
     await Browser.open(option);

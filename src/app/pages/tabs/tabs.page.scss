@@ -1,3 +1,8 @@
 .tab-icon{
     height:30px !important;
 }
+.tab-selected{
+    background: var(--ion-color-mediulightm) !important;
+    color: var(--ion-color-primary) !important;
+    font-weight: bold;
+  }

@@ -3,22 +3,51 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title>{{'EDL_BILL_PAY' | translate}}</ion-title>
+    <ion-title>{{'ELECTRICITY_BILL' | translate}}</ion-title>
+  </ion-toolbar>
+  <ion-toolbar color="primary">
+    <img src="assets/imgs/banners/electricity.png" style="width:100%"> 
   </ion-toolbar>
 </ion-header>
 
 
-<ion-content>
+<ion-content mode="md">
   <form [formGroup]="edlEnquiryForm">
     <div class="form-field">
       <div class="input-field">
-        <div class="custom-input-box">
-          <div class="material-textfield">
-            <input placeholder="0.00" type="tel" lakCurrencyMask formControlName="txnAmount">
-            <label>{{'AMOUNT' | translate}}</label>
-          </div> 
-        </div>
+        <ion-input fill="outline" readonly label="{{'PROVINCE' | translate}}" (click)="showProvince()"
+        labelPlacement="stacked" placeholder="{{'SELECT_PROVINCE' | translate}}" formControlName="province">
+          <ion-buttons slot="end" class="dropdown-icon-btn">
+            <ion-button>
+              <ion-icon name="chevron-down"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </ion-input>
+      </div>
+    </div>
+    <div class="form-field">
+      <div class="input-field">
+        <ion-input fill="outline" label="{{'ACCOUNT_NO' | translate}}"
+        labelPlacement="stacked" placeholder="{{'ACC_NUM' | translate}}" formControlName="province">
+          <ion-buttons slot="end" class="dropdown-icon-btn">
+            <ion-button (click)="searchBillNumber()">
+              <ion-icon name="search"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </ion-input>
       </div>
     </div>
   </form>
+
+
+  <!-- <div class="form-field">
+    <div class="input-field">
+      <div class="custom-input-box">
+        <div class="material-textfield">
+          <input placeholder="0.00" type="tel" lakCurrencyMask formControlName="txnAmount">
+          <label>{{'AMOUNT' | translate}}</label>
+        </div> 
+      </div>
+    </div>
+  </div> -->
 </ion-content>
