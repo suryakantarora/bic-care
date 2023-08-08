@@ -14,9 +14,9 @@ import { VerifyOtpPage } from 'src/app/shared/modals/verify-otp/verify-otp.page'
 })
 export class LinkCardPage implements OnInit {
   cardNumber: any;
-  validity: string='MM/DD';
+  validity: string = 'MM/DD';
   cvv: string;
-  cardHolderName: string='Card Holder Name';
+  cardHolderName: string = 'Card Holder Name';
   readonly cardMask: MaskitoOptions = {
     mask: [
       ...Array(4).fill(/\d/),
@@ -30,16 +30,16 @@ export class LinkCardPage implements OnInit {
   };
 
   readonly maskPredicate: MaskitoElementPredicateAsync = async (el) => (el as HTMLIonInputElement).getInputElement();
-  cardDetails: any={};
+  cardDetails: any = {};
   otp: any;
-  otpReference:string='123';
+  otpReference: string = '123';
   deviceId: any;
   constructor(
     private alertService: AlertService,
     private rest: RestService,
     private global: GlobalService
   ) { }
- 
+
   ngOnInit() {
     // this.showOtpScreen();
     this.getDeviceId();
@@ -57,22 +57,22 @@ export class LinkCardPage implements OnInit {
   }
   validateCard() {
     const cardNum = this.cardNumber.replaceAll(' ', '');
-    if(!this.cardNumber) {
+    if (!this.cardNumber) {
       this.alertService.showToast('EMPTY_CARDNUM');
       return;
-    } else if (cardNum.length<16) {
+    } else if (cardNum.length < 16) {
       this.alertService.showToast('CARD_NUM_ERROR_MSG');
       return;
     }
     console.log(cardNum);
     const postData = {
-      cardNo:cardNum
+      cardNo: cardNum
     };
-    this.rest.verifyCredentials(postData).then((res=> {
+    this.rest.verifyCredentials(postData).then((res => {
       if (res.RESP_CODE === 'MPAY1019') {
         this.global.timeout();
-      } else if (res.RESP_STATUS == 'SUCCESS' && res.otpStatus==='S') {
-        this.cardDetails=res;
+      } else if (res.RESP_STATUS == 'SUCCESS' && res.otpStatus === 'S') {
+        this.cardDetails = res;
         this.showOtpScreen();
       } else {
         this.alertService.showAlert('ALERT', res.REASON || res.RESP_CODE);
@@ -83,9 +83,9 @@ export class LinkCardPage implements OnInit {
   }
   async showOtpScreen() {
     console.log('Opening OTP Page');
-    const modal=await this.global.modalCtrl.create({
+    const modal = await this.global.modalCtrl.create({
       component: VerifyOtpPage,
-      componentProps: {otpReference: this.otpReference},
+      componentProps: { otpReference: this.otpReference },
       cssClass: 'action-sheet-modal',
       backdropDismiss: false,
       backdropBreakpoint: 0.1,
@@ -97,11 +97,11 @@ export class LinkCardPage implements OnInit {
     await modal.present();
     const { data } = await modal.onDidDismiss();
     console.log('OTP: ' + data);
-    this.otp=data;
-    if(data) this.validateOtp(data, this.cardDetails);
-    
+    this.otp = data;
+    if (data) this.validateOtp(data, this.cardDetails);
+
   }
-  validateOtp(otp:string, cardDetails:any) {
+  validateOtp(otp: string, cardDetails: any) {
     const postData = {
       otpRefId: cardDetails.otpRefId,
       custName: cardDetails.custName,
@@ -114,18 +114,17 @@ export class LinkCardPage implements OnInit {
       otp: otp,
       deviceId: this.deviceId
     };
-    this.rest.verifyOtp(postData).then(res=> {
+    this.rest.verifyOtp(postData).then(res => {
       if (res.RESP_CODE === 'MPAY1019') {
         this.global.timeout();
-      } else if (res.RESP_STATUS == 'SUCCESS' && res.otpStatus==='V') {
-        this.alertService.showSuccessAlert('ALERT', 'CARD_LINKED_SUCCESS');
-        this.global.timeout();
+      } else if (res.RESP_STATUS == 'SUCCESS' && res.otpStatus !== 'F') {
+        this.global.modalCtrl.dismiss(true);
       } else {
         this.alertService.showAlert('ALERT', res.REASON || res.RESP_CODE);
       }
-    }).catch(err=> {
+    }).catch(err => {
       this.rest.closeLoader();
     });
-  } 
+  }
 
 }

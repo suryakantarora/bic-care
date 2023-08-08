@@ -29,5 +29,7 @@ export const suburl = {
     ACCOUNT_DETAILS: 'accountDetails',
     BALANCE_ENQUIRY:"balanceEnquiry",
     MINI_STATEMENT:"ministatement",
-    PROVINCE_LIST:'edl/list'
+    PROVINCE_LIST:'edl/list',
+    OTP_GENERATE:'otp/generate',
+    TRANSFER: 'transfer'
 }

@@ -217,6 +217,10 @@ const routes: Routes = [
     path: 'confirm-transfer',
     loadChildren: () => import('./pages/account/transfer/confirm-transfer/confirm-transfer.module').then( m => m.ConfirmTransferPageModule)
   },
+  {
+    path: 'txn-result',
+    loadChildren: () => import('./pages/account/transfer/txn-result/txn-result.module').then( m => m.TxnResultPageModule)
+  },
 
 ];
 

@@ -4,6 +4,8 @@ import { AlertService } from 'src/app/services/alert/alert.service';
 import { GlobalService } from 'src/app/services/global/global.service';
 import { RestService } from 'src/app/services/rest/rest.service';
 import { ConfirmTransferPage } from '../../confirm-transfer/confirm-transfer.page';
+import { VerifyOtpPage } from 'src/app/shared/modals/verify-otp/verify-otp.page';
+import { TxnResultPage } from '../../txn-result/txn-result.page';
 
 @Component({
   selector: 'app-own-acc-transfer',
@@ -25,13 +27,16 @@ export class OwnAccTransferComponent  implements OnInit {
     remarks: new FormControl(''),
   });
   feeAmount: any;
+  otpReference: any;
   constructor(
     private global: GlobalService,
     private alertService: AlertService,
     private rest: RestService
   ) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.test();
+  }
   get accType() {
     return this.global.getAccType(this.fromAccDetail.accountType);
   }
@@ -117,12 +122,12 @@ export class OwnAccTransferComponent  implements OnInit {
 			curCode: fromCurrency,
 			txnCurrency: fromCurrency,   // can be changed based on which currency exchange rate is to be applied
 			toAccount: this.ftForm.controls['toAccount'].value,
-			toCurCode: 'LAK', // toCurrency,
-			nickName: 'Surya', //this.ftForm.controls['toAccountHolder'].value,
+			toCurCode: toCurrency,
+			nickName: this.ftForm.controls['toAccountHolder'].value,
 			amount: formattedAmount,
 			remarks: this.ftForm.controls['remarks'].value,
 			accType: this.accTypeCode,
-			feeAmount: this.feeAmount || '1000',
+			feeAmount: this.feeAmount || '0',
 			exchangeRate: this.exchangeRate || 1,
 			transferType: 'own',
 			mode: "M",
@@ -148,11 +153,100 @@ export class OwnAccTransferComponent  implements OnInit {
     await modal.present();
     const {data} = await modal.onDidDismiss();
     if(data==='Y') {
+      this.showOtpScreen(cnfData);
+    }
+  }
+  generateOtp(cnfData:any) {
+    // FTR = Fund transfer, ABF = Add bnf, DBF = Delete BNF
+    this.rest.generateOtpForTransfer('FTR').then(res=>{
+      if (res.RESP_CODE === 'MPAY1019') {
+        this.global.timeout()
+      } else if (res.RESP_STATUS == 'SUCCESS') {
+        this.otpReference=res.otpRefId;
+        this.showOtpScreen(cnfData);
+      } else {
+        this.alertService.showAlert('ALERT', res.REASON || res.RESP_CODE);
+      }
+    }).catch(() =>{
+      this.rest.closeLoader();
+    })
+  }
+  async showOtpScreen(cnfData:any) {
+    console.log('Opening OTP Page');
+    const modal=await this.global.modalCtrl.create({
+      component: VerifyOtpPage,
+      componentProps: {otpReference: this.otpReference},
+      cssClass: 'action-sheet-modal',
+      backdropDismiss: false,
+      backdropBreakpoint: 0.1,
+      showBackdrop: true,
+      breakpoints: [0.5],
+      initialBreakpoint: 0.4,
+      handle: false
+    });
+    await modal.present();
+    const { data } = await modal.onDidDismiss();
+    console.log('OTP: ' + data);
+    if(data){
       this.initFundTransfer(cnfData);
     }
   }
   async initFundTransfer(cnfData:any) {
-
+    this.rest.fundTransfer(cnfData).then(resp=> {
+      if (resp.RESP_CODE === 'MPAY1019') {
+        this.global.timeout();
+      } else if (resp.RESP_STATUS === 'SUCCESS' && resp.txnStatus == '00') {
+        this.displayTxnResult('S', cnfData, resp);
+      } else if (resp.txnStatus !== '00') {
+        if (resp.RESP_CODE === 'MPAY1051' || resp.RESP_CODE === 'MPAY1034' || resp.RESP_CODE === 'MPAY1047') {
+          this.alertService.showAlert('ALERT', resp.REASON || resp.RESP_CODE);
+          this.alertService.showAlert('INSUFFICIENT_BALANCE','ALERT_MSG_BALANCE');
+        } else {
+          this.displayTxnResult('F', cnfData, resp);
+        }
+      } else {
+        this.alertService.showAlert('ALERT', resp.REASON || resp.RESP_CODE);
+      }
+    }).catch(()=>{
+      this.rest.closeLoader();
+    });
+  }
+  test() {
+    const data = {
+      fromAccount: '65186258e6152633',
+			curCode: '418',
+			txnCurrency: '418',   // can be changed based on which currency exchange rate is to be applied
+			toAccount: '95697859779679687',
+			toCurCode: '418',
+			nickName: 'Suryakant Kumar',
+			amount: '10000',
+			remarks: 'Test Remarks',
+			accType: '10',
+			feeAmount: '1000',
+			exchangeRate: 1,
+			transferType: 'own',
+			mode: "M",
+			bankId: "BIC",
+			beneficiaryType: 'own',
+			fromAccountName: 'Self',
+			benfType: 'own'
+    };
+    const resp={
+      TXN_ID: 'TXNID6556769786798689678'
+    }
+    this.displayTxnResult('S', data, resp)
+  }
+  async displayTxnResult(status:string, txnData:any, resp:any) {
+    txnData.txnId= resp.TXN_ID;
+    txnData.txnStatus=status;
+    txnData.txnDate= new Date().toISOString();
+    const result = await this.global.modalCtrl.create({
+      component: TxnResultPage,
+      componentProps: {txnData},
+      animated: true
+    });
+    await result.present();
+    const {data} = await result.onDidDismiss();
   }
   get formStatus() {
     if(this.ftForm.valid) {
