@@ -1,4 +1,4 @@
-<ion-header mode="md">
+<ion-header mode="md" class="ion-no-border">
   <ion-toolbar color="primary">
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
@@ -37,108 +37,18 @@
       <ion-segment-button value="BIC" class="ion-text-capitalize" [ngClass]="transferType==='BIC'?'active':''">{{'TO_BIC_ACC' | translate}}</ion-segment-button>
     </ion-segment>
   </ion-toolbar>
-  <ion-item lines="full">
+  <ion-item-divider lines="full" mode="md" color="light">
     <ion-label class="ion-text-center ion-text-wrap">{{transferType==='OWN'?('OWN_ACC_TRANSFER' | translate):'BIC_TO_BIC_TRANSFER' | translate}}</ion-label>
-  </ion-item>
+  </ion-item-divider>
 </ion-header>
 
 <ion-content mode="md" class="ion-padding-top">
   <div [ngSwitch]="transferType">
     <div *ngSwitchCase="'OWN'">
-      <form [formGroup]="ftForm">
-        <div class="form-field">
-          <div class="input-field" (click)="openOwnToAccount()">
-            <ion-input type="text" maxlength="30" formControlName="toAccount" fill="outline" readonly
-            label="{{'TO_ACC' | translate}}" labelPlacement="stacked" placeholder="{{'SELECT_UR_ACC' | translate}}">
-            <ion-icon name="chevron-down-outline" color="medium" class="dropdown-icon"></ion-icon>
-          </ion-input>
-          </div>
-        </div>
-        <div class="form-field">
-          <div class="input-field">
-            <div class="custom-input-box">
-              <div class="material-textfield" *ngIf="getCurrency(fromAccDetail.accountCCY)==='LAK'">
-                <input placeholder="0.00" type="tel" maxlength="15" lakCurrencyMask formControlName="txnAmount">
-                <label>{{'AMOUNT' | translate}} - {{getCurrency(fromAccDetail.accountCCY)}}</label>
-              </div> 
-              <div class="material-textfield" *ngIf="getCurrency(fromAccDetail.accountCCY)!=='LAK'">
-                <input placeholder="0.00" type="tel" maxlength="15" usdCurrencyMask formControlName="txnAmount">
-                <label>{{'AMOUNT' | translate}} - {{getCurrency(fromAccDetail.accountCCY)}}</label>
-              </div> 
-            </div>
-          </div>
-        </div>
-        
-        <div class="form-field">
-          <div class="input-field">
-            <ion-input type="text" maxlength="30" formControlName="remarks" fill="outline" 
-            label="{{'REMARKS' | translate}}" labelPlacement="floating" placeholder="{{'ENTER_REMARKS' | translate}}"></ion-input>
-          </div>
-        </div>
-      </form>
+      <app-own-acc-transfer [fromAccDetail]="fromAccDetail" [accList]="accList" [exchangeRate]="exchangeRate"></app-own-acc-transfer>        
     </div>
     <div *ngSwitchCase="'BIC'">
-      <form [formGroup]="ftForm">
-
-        <div class="form-field">
-          <div class="input-field">
-            <ion-select formControlName="benefType" fill="outline" readonly
-            label="{{'BENEF_TYPE' | translate}}" labelPlacement="stacked" placeholder="{{'SELECT_BENEF' | translate}}">
-            <ion-select-option value="N">{{'NEW' | translate}}</ion-select-option>
-            <ion-select-option value="E">{{'EXISTING' | translate}}</ion-select-option>
-          </ion-select>
-          </div>
-        </div>
-        <div class="form-field" *ngIf="ftForm.controls['benefType'].value==='N'">
-          <div class="input-field">
-            <ion-input type="tel" maxlength="20" formControlName="toAccount" fill="outline" 
-            label="{{'TO_ACC' | translate}}" labelPlacement="floating" placeholder="{{'ENTER_BENIF_ACC_NUM' | translate}}"></ion-input>
-          </div>
-        </div>
-        <div class="form-field" *ngIf="ftForm.controls['benefType'].value!=='N'">
-          <div class="input-field">
-            <ion-input type="tel" maxlength="20" formControlName="toAccount" fill="outline" readonly
-            label="{{'TO_ACC' | translate}}" labelPlacement="floating" placeholder="{{'SELECT_BENIF_ACC_NUM' | translate}}">
-            <ion-icon name="chevron-down-outline" color="medium" class="dropdown-icon"></ion-icon>
-          </ion-input>
-          </div>
-        </div>
-        <div class="form-field">
-          <div class="input-field">
-            <div class="custom-input-box">
-              <div class="material-textfield" *ngIf="getCurrency(fromAccDetail.accountCCY)==='LAK'">
-                <input placeholder="0.00" type="tel" maxlength="15" lakCurrencyMask formControlName="txnAmount">
-                <label>{{'AMOUNT' | translate}} - {{getCurrency(fromAccDetail.accountCCY)}}</label>
-              </div> 
-              <div class="material-textfield" *ngIf="getCurrency(fromAccDetail.accountCCY)!=='LAK'">
-                <input placeholder="0.00" type="tel" maxlength="15" usdCurrencyMask formControlName="txnAmount">
-                <label>{{'AMOUNT' | translate}} - {{getCurrency(fromAccDetail.accountCCY)}}</label>
-              </div> 
-            </div>
-          </div>
-        </div>
-        
-        <div class="form-field">
-          <div class="input-field">
-            <ion-input type="text" maxlength="30" formControlName="remarks" fill="outline" 
-            label="{{'REMARKS' | translate}}" labelPlacement="floating" placeholder="{{'ENTER_REMARKS' | translate}}"></ion-input>
-          </div>
-        </div>
-      </form>
+      <app-bic-acc-transfer [fromAccDetail]="fromAccDetail" [accList]="accList" [exchangeRate]="exchangeRate"></app-bic-acc-transfer>
     </div>
   </div>
 </ion-content>
-<ion-footer>
-  <ion-toolbar color="primary">
-    <div *ngIf="transferType==='OWN'">
-      <ion-button mode="ios" color="secondary" expand="block" (click)="checkCrossCurrencyForOwnAccTransfer()">
-        {{'TRANSFER' | translate}}
-      </ion-button>
-    </div>
-    <div *ngIf="transferType==='BIC'">
-      <ion-button mode="ios" color="secondary" expand="block" (click)="checkBenefType()">
-        {{'TRANSFER' | translate}}
-      </ion-button>
-    </div>
-  </ion-toolbar>
-</ion-footer>

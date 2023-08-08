@@ -213,6 +213,10 @@ const routes: Routes = [
     path: 'province-list',
     loadChildren: () => import('./shared/modals/province-list/province-list.module').then( m => m.ProvinceListPageModule)
   },
+  {
+    path: 'confirm-transfer',
+    loadChildren: () => import('./pages/account/transfer/confirm-transfer/confirm-transfer.module').then( m => m.ConfirmTransferPageModule)
+  },
 
 ];
 

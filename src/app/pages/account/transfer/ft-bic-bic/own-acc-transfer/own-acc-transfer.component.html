@@ -1,0 +1,50 @@
+<form [formGroup]="ftForm" (ngSubmit)="checkCrossCurrencyForOwnAccTransfer()">
+  <div class="form-field">
+    <div class="input-field" (click)="openOwnToAccount()">
+      <ion-input type="text" maxlength="30" formControlName="toAccount" fill="outline" readonly
+        label="{{'TO_ACC' | translate}}" labelPlacement="stacked" placeholder="{{'SELECT_UR_ACC' | translate}}">
+        <ion-icon name="chevron-down-outline" color="medium" class="dropdown-icon"></ion-icon>
+      </ion-input>
+    </div>
+  </div>
+  <div class="form-field">
+    <div class="input-field">
+      <div class="custom-input-box">
+        <div class="material-textfield" *ngIf="getCurrency(fromAccDetail.accountCCY)==='LAK'">
+          <input placeholder="0.00" type="tel" maxlength="15" lakCurrencyMask formControlName="txnAmount">
+          <label>{{'AMOUNT' | translate}} - {{getCurrency(fromAccDetail.accountCCY)}}</label>
+        </div>
+        <div class="material-textfield" *ngIf="getCurrency(fromAccDetail.accountCCY)!=='LAK'">
+          <input placeholder="0.00" type="tel" maxlength="15" usdCurrencyMask formControlName="txnAmount">
+          <label>{{'AMOUNT' | translate}} - {{getCurrency(fromAccDetail.accountCCY)}}</label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="getTextCurrency(fromAccDetail.accountCCY) !== 'LAK' && getTextCurrency(ftForm.controls['toCurrency'].value) === 'LAK'">
+    <ion-label class="ion-text-center">
+      <p> {{ 'EXCHANGE_RATE' | translate }} : {{getTextCurrency(fromAccDetail.accountCCY) }} 
+        1 = <span>LAK</span> {{formatNumber(exchangeRate)}}</p>
+    </ion-label>
+  </div>
+  <div class="form-field">
+    <div class="input-field">
+      <ion-input type="text" maxlength="30" formControlName="remarks" fill="outline" label="{{'REMARKS' | translate}}"
+        labelPlacement="floating" placeholder="{{'ENTER_REMARKS' | translate}}"></ion-input>
+    </div>
+  </div>
+  <div class="reset-proceed">
+    <ion-row>
+      <ion-col size="6">
+        <ion-button mode="ios" color="medium" expand="block" fill="outline" class="custom-btn" type="reset">
+          {{'RESET' | translate}}
+        </ion-button>
+      </ion-col>
+      <ion-col size="6">
+        <ion-button mode="ios" color="secondary" expand="block" class="custom-btn" type="submit">
+          {{'PROCEED' | translate}}
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </div>
+</form>

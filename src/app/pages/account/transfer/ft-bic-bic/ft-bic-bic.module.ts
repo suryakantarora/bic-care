@@ -9,6 +9,8 @@ import { FtBicBicPageRoutingModule } from './ft-bic-bic-routing.module';
 import { FtBicBicPage } from './ft-bic-bic.page';
 import { TranslateModule } from '@ngx-translate/core';
 import { SharedCurrencyModule } from 'src/app/shared/module/shared-currency.module';
+import { OwnAccTransferComponent } from './own-acc-transfer/own-acc-transfer.component';
+import { BicAccTransferComponent } from './bic-acc-transfer/bic-acc-transfer.component';
 
 @NgModule({
   imports: [
@@ -20,6 +22,6 @@ import { SharedCurrencyModule } from 'src/app/shared/module/shared-currency.modu
     TranslateModule,
     SharedCurrencyModule
   ],
-  declarations: [FtBicBicPage]
+  declarations: [FtBicBicPage, OwnAccTransferComponent, BicAccTransferComponent]
 })
 export class FtBicBicPageModule {}

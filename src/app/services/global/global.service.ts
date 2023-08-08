@@ -199,12 +199,16 @@ export class GlobalService {
       return currency;
     }
   }
-
+  formatNumber(num:string) {
+    var num_parts = num.toString().split(".");
+    num_parts[0] = num_parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    return num_parts.join(",");
+  }
 
   // Amount Masking code
   formatAmmount(num: any) {
     if(!num) return;
-    var num_parts = num.toString().split(".");
+    const num_parts = num.toString().split(".");
     num_parts[0] = num_parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     return num_parts.join(",");
   }
@@ -230,8 +234,6 @@ export class GlobalService {
   formatToNumeric(intNum: any, floatNum: any) {
     let data1 = Number(intNum.toString().replace(/[.]*/g, ''));
     let data2 = Number(floatNum);
-    // console.log('Int Num : '+data1);
-    // console.log('Float Num : '+data2);
     let amount = data1;
     if (data2 !== 0) {
       const countDigits = this.digits_count(data2);
@@ -241,8 +243,12 @@ export class GlobalService {
         amount = data1 + (data2 / 100);
       }
     }
-    // console.log('this.amount : '+amount)
     return amount;
+  }
+  formatUsdAmount(num:any) {
+    const num_parts = num.toString().split(",");
+    num_parts[0] = num_parts[0].replaceAll(".", "");
+    return num_parts.join(".");
   }
   digits_count(n: any) {
     var count = 0;
