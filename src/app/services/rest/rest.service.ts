@@ -10,7 +10,7 @@ import { PopoverController } from '@ionic/angular';
   providedIn: 'root'
 })
 export class RestService {
-  private qrCode:any;
+  private qrCode: any;
   authToken: any;
   private _data: any;
   private deviceDetail: any;
@@ -18,10 +18,10 @@ export class RestService {
   playStoreUrl = suburl.PLAY_STORE_URL;
   tcUrl = suburl.TNC_URL;
   baseUrl = environment.baseUrl;
-  userDetail:any={};
+  userDetail: any = {};
   constructor(private httpClient: HttpClient, private popoverCtrl: PopoverController) { }
-  public setQrCode(qrCode:any) {
-    this.qrCode=qrCode;
+  public setQrCode(qrCode: any) {
+    this.qrCode = qrCode;
   }
   public getQrCode() {
     return this.qrCode;
@@ -164,7 +164,7 @@ export class RestService {
     return response?.data;
   }
   async verifyOtp(postData: any) {
-    postData.TOKEN=this.authToken;
+    postData.TOKEN = this.authToken;
     const loading = await this.loading();
     const options = {
       url: this.baseUrl + suburl.VERIFY_OTP,
@@ -248,7 +248,7 @@ export class RestService {
 
   // Post Login Services, Need token in each Service
   async getUserInfo(postData: any) {
-    postData.TOKEN=this.authToken;
+    postData.TOKEN = this.authToken;
     const loading = await this.loading();
     const options = {
       url: this.baseUrl + suburl.USER_INFO,
@@ -263,8 +263,8 @@ export class RestService {
   }
 
   async walletInfo(postData: any) {
-    postData.TOKEN=this.authToken;
-    postData.SUBURL= suburl.WALLET_INFO;
+    postData.TOKEN = this.authToken;
+    postData.SUBURL = suburl.WALLET_INFO;
     // const loading = await this.loading();
     const options = {
       url: this.baseUrl + suburl.POST_SERVICE_WITH_DATA,
@@ -278,8 +278,8 @@ export class RestService {
     return response?.data;
   }
   async generateQr(postData: any) {
-    postData.TOKEN=this.authToken;
-    postData.SUBURL= suburl.GENERATE_QR;
+    postData.TOKEN = this.authToken;
+    postData.SUBURL = suburl.GENERATE_QR;
     // const loading = await this.loading();
     const options = {
       url: this.baseUrl + suburl.POST_SERVICE_WITH_DATA,
@@ -294,8 +294,8 @@ export class RestService {
   }
 
   async ekycRegister(postData: any) {
-    postData.SESSIONID=this.authToken;
-    postData.SUBURL= suburl.EKYC_REGISTER;
+    postData.SESSIONID = this.authToken;
+    postData.SUBURL = suburl.EKYC_REGISTER;
     const options = {
       url: this.baseUrl + suburl.ULOAD_EKYC_DOC,
       headers: { 'Content-Type': 'application/json' },
@@ -308,8 +308,8 @@ export class RestService {
   }
   async verifyCredentials(postData: any) {
     const loading = await this.loading();
-    postData.TOKEN=this.authToken;
-    postData.SUBURL= suburl.VERIFY_CREDENTIALS;
+    postData.TOKEN = this.authToken;
+    postData.SUBURL = suburl.VERIFY_CREDENTIALS;
     const options = {
       url: this.baseUrl + suburl.POST_SERVICE_WITH_DATA,
       headers: { 'Content-Type': 'application/json' },
@@ -322,8 +322,8 @@ export class RestService {
     return response?.data;
   }
   async fetchLinkedAccount() {
-    const postData:any= {
-      TOKEN:this.authToken
+    const postData: any = {
+      TOKEN: this.authToken
     };
     const loading = await this.loading();
     const options = {
@@ -337,9 +337,9 @@ export class RestService {
     loading.dismiss();
     return response?.data;
   }
-  async getAccountDetails(postData:any) {
+  async getAccountDetails(postData: any) {
     const loading = await this.loading();
-    postData.TOKEN=this.authToken
+    postData.TOKEN = this.authToken
     const options = {
       url: this.baseUrl + suburl.ACCOUNT_DETAILS,
       headers: { 'Content-Type': 'application/json' },
@@ -353,9 +353,9 @@ export class RestService {
   }
   async getAccountBalance(accNum: string) {
     const loading = await this.loading();
-    const postData:any = {
+    const postData: any = {
       defacc: accNum,
-      TOKEN:this.authToken
+      TOKEN: this.authToken
     };
     const options = {
       url: this.baseUrl + suburl.BALANCE_ENQUIRY,
@@ -370,9 +370,9 @@ export class RestService {
   }
   async fetchMiniStatement(accNum: string) {
     const loading = await this.loading();
-    const postData:any = {
+    const postData: any = {
       accountNO: accNum,
-      TOKEN:this.authToken
+      TOKEN: this.authToken
     };
     const options = {
       url: this.baseUrl + suburl.MINI_STATEMENT,
@@ -386,14 +386,14 @@ export class RestService {
     return response?.data;
   }
 
-  async fetchProvinceList(deviceId:string) {
+  async fetchProvinceList(deviceId: string) {
     const loading = await this.loading();
-    const postData:any = {
+    const postData: any = {
       getUrl: suburl.PROVINCE_LIST,
-			postData: {
-        TOKEN:this.authToken,
+      postData: {
+        TOKEN: this.authToken,
         deviceId: deviceId
-			}
+      }
     };
     const options = {
       url: this.baseUrl + suburl.GET_SERVICE,
@@ -407,14 +407,12 @@ export class RestService {
     return response?.data;
   }
 
-  async generateOtpForTransfer(otpFor: string='FTR') {
+  async generateOtpForTransfer(otpFor: string = 'FTR') {
     const loading = await this.loading();
-    const postData:any = {
-			postData: {
-        TOKEN:this.authToken,
-        SUBURL: suburl.OTP_GENERATE,
-        otpFor: otpFor
-			}
+    const postData: any = {
+      TOKEN: this.authToken,
+      SUBURL: suburl.OTP_GENERATE,
+      otpFor: otpFor
     };
     const options = {
       url: this.baseUrl + suburl.POST_SERVICE_WITH_DATA,
@@ -427,11 +425,39 @@ export class RestService {
     loading.dismiss();
     return response?.data;
   }
-  async fundTransfer(postData:any) {
+  async fundTransfer(postData: any) {
     const loading = await this.loading();
-    postData.TOKEN=this.authToken;
+    postData.TOKEN = this.authToken;
     const options = {
       url: this.baseUrl + suburl.TRANSFER,
+      headers: { 'Content-Type': 'application/json' },
+      data: postData
+    };
+    console.log("Request Data: " + JSON.stringify(options));
+    const response: HttpResponse = await CapacitorHttp.post(options);
+    console.log("Response Data: " + JSON.stringify(response.data));
+    loading.dismiss();
+    return response?.data;
+  }
+  async accountInfo(postData: any) {
+    const loading = await this.loading();
+    postData.TOKEN = this.authToken;
+    const options = {
+      url: this.baseUrl + suburl.ACCOUNT_INFO,
+      headers: { 'Content-Type': 'application/json' },
+      data: postData
+    };
+    console.log("Request Data: " + JSON.stringify(options));
+    const response: HttpResponse = await CapacitorHttp.post(options);
+    console.log("Response Data: " + JSON.stringify(response.data));
+    loading.dismiss();
+    return response?.data;
+  }
+  async fetchBeneficiary(postData: any) {
+    const loading = await this.loading();
+    postData.TOKEN = this.authToken;
+    const options = {
+      url: this.baseUrl + suburl.LIST_BENEFICIARY,
       headers: { 'Content-Type': 'application/json' },
       data: postData
     };

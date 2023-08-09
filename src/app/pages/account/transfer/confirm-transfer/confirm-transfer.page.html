@@ -14,8 +14,8 @@
     <ion-card class="card-item">
       <ion-item lines="none">
         <ion-label>
-          <p>{{ 'PAY_TO' | translate }}: {{cnfData.nickName}}</p>
-          <h2> {{global.maskedNumber(cnfData.toAccount)}}</h2>
+          <p>{{ 'PAY_TO' | translate }}: {{cnfData?.toAccountHolder}}</p>
+          <h2> {{global.maskedNumber(cnfData?.toAccount)}}</h2>
         </ion-label>
       </ion-item>
     </ion-card>
@@ -30,8 +30,8 @@
                   {{global.getTextCurrency(cnfData.curCode) + ' ' + global.formatNumber((cnfData.amount))}}
                 </span>
                 <span *ngIf="global.getTextCurrency(cnfData.curCode) !== 'LAK'">
-                  {{global.getTextCurrency(cnfData.curCode) + ' ' + global.formatNumber((cnfData.amount *
-                  1.0).toFixed(2))}}
+                  {{global.getTextCurrency(cnfData.curCode) + ' ' +
+                  global.formatNumber((cnfData.amount * 1.0).toFixed(2))}}
                 </span>
               </h2>
             </ion-col>
@@ -43,18 +43,10 @@
         </ion-label>
       </ion-item>
     </ion-card>
-    <!-- <ion-card class="card-item" *ngIf="cnfData?.feeAmount">
-      <ion-item lines="none">
-        <ion-label>
-          <p>{{ 'TRX_FEE' | translate }}</p>
-          <h2> {{global.getTextCurrency(cnfData.curCode) + ' ' + global.formatNumber(cnfData.feeAmount)}}</h2>
-        </ion-label>
-      </ion-item>
-    </ion-card> -->
     <ion-card class="card-item" *ngIf="cnfData?.fromAccount">
       <ion-item lines="none">
         <ion-label>
-          <p>{{ 'FROM_ACC' | translate }}</p>
+          <p>{{ 'FROM_ACC' | translate }}: {{cnfData.fromAccountHolder}}</p>
           <h2>{{global.maskedNumber(cnfData.fromAccount)}}</h2>
         </ion-label>
       </ion-item>
@@ -71,7 +63,7 @@
       <ion-item lines="none">
         <ion-label>
           <p>{{ 'DATE' | translate }}</p>
-          <h2>{{txnDate | date: "yyyy-MM-dd HH:mm:ss"}}</h2>
+          <h2>{{txnDate | date: "yyyy-MM-dd hh:mm:ss"}}</h2>
         </ion-label>
       </ion-item>
     </ion-card>

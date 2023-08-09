@@ -1,0 +1,31 @@
+<ion-header mode="md">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{'FAV_ACNT_LIST' | translate}}</ion-title>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-row class="segment">
+      <ion-col size="6" [ngClass]="selectedTab==='OLD'?'active':''" (click)="changeActiveTab('OLD')">{{'EXISTING' | translate}}</ion-col>
+      <ion-col size="6" [ngClass]="selectedTab==='NEW'?'active':''" (click)="changeActiveTab('NEW')">{{'ADD_NEW' | translate}}</ion-col>
+    </ion-row>
+  </ion-toolbar>
+  <ion-item lines="full" color="light">
+    <ion-label class="ion-text-center">
+      <p *ngIf="selectedTab==='NEW'">{{ 'ADD_NEW_BENEF' | translate }}</p>
+      <p *ngIf="selectedTab==='OLD'">{{ 'BENEF_LIST' | translate }}</p>
+    </ion-label>
+  </ion-item>
+</ion-header>
+
+<ion-content>
+  <div [ngSwitch]="selectedTab">
+    <div *ngSwitchCase="'NEW'">
+      <app-add-favorite></app-add-favorite>
+    </div>
+    <div *ngSwitchCase="'OLD'">
+      <app-list-favorite></app-list-favorite>
+    </div>
+  </div>
+</ion-content>

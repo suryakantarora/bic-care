@@ -15,6 +15,7 @@ import { TxnResultPage } from '../../txn-result/txn-result.page';
 export class OwnAccTransferComponent  implements OnInit {
   @Input() fromAccDetail:any;
   @Input() accList:any;
+  @Input() userDetail:any;
   @Input() exchangeRate:any=1;
   @Output() sendDetail: EventEmitter<any>= new EventEmitter();
   // fromAccDetail:any={};
@@ -35,7 +36,7 @@ export class OwnAccTransferComponent  implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.test();
+    // this.test();
   }
   get accType() {
     return this.global.getAccType(this.fromAccDetail.accountType);
@@ -119,10 +120,12 @@ export class OwnAccTransferComponent  implements OnInit {
     const formattedAmount = this.formattedAmount(txnAmount, fromCurrency);
     const cnfData = {
 			fromAccount: this.fromAccNo,
+      fromAccountHolder: this.userDetail.userName,
 			curCode: fromCurrency,
 			txnCurrency: fromCurrency,   // can be changed based on which currency exchange rate is to be applied
 			toAccount: this.ftForm.controls['toAccount'].value,
 			toCurCode: toCurrency,
+			toAccountHolder: this.ftForm.controls['toAccountHolder'].value,
 			nickName: this.ftForm.controls['toAccountHolder'].value,
 			amount: formattedAmount,
 			remarks: this.ftForm.controls['remarks'].value,
@@ -153,11 +156,12 @@ export class OwnAccTransferComponent  implements OnInit {
     await modal.present();
     const {data} = await modal.onDidDismiss();
     if(data==='Y') {
-      this.showOtpScreen(cnfData);
+      this.initFundTransfer(cnfData);
     }
   }
   generateOtp(cnfData:any) {
     // FTR = Fund transfer, ABF = Add bnf, DBF = Delete BNF
+    console.log('Generate OTP');
     this.rest.generateOtpForTransfer('FTR').then(res=>{
       if (res.RESP_CODE === 'MPAY1019') {
         this.global.timeout()
@@ -165,10 +169,11 @@ export class OwnAccTransferComponent  implements OnInit {
         this.otpReference=res.otpRefId;
         this.showOtpScreen(cnfData);
       } else {
-        this.alertService.showAlert('ALERT', res.REASON || res.RESP_CODE);
+        this.alertService.showAlert('ALERT', res?.REASON || res?.RESP_CODE || 'SMTHNG_WENT_WRNG');
       }
     }).catch(() =>{
       this.rest.closeLoader();
+      this.alertService.showAlert('ALERT', 'SMTHNG_WENT_WRNG');
     })
   }
   async showOtpScreen(cnfData:any) {
@@ -211,31 +216,7 @@ export class OwnAccTransferComponent  implements OnInit {
       this.rest.closeLoader();
     });
   }
-  test() {
-    const data = {
-      fromAccount: '65186258e6152633',
-			curCode: '418',
-			txnCurrency: '418',   // can be changed based on which currency exchange rate is to be applied
-			toAccount: '95697859779679687',
-			toCurCode: '418',
-			nickName: 'Suryakant Kumar',
-			amount: '10000',
-			remarks: 'Test Remarks',
-			accType: '10',
-			feeAmount: '1000',
-			exchangeRate: 1,
-			transferType: 'own',
-			mode: "M",
-			bankId: "BIC",
-			beneficiaryType: 'own',
-			fromAccountName: 'Self',
-			benfType: 'own'
-    };
-    const resp={
-      TXN_ID: 'TXNID6556769786798689678'
-    }
-    this.displayTxnResult('S', data, resp)
-  }
+
   async displayTxnResult(status:string, txnData:any, resp:any) {
     txnData.txnId= resp.TXN_ID;
     txnData.txnStatus=status;
@@ -247,6 +228,8 @@ export class OwnAccTransferComponent  implements OnInit {
     });
     await result.present();
     const {data} = await result.onDidDismiss();
+    console.log('FT Result screen closed: ' + data);
+    this.global.pop();
   }
   get formStatus() {
     if(this.ftForm.valid) {

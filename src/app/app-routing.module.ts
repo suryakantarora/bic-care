@@ -169,7 +169,8 @@ const routes: Routes = [
   {
     path: 'ft-bic-mmoney',
     loadChildren: () => import('./pages/account/transfer/ft-bic-mmoney/ft-bic-mmoney.module').then( m => m.FtBicMmoneyPageModule)
-  },  {
+  },
+  {
     path: 'qr-details',
     loadChildren: () => import('./pages/qr/qr-details/qr-details.module').then( m => m.QrDetailsPageModule)
   },
@@ -220,6 +221,10 @@ const routes: Routes = [
   {
     path: 'txn-result',
     loadChildren: () => import('./pages/account/transfer/txn-result/txn-result.module').then( m => m.TxnResultPageModule)
+  },
+  {
+    path: 'manage-favourite',
+    loadChildren: () => import('./pages/account/manage-favourite/manage-favourite.module').then( m => m.ManageFavouritePageModule)
   },
 
 ];

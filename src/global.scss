@@ -342,3 +342,24 @@ ion-radio.ios::part(container) {
   right: 16px !important;
   top:15px !important;
 }
+.receipt {
+  background: linear-gradient(135deg, transparent 5.68px, whitesmoke 5.69px) top left, linear-gradient(45deg, whitesmoke 2.8px, transparent 2.81px) top left, linear-gradient(135deg, whitesmoke 2.8px, transparent 2.81px) bottom left, linear-gradient(45deg, transparent 5.68px, whitesmoke 5.69px) bottom left;
+  background-repeat: repeat-x;
+  background-size: 8px 4px;
+  padding: 4px 0;
+}
+// custom-segment
+.segment{
+  margin-left:15px;
+  margin-right:15px;
+  background-color: var(--ion-color-light);
+  color: var(--ion-color-secondary);
+  border:2px solid var(--ion-color-secondary);
+  border-radius: 6px;
+  text-align: center;
+  .active{
+      background-color: var(--ion-color-secondary);
+      font-weight: bolder;
+      color: #fff;
+  }
+}

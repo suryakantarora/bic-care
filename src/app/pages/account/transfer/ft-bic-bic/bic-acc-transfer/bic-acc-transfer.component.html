@@ -1,5 +1,5 @@
 <div mode="md" class="form-bg">
-  <form [formGroup]="ftForm">
+  <form [formGroup]="ftForm" (ngSubmit)="checkBenefType()">
 
     <div class="form-field">
       <div class="input-field">
@@ -12,13 +12,14 @@
     </div>
     <div class="form-field" *ngIf="ftForm.controls['benefType'].value==='N'">
       <div class="input-field">
-        <ion-input type="tel" maxlength="20" formControlName="toAccount" fill="outline" label="{{'TO_ACC' | translate}}"
+        <ion-input type="tel" maxlength="20" formControlName="toAccount" fill="outline" 
+        label="{{'TO_ACC' | translate}}" [clearInput]="true" errorText="{{'INVALID_BENF_MSG' | translate}}"
           labelPlacement="floating" placeholder="{{'ENTER_BENIF_ACC_NUM' | translate}}"></ion-input>
       </div>
     </div>
     <div class="form-field" *ngIf="ftForm.controls['benefType'].value!=='N'">
       <div class="input-field">
-        <ion-input type="tel" maxlength="20" formControlName="toAccount" fill="outline" readonly
+        <ion-input type="tel" maxlength="20" formControlName="toAccount" fill="outline" readonly (click)="openBicBeneficiary()"
           label="{{'TO_ACC' | translate}}" labelPlacement="floating" placeholder="{{'SELECT_BENIF_ACC_NUM' | translate}}">
           <ion-icon name="chevron-down-outline" color="medium" class="dropdown-icon"></ion-icon>
         </ion-input>
@@ -38,10 +39,16 @@
         </div>
       </div>
     </div>
-  
+    <div *ngIf="getTextCurrency(fromAccDetail.accountCCY) !== 'LAK' && getTextCurrency(ftForm.controls['toCurrency'].value) === 'LAK'">
+      <ion-label class="ion-text-center">
+        <p> {{ 'EXCHANGE_RATE' | translate }} : {{getTextCurrency(fromAccDetail.accountCCY) }} 
+          1 = <span>LAK</span> {{formatNumber(exchangeRate)}}</p>
+      </ion-label>
+    </div>
     <div class="form-field">
       <div class="input-field">
-        <ion-input type="text" maxlength="30" formControlName="remarks" fill="outline" label="{{'REMARKS' | translate}}"
+        <ion-input type="text" maxlength="30" formControlName="remarks" fill="outline"
+         label="{{'REMARKS' | translate}}" [counter]="true"
           labelPlacement="floating" placeholder="{{'ENTER_REMARKS' | translate}}"></ion-input>
       </div>
     </div>
@@ -53,7 +60,7 @@
           </ion-button>
         </ion-col>
         <ion-col size="6">
-          <ion-button mode="ios" color="secondary" expand="block" (click)="checkBenefType()" class="custom-btn">
+          <ion-button mode="ios" color="secondary" expand="block" type="submit" [disabled]="ftForm.invalid" class="custom-btn">
             {{'PROCEED' | translate}}
           </ion-button>
         </ion-col>

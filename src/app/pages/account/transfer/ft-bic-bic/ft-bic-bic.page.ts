@@ -16,7 +16,7 @@ export class FtBicBicPage implements OnInit {
   @ViewChild(BicAccTransferComponent, { static: false }) bicAccTransfer: BicAccTransferComponent;
   accList: any=[{"accountState":"P","accountCCY":"418","accountPriority":"1","accountNo":"000010200667601","accountType":"10"},
   {"accountState":"S","accountCCY":"418","accountPriority":"2","accountNo":"000030200181803","accountType":"10"}];
-  transferType='OWN';
+  transferType='BIC';
   fromAccDetail: any={
     accountType: '10', 
     accountCCY:'418',
@@ -35,7 +35,7 @@ export class FtBicBicPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    // this.getUserInfo();
+    this.getUserInfo();
   }
   get accType() {
     return this.global.getAccType(this.fromAccDetail.accountType);

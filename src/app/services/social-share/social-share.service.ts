@@ -63,14 +63,15 @@ export class SocialShareService {
       this.showToast('File sharing failed');
     });
   }
-  async shareFile(base64Data: any, fileName: string='') {
+  async shareFile(base64Data: any, fileName: string='bic.png') {
     const img=base64Data.replace(/^data:image\/[a-z]+;base64,/, "");
     FileSharer.share({
       filename: fileName,
-      contentType: '',
-      base64Data: base64Data,
+      contentType: 'image/png',
+      base64Data: img,
     }).then(() => {
       console.log('Shared Successfully')
+      this.showToast('File sharing success');
     }).catch(error => {
       console.error("File sharing failed", error.message);
       this.showToast('File sharing failed');

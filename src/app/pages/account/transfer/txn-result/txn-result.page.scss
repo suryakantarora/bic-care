@@ -11,12 +11,40 @@
     margin-top:-40px !important;
     margin-left: auto;
     margin-right: auto;
-    border: 2px solid var(--ion-color-success);
     padding:2px;
   }
+}
+.spacer{
+  height:80px;
+}
+.success{
+  border: 2px solid var(--ion-color-success);
+}
+.failed{
+  border: 2px solid var(--ion-color-danger);
 }
 .down-arrow{
   height:20px;
   width:20px;
-  margin-left:10px;
+  margin-left:16px;
+}
+.success-bg{
+  --background: linear-gradient(var(--ion-color-success) 50%, var(--ion-color-lightbg) 50%);
+}
+.failed-bg{
+  --background: linear-gradient(var(--ion-color-danger) 40%, var(--ion-color-lightbg) 40%);
+}
+ion-footer{
+  ion-toolbar{
+    --background: var(--ion-color-lightbg);
+  }
+}
+ion-label{
+  p{
+    color: var(--ion-color-secondary);
+  }
+  h2{
+    color: var(--ion-color-primary);
+    font-weight: bolder;
+  }
 }

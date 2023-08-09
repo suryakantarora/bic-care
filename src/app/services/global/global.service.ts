@@ -310,4 +310,37 @@ export class GlobalService {
       return this.profilePicAvatar;
     });
   }
+
+  getLogoPath(data:string) {
+		if (data == "BCEL") {
+			return 'assets/imgs/bank-logo/27710418.png';
+		} else if (data == "LDB") {
+			return 'assets/imgs/bank-logo/70030418.png';
+		} else if (data == "JDB") {
+			return 'assets/imgs/bank-logo/32170418.png';
+		} else if (data == "LVB") {
+			return 'assets/imgs/bank-logo/70050418.png';
+		} else if (data == "APB") {
+			return 'assets/imgs/bank-logo/70020418.png';
+		} else if (data == "MJBL") {
+			return 'assets/imgs/bank-logo/70040418.png';
+		} else if (data == "ICBC") {
+			return 'assets/imgs/bank-logo/70070418.png';
+		} else if (data == "BOC") {
+			return 'assets/imgs/bank-logo/70100418.png';
+		} else if (data == "VTB") {
+			return 'assets/imgs/bank-logo/70120418.png';
+		} else if (data == "IDB") {
+			return 'assets/imgs/bank-logo/70140418.png';
+		} else if (data == "ACLEDA") {
+			return 'assets/imgs/bank-logo/70080418.png';
+		} else if (data == "SACOM") {
+			return 'assets/imgs/bank-logo/70130418.png';
+		} else if (data == "STB") {
+			return 'assets/imgs/bank-logo/70150418.png';
+		} else if (data == "BIC") {
+			return 'assets/imgs/bank-logo/70110418.png';
+		}
+    return data;
+	}
 }

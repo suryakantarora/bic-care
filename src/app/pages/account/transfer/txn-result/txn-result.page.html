@@ -1,82 +1,94 @@
-<ion-header class="ion-no-border">
-  <ion-toolbar [color]="txnResult.txnStatus==='S'?'success':'danger'">
-    <ion-title>{{'PAYMNT_RECEIPT' | translate}}</ion-title>
-  </ion-toolbar>
-  <ion-item lines="none">
-    <ion-label class="ion-text-wrap">
-      <p>{{ 'THANK_YOU_FOR_USING_BIC_BEST' | translate }} {{ 'PAYMENT_HAD_BEEN_PROCESSED_SUCCESSFULLY' | translate }}</p>
-    </ion-label>
-  </ion-item>
+<ion-header class="ion-no-border" mode="ios">
 </ion-header>
 
-<ion-content>
-  <div class="card-bg ion-text-center">
-    <!-- <lottie-player autoplay="true" src="assets/json/success.json"
-    class="txn-status-logo"></lottie-player> -->
-    <img src="assets/imgs/success.png" class="txn-status-logo">
-    <ion-item lines="full">
-      <ion-thumbnail slot="end">
-        <div class="qrcodeImage">
-          <qrcode *ngIf="txnResult.fromAccount"
-            [qrdata]="txnResult.fromAccount"
-            [width]="60"
-          ></qrcode>
-        </div>
-      </ion-thumbnail>
-      <ion-label>
-        <p>{{'REFERNCE_ID' | translate}}</p>
-        <h2>{{txnResult.fromAccount}}</h2>
-      </ion-label>
-    </ion-item>
-    <ion-item lines="none">
-      <ion-thumbnail slot="start">
-        <img src="assets/imgs/bic-logo.png">
-      </ion-thumbnail>
-      <ion-label>
-        <p>{{'FROM_ACC' | translate}}</p>
-        <h2>{{txnResult.fromAccount}}</h2>
-      </ion-label>
-    </ion-item>
-    <div class="ion-text-start ion-padding-start">
-      <img src="assets/imgs/down-arrow.png" class="down-arrow">
+<ion-content [ngClass]="txnResult.txnStatus==='S'?'success-bg':'failed-bg'">
+  <div class="spacer"></div>
+  <div #receipt_screen style="padding:5px;">
+    <div class="card-bg ion-text-center" [ngClass]="txnResult.txnStatus==='S'?'success':'failed'">
+      <img [src]="getLogoPath(txnResult.txnStatus)" class="txn-status-logo" [ngClass]="txnResult.txnStatus==='S'?'success':'failed'">
+      <ion-item lines="full">
+        <ion-label class="ion-text-center">
+          <h2 *ngIf="txnResult.txnStatus==='S'">{{'TRX_SUCCESS' | translate}}</h2>
+          <h2 *ngIf="txnResult.txnStatus==='F'">{{'TRX_FAILED' | translate}}</h2>
+          <p>{{txnResult.txnDate | date: 'dd-MM-yyyy hh:mm:ss'}}</p>
+        </ion-label>
+      </ion-item>
+      <ion-item lines="full" *ngIf="txnResult.txnId">
+        <ion-thumbnail slot="end">
+          <div class="qrcodeImage">
+            <qrcode *ngIf="txnResult.txnId"
+              [qrdata]="txnResult.txnId"
+              [width]="60"
+            ></qrcode>
+          </div>
+        </ion-thumbnail>
+        <ion-label>
+          <p>{{'REFERNCE_ID' | translate}}</p>
+          <h2>{{txnResult.fromAccount}}</h2>
+        </ion-label>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-thumbnail slot="start">
+          <img src="assets/imgs/bic-logo.png">
+        </ion-thumbnail>
+        <ion-label>
+          <p>{{'DEBITED_FROM' | translate}}: {{txnResult?.fromAccountHolder}}</p>
+          <h2>{{maskAccount(txnResult.fromAccount)}}</h2>
+        </ion-label>
+      </ion-item>
+      <div class="ion-text-start ion-padding-start">
+        <img src="assets/imgs/down-arrow.png" class="down-arrow">
+      </div>
+      <ion-item lines="full">
+        <ion-thumbnail slot="start">
+          <img src="assets/imgs/bic-logo.png">
+        </ion-thumbnail>
+        <ion-label>
+          <p>{{'CREDITED_TO' | translate}}:  {{txnResult?.toAccountHolder}}</p>
+          <h2>{{maskAccount(txnResult.toAccount)}}</h2>
+        </ion-label>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-label>
+          <p>{{'AMOUNT' | translate}}</p>
+          <h2>{{getCurrency(txnResult.curCode)}} {{txnResult.amount}}</h2>
+        </ion-label>
+        <ion-label slot="end" class="ion-text-end">
+          <p>{{'TXN_FEE' | translate}}</p>
+          <h2>{{getCurrency(txnResult.curCode)}} {{txnResult.feeAmount}}</h2>
+        </ion-label>
+      </ion-item>
+      <ion-item lines="full">
+        <ion-label>
+          <p>{{'REMARKS' | translate}}</p>
+          <h2>{{txnResult.remarks}}</h2>
+        </ion-label>
+        <ion-label slot="end" class="ion-text-end">
+          <p>{{'TXN_DATE' | translate}}</p>
+          <h2>{{txnResult.txnDate | date: 'dd-MM-yyyy'}}</h2>
+        </ion-label>
+      </ion-item>
+      <ion-item lines="none" *ngIf="txnResult.txnStatus==='S'">
+        <ion-label class="ion-text-wrap ion-text-center">
+          <ion-text color="success">{{ 'THANK_YOU_FOR_USING_BIC_BEST' | translate }} {{ 'PAYMENT_HAD_BEEN_PROCESSED_SUCCESSFULLY' | translate }}</ion-text>
+        </ion-label>
+      </ion-item>
+      <br>
     </div>
-    <ion-item lines="full">
-      <ion-thumbnail slot="start">
-        <img src="assets/imgs/bic-logo.png">
-      </ion-thumbnail>
-      <ion-label>
-        <p>{{'TO_ACC' | translate}}</p>
-        <h2>{{txnResult.toAccount}}</h2>
-      </ion-label>
-    </ion-item>
-    <ion-item lines="none">
-      <ion-label>
-        <p>{{'AMOUNT' | translate}}</p>
-        <h2>{{txnResult.curCode}} {{txnResult.amount}}</h2>
-      </ion-label>
-      <ion-label slot="end" class="ion-text-end">
-        <p>{{'TXN_FEE' | translate}}</p>
-        <h2>{{txnResult.curCode}} {{txnResult.feeAmount}}</h2>
-      </ion-label>
-    </ion-item>
-    <ion-item lines="none">
-      <ion-label>
-        <p>{{'REMARKS'}}</p>
-        <h2>{{txnResult.remarks}}</h2>
-      </ion-label>
-    </ion-item>
-    <br>
   </div>
-
+  <div id="download" hidden>
+    <img #receipt_canvas>
+    <a #receipt_downloadLink></a>
+  </div>
 </ion-content>
-<ion-footer>
+<ion-footer class="ion-no-border">
   <ion-toolbar>
     <ion-row>
       <ion-col class="ion-text-center">
-        <ion-button mode="ios" fill="outline" class="custom-btn" expand="block">{{'SHARE_RECEIPT'}}</ion-button>
+        <ion-button mode="ios" fill="outline" class="custom-btn" expand="block" (click)="shareReceipt()">{{'SHARE_RECEIPT' | translate}}</ion-button>
       </ion-col>
       <ion-col class="ion-text-center">
-        <ion-button mode="ios" class="custom-btn" expand="block">{{'SHARE_SCREENSHOT'}}</ion-button>
+        <ion-button mode="ios" class="custom-btn" expand="block" (click)="closeModal()">{{'HOME' | translate}}</ion-button>
       </ion-col>
     </ion-row>
   </ion-toolbar>

@@ -7,8 +7,8 @@
       </ion-button>
     </ion-buttons>
   </ion-item>
-  <ion-card class="card-item" *ngFor="let a of accList" (click)="closModal(a)">
-    <ion-item lines="none" button detail="true" [disabled]="a.accountNo === disabledAcc">
+  <ion-card class="card-item" *ngFor="let a of accList">
+    <ion-item lines="none" button detail="true" [disabled]="a.accountNo === disabledAcc" (click)="closModal(a)">
       <ion-avatar slot="start" class="acc-category">
         <div>{{a.accountState}}</div>
       </ion-avatar>

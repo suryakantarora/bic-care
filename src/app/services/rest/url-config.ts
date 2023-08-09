@@ -31,5 +31,7 @@ export const suburl = {
     MINI_STATEMENT:"ministatement",
     PROVINCE_LIST:'edl/list',
     OTP_GENERATE:'otp/generate',
-    TRANSFER: 'transfer'
+    TRANSFER: 'transfer',
+    ACCOUNT_INFO: 'accountInfo',
+    LIST_BENEFICIARY: 'listBeneficiary',
 }
