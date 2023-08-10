@@ -10,9 +10,9 @@ import { RestService } from 'src/app/services/rest/rest.service';
   styleUrls: ['./add-favorite.component.scss'],
 })
 export class AddFavoriteComponent implements OnInit {
-  @Output() showBenefListTab: EventEmitter<any> = new EventEmitter();
+  @Output() displayBenefListTab: EventEmitter<any> = new EventEmitter();
   benefForm: FormGroup;
-  pageStatus = 2;
+  pageStatus = 1;
   constructor(
     private rest: RestService,
     public global: GlobalService,
@@ -23,8 +23,8 @@ export class AddFavoriteComponent implements OnInit {
     this.initFormGroup();
   }
   goBack() {
-    this.displayBenefListTab();
-    this.pageStatus = 1;
+    this.displayBenefList();
+    // this.pageStatus = 1;
     console.log('PageStatus: ' + this.pageStatus);
   }
   initFormGroup() {
@@ -137,7 +137,7 @@ export class AddFavoriteComponent implements OnInit {
       if (resp.RESP_CODE === 'MPAY1019') {
         this.global.timeout()
       } else if (resp.RESP_STATUS == 'SUCCESS') {
-        this.displayBenefListTab();
+        this.displayBenefList();
       } else {
         this.alertService.showAlert('ALERT', resp.REASON || resp.RESP_CODE);
       }
@@ -153,7 +153,8 @@ export class AddFavoriteComponent implements OnInit {
   initOtherAddBenef(benefType: string) {
 
   }
-  displayBenefListTab() {
-    this.showBenefListTab.emit(true);
+  displayBenefList() {
+    console.log('tttt');
+    this.displayBenefListTab.emit('true');
   }
 }
