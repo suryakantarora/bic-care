@@ -1,0 +1,15 @@
+.button-box{
+    padding:10px;
+}
+.benef-details{
+    ion-label{
+        p{
+            color: var(--ion-color-secondary);
+            font-size: small;
+        }
+        h2{
+            font-weight: bolder;
+            color: var(--ion-color-primary);
+        }
+    }
+}

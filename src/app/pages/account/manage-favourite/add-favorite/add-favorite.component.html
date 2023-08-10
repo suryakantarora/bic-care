@@ -1,38 +1,99 @@
-<div class="ion-padding-top" mode="md">
-  <form [formGroup]="benefForm">
-    <div class="form-field">
-      <div class="input-field">
-        <ion-select fill="outline" label="{{'SEL_TYPEOF_BENEF' | translate}}" formControlName="benefType"
-        placeholder="{{'SEL_TYPEOF_BENEF' | translate}}" labelPlacement="floating">
-          <ion-select-option value="S">{{'BIC_CUST' | translate}}</ion-select-option>
-          <ion-select-option value="B">{{'BCEL_CUST' | translate}}</ion-select-option>
-          <ion-select-option value="O">{{'OTHER_CUST' | translate}}</ion-select-option>
-        </ion-select>
+<div mode="md">
+  <form [formGroup]="benefForm" (ngSubmit)="validateAccNum()">
+    <div *ngIf="pageStatus===1">
+      <div class="form-field">
+        <div class="input-field">
+          <ion-select fill="outline" label="{{'SEL_TYPEOF_BENEF' | translate}}" formControlName="benefType"
+            placeholder="{{'SEL_TYPEOF_BENEF' | translate}}" labelPlacement="floating">
+            <ion-select-option value="S">{{'BIC_CUST' | translate}}</ion-select-option>
+            <ion-select-option value="B">{{'BCEL_CUST' | translate}}</ion-select-option>
+            <ion-select-option value="O">{{'OTHER_CUST' | translate}}</ion-select-option>
+          </ion-select>
+        </div>
+      </div>
+
+      <div class="form-field">
+        <div class="input-field">
+          <ion-input type="tel" placeholder="{{'ENTER_BENEF_ACCNO' | translate}}" formControlName="benefAccNum"
+            errorText="{{'INVALID_ACC_NUM' | translate}}" label="{{'ENTER_BENEF_ACCNO' | translate}}"
+            labelPlacement="floating" fill="outline">
+          </ion-input>
+        </div>
+      </div>
+
+      <div class="form-field">
+        <div class="input-field">
+          <ion-input type="tel" placeholder="{{'RE_ENTER_BENEF_ACCNO' | translate}}" formControlName="cnfAccNum"
+            errorText="{{'INVALID_ACC_NUM' | translate}}" label="{{'RE_ENTER_BENEF_ACCNO' | translate}}"
+            labelPlacement="floating" fill="outline">
+          </ion-input>
+        </div>
+      </div>
+      <div class="ion-padding">
+        <ion-button expand="block" mode="ios" class="custom-btn" type="ngSubmit"
+          [disabled]="benefForm.invalid || accNotMatched">
+          {{'VALIDATE_ACC_NUM' | translate}}
+        </ion-button>
       </div>
     </div>
 
-    <div class="form-field">
-      <div class="input-field">
-        <ion-input type="tel" placeholder="{{'ENTER_BENEF_ACCNO' | translate}}"
-         formControlName="benefAccNum" errorText="{{'INVALID_ACC_NUM' | translate}}"
-        label="{{'ENTER_BENEF_ACCNO' | translate}}" labelPlacement="floating" fill="outline">
-        </ion-input>
+    <!-- Account details -->
+    <div *ngIf="pageStatus===2">
+      <ion-card class="card-bg no-shadow benef-details">
+        <ion-item lines="full">
+          <ion-label>
+            <p>{{'ACC_NUM' | translate}}</p>
+            <h2>{{global.maskAccNumber(benefForm.controls['benefAccNum'].value)}}</h2>
+          </ion-label>
+        </ion-item>
+        <ion-item lines="full">
+          <ion-label>
+            <p>{{'ACC_TYPE' | translate}}</p>
+            <h2>{{global.getAccType(benefForm.controls['benefAccType'].value)}}</h2>
+          </ion-label>
+          <ion-label slot="end" class="ion-text-end">
+            <p>{{'CURRENCY' | translate}}</p>
+            <h2>{{global.getTextCurrency(benefForm.controls['benefAccCurrency'].value)}}</h2>
+          </ion-label>
+        </ion-item>
+        <ion-item lines="none">
+          <ion-label>
+            <p>{{'ACCOUNT_HOLDER' | translate}}</p>
+            <h2>{{benefForm.controls['benefAccName'].value}}</h2>
+          </ion-label>
+          <ion-icon slot="end" name="checkmark-circle" color="success"></ion-icon>
+        </ion-item>
+      </ion-card>
+      <div class="form-field">
+        <div class="input-field">
+          <ion-input type="tel" placeholder="{{'BENEF_NICK_NAME' | translate}}" formControlName="benefNickName"
+            errorText="{{'INVALID_NICK_NAME' | translate}}" label="{{'NICK_NAME' | translate}}" labelPlacement="stacked"
+            fill="outline" errorText="'INVALID_NICK_NAME' | translate">
+          </ion-input>
+        </div>
       </div>
-    </div>
-
-    <div class="form-field">
-      <div class="input-field">
-        <ion-input type="tel" placeholder="{{'RE_ENTER_BENEF_ACCNO' | translate}}" 
-        formControlName="cnfAccNum" errorText="{{'INVALID_ACC_NUM' | translate}}"
-        label="{{'RE_ENTER_BENEF_ACCNO' | translate}}" labelPlacement="floating" fill="outline">
-        </ion-input>
+      <div class="form-field">
+        <div class="input-field">
+          <ion-input type="text"  maxlength="30" counter placeholder="{{'BENIF_ADDRS' | translate}}"
+            formControlName="benefAddress" label="{{'BENIF_ADDRS' | translate}}" labelPlacement="stacked"
+            fill="outline" errorText="'INVALID_ADDRESS' | translate">
+          </ion-input>
+        </div>
       </div>
-    </div>
-
-    <div class="ion-padding">
-      <ion-button expand="block" mode="ios" class="custom-btn" [disabled]="benefForm.invalid || accNotMatched">
-        {{'VALIDATE_ACC_NUM' | translate}}
-      </ion-button>
+      <div class="button-box">
+        <ion-row>
+          <ion-col>
+            <ion-button expand="block" fill="outline" mode="ios" class="custom-btn" (click)="goBack()">
+              {{'BACK' | translate}}
+            </ion-button>
+          </ion-col>
+          <ion-col>
+            <ion-button expand="block" mode="ios" class="custom-btn" type="submit" [disabled]="benefForm.invalid">
+              {{'ADD_BENEF' | translate}}
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </div>
     </div>
   </form>
 </div>

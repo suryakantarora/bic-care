@@ -14,4 +14,7 @@ export class ManageFavouritePage implements OnInit {
   changeActiveTab(tab:string) {
     this.selectedTab=tab;
   }
+  displayBenefListTab(ev:any) {
+    this.selectedTab='OLD';
+  }
 }

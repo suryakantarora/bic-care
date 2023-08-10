@@ -17,7 +17,7 @@
       </round-progress>
     </div>
   </div>
-  <ion-card class="card-bg" *ngIf="pageStatus===1">
+  <ion-card class="card-bg bg-white no-shadow" *ngIf="pageStatus===1">
     <ion-item lines="full" color="secondary" class="top-border-radius">
       <ion-label class="ion-text-wrap">
         <p>{{'RESET_PIN_DESC' | translate}}</p>
@@ -54,7 +54,7 @@
       </div>
     </form>
   </ion-card>
-  <ion-card class="card-bg" *ngIf="pageStatus===2">
+  <ion-card class="card-bg bg-white no-shadow" *ngIf="pageStatus===2">
     <ion-item lines="full" color="secondary" class="top-border-radius">
       <ion-label class="ion-text-center ion-text-wrap">
         <p>{{'SET_NEW_PIN' | translate}}</p>

@@ -28,7 +28,7 @@
             <div *ngIf="f['password'].errors?.['min'] || f['password'].errors?.['max']">Invalid password </div>
           </div> -->
           <br>
-          <ion-button fill="clear" expand="block" color="danger" mode="ios">{{'FORGOT_PASS' | translate}}</ion-button>
+          <ion-button fill="clear" expand="block" color="danger" mode="ios" (click)="showConfirmAlert()">{{'FORGOT_PASS' | translate}}</ion-button>
           <ion-row>
             <ion-col size="6">
               <ion-button mode="ios" fill="outline" color="primary" expand="block" (click)="back()" class="custom-btn">{{'BACK' | translate}}</ion-button>

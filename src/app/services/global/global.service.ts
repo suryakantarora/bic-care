@@ -48,8 +48,10 @@ export class GlobalService {
       return 'SAVING_ACC';
     } else if (accType === '20' || accType === 20) {
       return 'CREDIT_ACC';
-    } else {
+    } else if (accType===30 || accType==='30') {
       return 'FIXED_ACC';
+    } else {
+      return accType +' Account';
     }
   }
   async selectFromAccount(accList: any, disabledAcc:string='') {

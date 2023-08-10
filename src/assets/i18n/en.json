@@ -771,7 +771,7 @@
 	"WE_HLP_YOU": "We are here to help you",
 	"SCAN_QR": "Scan this QR Code",
 	"SHARE_QR": "Share QR",
-	"FORGOT_PSWD": "Forgot Password!",
+	"FORGOT_PSWD": "Forgot Password",
 	"RESET_PSWD": "Do you really want to reset your password?",
 	"PSWD_LNGTH": "Password cannot be less than six digits",
 	"PSWD_LNGTH_GRATER": "Password cannot be greater than eight digits",

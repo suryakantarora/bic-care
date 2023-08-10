@@ -28,4 +28,12 @@ export class UserLoginPage implements OnInit {
   back() {
     this.navCtrl.pop();
   }
+  async showConfirmAlert() {
+    const alert = await this.alertService.showConfirmAlert('ALERT', 'RESET_PSWD');
+    alert.present();
+    const {data} = await alert.onDidDismiss();
+    if(data === 'Y') {
+      this.navCtrl.navigateForward('/forgot-password');
+    }
+  }
 }

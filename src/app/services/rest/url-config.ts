@@ -19,6 +19,7 @@ export const suburl = {
     LOGIN_USER: 'loginUser',
     FORGOT_PIN: 'forgotMpin',
     RESET_PIN: 'resetMpin',
+    RESET_PASS: 'resetPassword',
     USER_INFO: 'userInfo',
     WALLET_INFO: 'wallet/info',
     GENERATE_QR: 'qr/generation',
@@ -34,4 +35,6 @@ export const suburl = {
     TRANSFER: 'transfer',
     ACCOUNT_INFO: 'accountInfo',
     LIST_BENEFICIARY: 'listBeneficiary',
+    ADD_BENEFICIARY: 'beneficiary/add',
+    LMPS_ENQUIRY: 'lmps/inquiry',
 }
