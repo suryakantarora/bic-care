@@ -1,9 +1,38 @@
-<div class="form-control" mode="md">
-  <div class="field-control">
-    <ion-select fill="outline" label="Type of customer" labelPlacement="floating">
-      <ion-select-option value="BIC">BIC Customer</ion-select-option>
-      <ion-select-option value="BCEL">BIC Customer</ion-select-option>
-      <ion-select-option value="OTHER">BIC Customer</ion-select-option>
-    </ion-select>
-  </div>
+<div class="ion-padding-top" mode="md">
+  <form [formGroup]="benefForm">
+    <div class="form-field">
+      <div class="input-field">
+        <ion-select fill="outline" label="{{'SEL_TYPEOF_BENEF' | translate}}" formControlName="benefType"
+        placeholder="{{'SEL_TYPEOF_BENEF' | translate}}" labelPlacement="floating">
+          <ion-select-option value="S">{{'BIC_CUST' | translate}}</ion-select-option>
+          <ion-select-option value="B">{{'BCEL_CUST' | translate}}</ion-select-option>
+          <ion-select-option value="O">{{'OTHER_CUST' | translate}}</ion-select-option>
+        </ion-select>
+      </div>
+    </div>
+
+    <div class="form-field">
+      <div class="input-field">
+        <ion-input type="tel" placeholder="{{'ENTER_BENEF_ACCNO' | translate}}"
+         formControlName="benefAccNum" errorText="{{'INVALID_ACC_NUM' | translate}}"
+        label="{{'ENTER_BENEF_ACCNO' | translate}}" labelPlacement="floating" fill="outline">
+        </ion-input>
+      </div>
+    </div>
+
+    <div class="form-field">
+      <div class="input-field">
+        <ion-input type="tel" placeholder="{{'RE_ENTER_BENEF_ACCNO' | translate}}" 
+        formControlName="cnfAccNum" errorText="{{'INVALID_ACC_NUM' | translate}}"
+        label="{{'RE_ENTER_BENEF_ACCNO' | translate}}" labelPlacement="floating" fill="outline">
+        </ion-input>
+      </div>
+    </div>
+
+    <div class="ion-padding">
+      <ion-button expand="block" mode="ios" class="custom-btn" [disabled]="benefForm.invalid || accNotMatched">
+        {{'VALIDATE_ACC_NUM' | translate}}
+      </ion-button>
+    </div>
+  </form>
 </div>

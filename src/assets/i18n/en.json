@@ -936,7 +936,7 @@
 	"SELECT_YOUR_BENF": "Select your beneficiary",
 	"ALERT_EKYC_WAIT": "e-KYC Submitted, Waiting for approval from bank side",
 	"ALERT_EKYC_REJECTED": "Bank has verified and rejected the KYC details due to unclear document or irrelevant document submitted",
-	"ALERT_COMPLETE_EKYC": "Complete to e-KYC to use BicBest Wallet!",
+	"ALERT_COMPLETE_EKYC": "Complete to e-KYC to use BicBest Wallet!", 
 	"ALERT_COMPLETE_EKYC_DESC": "Complete Your EKYC",
 	"ALERT_KYC_STATUS": "EKYC Status",
 	"EKYC_APPROVED": "e-KYC Approved",
@@ -1018,5 +1018,6 @@
 	"CARD_LINKED_SUCCESS":"Card Linked Successfully",
 	"ROADTAX":"Road Tax",
 	"ROADTAX_BILL_PAYMENT":"Roadtax Bill Payment",
-	"FIXED_ACC": "Fixed Account"
+	"FIXED_ACC": "Fixed Account",
+	"INVALID_ACC_NUM":"Invalid Account Number"
 }

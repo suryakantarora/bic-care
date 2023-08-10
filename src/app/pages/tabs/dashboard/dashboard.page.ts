@@ -62,13 +62,21 @@ export class DashboardPage implements OnInit {
     if(data === 'BICTOBIC') {
       this.openPage('ft-bic-bic');
     } else if(data === 'BICTOBCEL') {
-      this.openPage('ft-bic-bcel');
+      // this.openPage('ft-bic-bcel');
+      this.global.transferTo='BCEL';
+      this.openPage('bic-other');
     } else if(data === 'LAPNET') {
-      this.openPage('ft-bic-lapnet');
+      // this.openPage('ft-bic-lapnet');
+      this.global.transferTo='LAPNET';
+      this.openPage('bic-other');
     } else if(data === 'UMONEY') {
-      this.openPage('ft-bic-umoney');
+      // this.openPage('ft-bic-umoney');
+      this.global.transferTo='UMONEY';
+      this.openPage('bic-other');
     } else if(data === 'MMONEY') {
-      this.openPage('ft-bic-mmoney');
+      // this.openPage('ft-bic-mmoney');
+      this.global.transferTo='MMONEY';
+      this.openPage('bic-other');
     }
   }
   openPage(page:string) {

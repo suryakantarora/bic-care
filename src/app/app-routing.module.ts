@@ -225,7 +225,11 @@ const routes: Routes = [
   {
     path: 'manage-favourite',
     loadChildren: () => import('./pages/account/manage-favourite/manage-favourite.module').then( m => m.ManageFavouritePageModule)
+  },  {
+    path: 'bic-other',
+    loadChildren: () => import('./pages/account/transfer/bic-other/bic-other.module').then( m => m.BicOtherPageModule)
   },
+
 
 ];
 

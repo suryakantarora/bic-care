@@ -15,6 +15,7 @@ export class GlobalService {
   defaultLang: string = 'en';
   flagImage: string = 'assets/imgs/logo/enflag.png';
   profilePicAvatar = 'assets/imgs/home/man-icon-256x256.png';
+  transferTo='';
   constructor(
     private translate: TranslateService,
     private storage: Storage,

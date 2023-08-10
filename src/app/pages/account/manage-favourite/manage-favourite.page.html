@@ -5,7 +5,7 @@
     </ion-buttons>
     <ion-title>{{'FAV_ACNT_LIST' | translate}}</ion-title>
   </ion-toolbar>
-  <ion-toolbar>
+  <ion-toolbar> 
     <ion-row class="segment">
       <ion-col size="6" [ngClass]="selectedTab==='OLD'?'active':''" (click)="changeActiveTab('OLD')">{{'EXISTING' | translate}}</ion-col>
       <ion-col size="6" [ngClass]="selectedTab==='NEW'?'active':''" (click)="changeActiveTab('NEW')">{{'ADD_NEW' | translate}}</ion-col>
