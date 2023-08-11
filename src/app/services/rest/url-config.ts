@@ -37,4 +37,5 @@ export const suburl = {
     LIST_BENEFICIARY: 'listBeneficiary',
     ADD_BENEFICIARY: 'beneficiary/add',
     LMPS_ENQUIRY: 'lmps/inquiry',
+    LMPS_BANK_LIST: 'lmps/list',
 }

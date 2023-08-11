@@ -466,7 +466,8 @@ export class RestService {
     loading.dismiss();
     return response?.data;
   }
-  async fetchBeneficiary(postData: any) {
+  async fetchBeneficiary() {
+    const postData: any={};
     const loading = await this.loading();
     postData.TOKEN = this.authToken;
     const options = {
@@ -508,6 +509,23 @@ export class RestService {
     const response: HttpResponse = await CapacitorHttp.post(options);
     console.log("Response Data: " + JSON.stringify(response.data));
     loading.dismiss();
+    return response?.data;
+  }
+  async fetchBankList() {
+    const postData: any ={
+      getUrl: suburl.LMPS_BANK_LIST,
+      TOKEN: this.authToken
+    };
+    // const loading = await this.loading();
+    const options = {
+      url: this.baseUrl + suburl.GET_SERVICE,
+      headers: { 'Content-Type': 'application/json' },
+      data: postData
+    };
+    console.log("Request Data: " + JSON.stringify(options));
+    const response: HttpResponse = await CapacitorHttp.post(options);
+    console.log("Response Data: " + JSON.stringify(response.data));
+    // loading.dismiss();
     return response?.data;
   }
 

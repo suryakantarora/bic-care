@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { ErrorPageRoutingModule } from './error-routing.module';
+import { BankListPageRoutingModule } from './bank-list-routing.module';
 
-import { ErrorPage } from './error.page';
+import { BankListPage } from './bank-list.page';
 import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
@@ -14,9 +14,9 @@ import { TranslateModule } from '@ngx-translate/core';
     CommonModule,
     FormsModule,
     IonicModule,
-    ErrorPageRoutingModule,
+    BankListPageRoutingModule,
     TranslateModule
   ],
-  declarations: [ErrorPage]
+  declarations: [BankListPage]
 })
-export class ErrorPageModule {}
+export class BankListPageModule {}

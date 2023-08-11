@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NO_ERRORS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -19,6 +19,7 @@ import { ListFavoriteComponent } from './list-favorite/list-favorite.component';
     ManageFavouritePageRoutingModule,
     TranslateModule
   ],
-  declarations: [ManageFavouritePage, AddFavoriteComponent, ListFavoriteComponent]
+  declarations: [ManageFavouritePage, AddFavoriteComponent, ListFavoriteComponent],
+  schemas: [NO_ERRORS_SCHEMA]
 })
 export class ManageFavouritePageModule {}

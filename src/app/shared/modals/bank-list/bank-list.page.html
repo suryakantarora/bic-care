@@ -1,0 +1,39 @@
+<ion-header mode="md" class="ion-no-border">
+  <ion-toolbar color="primary">
+    <ion-title>{{'SELECT_BANK_DESC' | translate}}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal('')">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content mode="md">
+  <ion-card class="card-bg no-shadow">
+    <div *ngIf="bankList.length<=0">
+      <ion-card class="card-item" *ngFor="let b of [1,2,3,4,5,6,7,8,9,0,1,2,3,4,5,6]">
+        <ion-item lines="none" button detail="false">
+          <ion-avatar slot="start">
+            <ion-skeleton-text [animated]="true"></ion-skeleton-text>
+          </ion-avatar>
+          <ion-label>
+            <ion-skeleton-text [animated]="true" style="width:50%"></ion-skeleton-text>
+            <ion-skeleton-text [animated]="true"></ion-skeleton-text>
+          </ion-label>
+        </ion-item>
+      </ion-card>
+    </div>
+    <ion-card class="card-item" *ngFor="let b of bankList">
+      <ion-item lines="none" button detail="true" (click)="closeModal(b)">
+        <ion-avatar slot="start">
+          <img [src]="fetchImage(b.memberId)" onerror="this.onerror=null;this.src='assets/imgs/bank-logo/bank-logo.png';">
+        </ion-avatar>
+        <ion-label class="header-text ion-text-wrap">
+          <h2>{{b.memberId}}</h2>
+          <p>{{b.memberName}}</p>
+        </ion-label>
+      </ion-item>
+    </ion-card>
+  </ion-card>
+</ion-content>

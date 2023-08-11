@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AlertService } from 'src/app/services/alert/alert.service';
 import { GlobalService } from 'src/app/services/global/global.service';
 import { RestService } from 'src/app/services/rest/rest.service';
+import { BankListPage } from 'src/app/shared/modals/bank-list/bank-list.page';
 
 @Component({
   selector: 'app-add-favorite',
@@ -12,7 +13,9 @@ import { RestService } from 'src/app/services/rest/rest.service';
 export class AddFavoriteComponent implements OnInit {
   @Output() displayBenefListTab: EventEmitter<any> = new EventEmitter();
   benefForm: FormGroup;
+  fromAccDetail: any = {};
   pageStatus = 1;
+  otherBankDetail: any = {};
   constructor(
     private rest: RestService,
     public global: GlobalService,
@@ -22,9 +25,9 @@ export class AddFavoriteComponent implements OnInit {
   ngOnInit() {
     this.initFormGroup();
   }
+  get f() { return this.benefForm.controls; }
   goBack() {
-    this.displayBenefList();
-    // this.pageStatus = 1;
+    this.pageStatus = 1;
     console.log('PageStatus: ' + this.pageStatus);
   }
   initFormGroup() {
@@ -37,6 +40,7 @@ export class AddFavoriteComponent implements OnInit {
       benefAccName: new FormControl(''),
       benefAccCurrency: new FormControl(''),
       benefAddress: new FormControl(''),
+      benefBankId: new FormControl('BIC'),
     });
   }
   get accNotMatched() {
@@ -47,6 +51,52 @@ export class AddFavoriteComponent implements OnInit {
     }
     return true;
   }
+  checkValidation() {
+    const benefType = this.f['benefType'].value;
+    console.log('benefType: ' + benefType);
+    if (benefType === 'O') {
+      this.benefForm.controls['benefBankId'].setValue('');
+      this.benefForm.controls['benefBankId'].addValidators([Validators.required]);
+      this.fetchFromAccDetails();
+    } else if (benefType === 'B') {
+      this.benefForm.controls['benefBankId'].setValue('BCEL');
+      this.otherBankDetail = {};
+    } else {
+      this.benefForm.controls['benefBankId'].setValue('BIC');
+      this.otherBankDetail = {};
+    }
+  }
+  addBankIdValidator() {
+    this.f['benefBankId'].setValue('');
+    this.f['benefBankId'].addValidators([Validators.required]);
+  }
+  clearBankIdValidator() {
+    this.f['benefBankId'].removeValidators(Validators.required);
+    this.f['benefBankId'].clearValidators();
+    this.f['benefBankId'].setErrors(null);
+  }
+  // this is required to get lmps bank account details
+  fetchFromAccDetails() {
+    if (this.fromAccDetail.accountNo) return;
+    console.log('Fetching From Acc Details');
+    this.rest.fetchLinkedAccount().then(resp => {
+      if (resp.RESP_CODE === 'MPAY1019') {
+        this.global.timeout()
+      } else if (resp.RESP_STATUS == 'SUCCESS') {
+        this.global.getDefaultAccNumber(resp.data).then(res => {
+          console.log('Default Acc Num: ' + JSON.stringify(res));
+          if (res) {
+            this.fromAccDetail = res;
+          }
+        });
+      } else {
+        this.alertService.showAlert('ALERT', resp.REASON || resp.RESP_CODE);
+      }
+    }).catch(() => {
+      this.rest.closeLoader();
+    });
+  }
+
   validateAccNum() {
     console.log('Validate acc num');
     const benefType = this.benefForm.controls['benefType'].value;
@@ -58,11 +108,7 @@ export class AddFavoriteComponent implements OnInit {
       }
     } else {
       console.log('Proceed to add beneficiary');
-      if (benefType === 'S') {
-        this.generateOtp(benefType);
-      } else {
-        this.initOtherAddBenef(benefType);
-      }
+      this.generateOtp(benefType);
     }
   }
 
@@ -129,7 +175,7 @@ export class AddFavoriteComponent implements OnInit {
       nickName: this.benefForm.controls['benefNickName'].value,
       accountType: this.benefForm.controls['benefAccType'].value,
       beneficiaryType: benefType,
-      bankId: 'BIC',
+      bankId: this.benefForm.controls['benefBankId'].value,
       accountCurrency: this.benefForm.controls['benefAccCurrency'].value,
       accountCCY: this.benefForm.controls['benefAccCurrency'].value,
     };
@@ -146,12 +192,60 @@ export class AddFavoriteComponent implements OnInit {
     });
   }
   // LMPS Beneficiary Code goes here
-  validateLmpsBenefAccNum() {
 
+  async selectOtherBank() {
+    const modal = await this.global.modalCtrl.create({
+      component: BankListPage,
+      handle: false,
+      mode: 'ios',
+      initialBreakpoint: 1.0,
+      breakpoints: [0.5, 0.6, 0.7, 0.8, 0.9, 1.0],
+      backdropDismiss: false
+    });
+    await modal.present();
+    const { data } = await modal.onDidDismiss();
+    this.otherBankDetail = data;
+    this.f['benefBankId'].setValue(data.memberId);
+  }
+  validateLmpsBenefAccNum() {
+    const benefType = this.f['benefType'].value;
+    const benefBankId = this.f['benefType'].value;
+    if (!this.otherBankDetail.memberName) {
+      // this.alertService.showAlert('ALERT', 'PLZ_SELECT_UR_BANK');
+      this.alertService.showToast('PLZ_SELECT_UR_BANK');
+      return;
+    }
+    if (!this.fromAccDetail.accountNo) {
+      this.alertService.showToast('SELECT_FRM_ACC');
+      return;
+    }
+    const postData = {
+      memberId: this.otherBankDetail.memberId,
+      accountNumber: this.benefForm.controls['benefAccNum'].value,
+      fromCustAccount: this.fromAccDetail.accountNo
+    };
+    this.rest.lmpsEnquiry(postData).then(resp => {
+      if (resp.RESP_CODE === 'MPAY1019') {
+        this.global.timeout()
+      } else if (resp.RESP_STATUS == 'SUCCESS') {
+        this.benefForm.controls['benefAccType'].setValue(resp.accountType);
+        this.benefForm.controls['benefAccName'].setValue(resp.accountName);
+        if (benefType === 'B') {
+          this.benefForm.controls['benefBankId'].setValue(this.otherBankDetail.memberId);
+          this.benefForm.controls['benefAccCurrency'].setValue(resp.accountCCY);
+        } else {
+          this.benefForm.controls['benefAccCurrency'].setValue(resp.accountCurrency);
+        }
+      } else {
+        this.alertService.showAlert('ALERT', resp.REASON || resp.RESP_CODE);
+      }
+    }).catch(err => {
+      this.rest.closeLoader();
+    })
   }
 
-  initOtherAddBenef(benefType: string) {
-
+  fetchImage(id: string) {
+    return this.global.getLogoPath(id);
   }
   displayBenefList() {
     console.log('tttt');

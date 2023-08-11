@@ -325,7 +325,7 @@ export class GlobalService {
 			return 'assets/imgs/bank-logo/70050418.png';
 		} else if (data == "APB") {
 			return 'assets/imgs/bank-logo/70020418.png';
-		} else if (data == "MJBL") {
+		} else if (data == "MJB") {
 			return 'assets/imgs/bank-logo/70040418.png';
 		} else if (data == "ICBC") {
 			return 'assets/imgs/bank-logo/70070418.png';
@@ -335,7 +335,7 @@ export class GlobalService {
 			return 'assets/imgs/bank-logo/70120418.png';
 		} else if (data == "IDB") {
 			return 'assets/imgs/bank-logo/70140418.png';
-		} else if (data == "ACLEDA") {
+		} else if (data == "ACLE") {
 			return 'assets/imgs/bank-logo/70080418.png';
 		} else if (data == "SACOM") {
 			return 'assets/imgs/bank-logo/70130418.png';
@@ -343,7 +343,15 @@ export class GlobalService {
 			return 'assets/imgs/bank-logo/70150418.png';
 		} else if (data == "BIC") {
 			return 'assets/imgs/bank-logo/70110418.png';
+		} else if (data == "VMB") {
+			return 'assets/imgs/bank-logo/70190418.png';
+		} else if (data == "PSV") {
+			return 'assets/imgs/bank-logo/29110418.png';
+		} else if (data == "BFL") {
+			return 'assets/imgs/bank-logo/37160418.png';
+		} else if (data == "CAMBODIA") {
+			return 'assets/imgs/bank-logo/CAMBODIA.png';
 		}
-    return data;
+    return 'assets/imgs/bank-logo/bank-logo.png';
 	}
 }

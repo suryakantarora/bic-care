@@ -229,6 +229,10 @@ const routes: Routes = [
     path: 'bic-other',
     loadChildren: () => import('./pages/account/transfer/bic-other/bic-other.module').then( m => m.BicOtherPageModule)
   },
+  {
+    path: 'bank-list',
+    loadChildren: () => import('./shared/modals/bank-list/bank-list.module').then( m => m.BankListPageModule)
+  },
 
 
 ];

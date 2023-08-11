@@ -18,7 +18,6 @@ export class AlertService {
     await Toast.show({
       text: this.translate.instant(msg),
       duration: 'long',
-      position: 'top'
     });
   };
   async showAlertsForKycVerification(kycStatus:string) {

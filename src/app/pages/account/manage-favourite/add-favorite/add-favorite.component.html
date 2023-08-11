@@ -4,11 +4,29 @@
       <div class="form-field">
         <div class="input-field">
           <ion-select fill="outline" label="{{'SEL_TYPEOF_BENEF' | translate}}" formControlName="benefType"
-            placeholder="{{'SEL_TYPEOF_BENEF' | translate}}" labelPlacement="floating">
+            placeholder="{{'SEL_TYPEOF_BENEF' | translate}}" labelPlacement="floating" (ionChange)="checkValidation()"> 
             <ion-select-option value="S">{{'BIC_CUST' | translate}}</ion-select-option>
             <ion-select-option value="B">{{'BCEL_CUST' | translate}}</ion-select-option>
             <ion-select-option value="O">{{'OTHER_CUST' | translate}}</ion-select-option>
           </ion-select>
+        </div>
+      </div>
+      <!-- *ngIf="benefForm.controls['benefType'].value === 'O'"-->
+      <div class="form-field" mode="md" *ngIf="benefForm.controls['benefType'].value === 'O'">
+        <div class="input-field">
+          <ion-item lines="none" fill="outline" button detail="true" (click)="selectOtherBank()">
+            <ion-avatar slot="start" *ngIf="otherBankDetail.memberName">
+              <img [src]="fetchImage(otherBankDetail.memberId)" onerror="this.onerror=null;this.src='assets/imgs/bank-logo/bank-logo.png';">
+            </ion-avatar>
+            <ion-label class="header-text ion-text-wrap" *ngIf="otherBankDetail.memberName">
+              <h2>{{otherBankDetail.memberId}}</h2>
+              <p>{{otherBankDetail.memberName}}</p>
+            </ion-label>
+            <ion-label *ngIf="!otherBankDetail.memberName">
+              <h2>{{'TO_BANK' | translate}}</h2>
+              <p>{{'SELECT_BANK_DESC' | translate}}</p>
+            </ion-label>
+          </ion-item>
         </div>
       </div>
 
