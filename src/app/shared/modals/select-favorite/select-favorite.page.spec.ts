@@ -1,12 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { FtBicLapnetPage } from './ft-bic-lapnet.page';
+import { SelectFavoritePage } from './select-favorite.page';
 
-describe('FtBicLapnetPage', () => {
-  let component: FtBicLapnetPage;
-  let fixture: ComponentFixture<FtBicLapnetPage>;
+describe('SelectFavoritePage', () => {
+  let component: SelectFavoritePage;
+  let fixture: ComponentFixture<SelectFavoritePage>;
 
   beforeEach(async(() => {
-    fixture = TestBed.createComponent(FtBicLapnetPage);
+    fixture = TestBed.createComponent(SelectFavoritePage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

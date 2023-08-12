@@ -4,23 +4,27 @@ import { GlobalService } from 'src/app/services/global/global.service';
 import { RestService } from 'src/app/services/rest/rest.service';
 
 @Component({
-  selector: 'app-list-favorite',
-  templateUrl: './list-favorite.component.html',
-  styleUrls: ['./list-favorite.component.scss'],
+  selector: 'app-select-favorite',
+  templateUrl: './select-favorite.page.html',
+  styleUrls: ['./select-favorite.page.scss'],
 })
-export class ListFavoriteComponent  implements OnInit {
+export class SelectFavoritePage implements OnInit {
   benefList: any=[];
   filterBenefList: any=[];
-  showDetail:string;
   showLoaders=true;
+  showDetail: string;
+
   constructor(
-    private rest: RestService,
     public global: GlobalService,
+    private rest: RestService,
     private alertService: AlertService
   ) { }
 
   ngOnInit() {
     this.initBenefList();
+  }
+  closeModal(data:any) {
+    this.global.modalCtrl.dismiss(data);
   }
   showDetailOfBenef(id:string) {
     if (this.showDetail=== id) {

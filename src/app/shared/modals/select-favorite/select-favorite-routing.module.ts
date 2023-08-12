@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { FtBicLapnetPage } from './ft-bic-lapnet.page';
+import { SelectFavoritePage } from './select-favorite.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: FtBicLapnetPage
+    component: SelectFavoritePage
   }
 ];
 
@@ -14,4 +14,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class FtBicLapnetPageRoutingModule {}
+export class SelectFavoritePageRoutingModule {}

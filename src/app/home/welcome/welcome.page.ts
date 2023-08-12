@@ -22,22 +22,22 @@ export class WelcomePage implements OnInit {
     private global: GlobalService,
     private storage: Storage,
     private rest: RestService
-  ) { 
+  ) {
     this.storage.create();
     this.storage.set('app', 'created');
   }
 
   ngOnInit() {
     this.clearPreviousToken();
-    this.getDeviceDetail();
     App.getInfo().then(res => {
       console.log('App Info: ' +JSON.stringify(res));
       this.appInfo=res;
-    })
+      this.getDeviceDetail();
+    });
     /* setTimeout(() => {
       this.navCtrl.navigateForward(['/login']);
     }, 3000); */
-    
+
   }
   clearPreviousToken() {
 		this.storage.set('TOKEN', null);
@@ -134,7 +134,7 @@ export class WelcomePage implements OnInit {
       } else {
         this.global.setRoot('login');
       }
-		} 
+		}
 	}
 
   async openAppUpdatePage(data:any) {

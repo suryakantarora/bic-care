@@ -13,6 +13,7 @@ import { BicBcelComponent } from './bic-bcel/bic-bcel.component';
 import { BicLapnetComponent } from './bic-lapnet/bic-lapnet.component';
 import { BicUmoneyComponent } from './bic-umoney/bic-umoney.component';
 import { BicMmoneyComponent } from './bic-mmoney/bic-mmoney.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   imports: [
@@ -22,8 +23,11 @@ import { BicMmoneyComponent } from './bic-mmoney/bic-mmoney.component';
     IonicModule,
     BicOtherPageRoutingModule,
     TranslateModule,
-    SharedCurrencyModule
+    SharedCurrencyModule,
+    SharedModule
   ],
-  declarations: [BicOtherPage, BicBcelComponent, BicLapnetComponent, BicUmoneyComponent, BicMmoneyComponent]
+  declarations: [BicOtherPage,
+    BicBcelComponent, BicLapnetComponent,
+    BicUmoneyComponent, BicMmoneyComponent]
 })
 export class BicOtherPageModule {}

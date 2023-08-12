@@ -47,8 +47,9 @@ export function createTranslateLoader(http: HttpClient) {
     ReactiveFormsModule,
     MaskitoModule,
     RoundProgressModule,
-    QRCodeModule
+    QRCodeModule,
   ],
+  exports: [],
   providers: [
     LoaderService,
     { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },

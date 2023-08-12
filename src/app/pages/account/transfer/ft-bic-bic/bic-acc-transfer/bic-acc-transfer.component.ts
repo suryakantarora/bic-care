@@ -6,6 +6,7 @@ import { RestService } from 'src/app/services/rest/rest.service';
 import { ConfirmTransferPage } from '../../confirm-transfer/confirm-transfer.page';
 import { TxnResultPage } from '../../txn-result/txn-result.page';
 import { VerifyOtpPage } from 'src/app/shared/modals/verify-otp/verify-otp.page';
+import { SelectFavoritePage } from 'src/app/shared/modals/select-favorite/select-favorite.page';
 
 @Component({
   selector: 'app-bic-acc-transfer',
@@ -33,6 +34,7 @@ export class BicAccTransferComponent  implements OnInit {
   });
   feeAmount: any;
   otpReference: any;
+  benefDetail: any;
   constructor(
     private global: GlobalService,
     private alertService: AlertService,
@@ -54,7 +56,7 @@ export class BicAccTransferComponent  implements OnInit {
   get fromAccCur() {
     return this.fromAccDetail.accountCCY;
   }
-  
+
   maskAcc(acc: string) {
     return this.global.maskedAccountNumber(acc);
   }
@@ -90,8 +92,25 @@ export class BicAccTransferComponent  implements OnInit {
 			this.checkCrossCurrencyForBICAccTransfer();
 		}
   }
-  openBicBeneficiary() {
-
+  async openBicBeneficiary() {
+    const modal = await this.global.modalCtrl.create({
+      component: SelectFavoritePage,
+      handle:false,
+      breakpoints: [0.4,0.5,0.6,0.7,0.8,0.9,1.0],
+      showBackdrop:true,
+      backdropDismiss: false,
+      initialBreakpoint: 0.9
+    });
+    await modal.present();
+    const {data} = await modal.onDidDismiss();
+    if(data) {
+      this.benefDetail=data;
+      this.ftForm.controls['toAccount'].setValue(data.accountNo);
+      this.ftForm.controls['toAccountHolder'].setValue(data.accountName);
+      this.ftForm.controls['toCurrency'].setValue(data.accountCurrency);
+    } else {
+      this.alertService.showToast('NO_BENEF_FOUND');
+    }
   }
   validateToAccNumber(type:string, bankId:string) {
 		const toAccount = this.global.getNumericCurrency(this.ftForm.controls['toAccount'].value);
@@ -115,7 +134,7 @@ export class BicAccTransferComponent  implements OnInit {
     }).catch(err => {
       this.rest.closeLoader();
     });
-	} 
+	}
 
 	checkCrossCurrencyForBICAccTransfer() {
     console.log('Form Data: ' + JSON.stringify(this.ftForm.value));

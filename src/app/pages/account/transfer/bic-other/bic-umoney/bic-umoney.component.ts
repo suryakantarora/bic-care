@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-bic-umoney',
@@ -6,6 +6,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./bic-umoney.component.scss'],
 })
 export class BicUmoneyComponent  implements OnInit {
+  @Input() fromAccDetail:any;
+  @Input() accList:any;
+  @Input() userDetail:any;
+  @Input() exchangeRate:any;
 
   constructor() { }
 

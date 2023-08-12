@@ -1,0 +1,49 @@
+<ion-header mode="md" class="ion-no-border">
+  <ion-toolbar color="primary">
+    <ion-title>{{'SELECT_BENEF' | translate}}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal('')">
+        <ion-icon name="close" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card class="card-bg no-shadow benef-list" *ngIf="benefList.length>0 && !showLoaders">
+    <ion-card class="card-item" *ngFor="let b of benefList;let i=index">
+      <ion-item lines="full" button detail="true" (click)="closeModal(b)">
+        <ion-avatar slot="start">
+          <img [src]="getImageLogo(b.bankId)">
+        </ion-avatar>
+        <ion-label>
+          <h2>{{'NAME' | translate}} : {{b.accountName}}</h2>
+          <p>A/C : {{global.maskedNumber(b.accountNo)}} </p>
+          <p>{{'ACCOUNT_CURRENCY' | translate}} : {{b.accountCurrency}} </p>
+          <p *ngIf="b.beneficiaryType==='S'">{{'ACCOUNT_TYPE' | translate}} : {{global.getAccType(b.accountType)}}</p>
+        </ion-label>
+      </ion-item>
+    </ion-card>
+  </ion-card>
+  <ion-card class="card-item" *ngIf="benefList.length<=0 && !showLoaders">
+    <ion-item lines="none" class="ion-padding">
+      <ion-label class="ion-text-wrap ion-text-center" color="secondary">
+        <lottie-player autoplay="true" loop="true" src="assets/json/data-not-found.json" class="lottie-player"> </lottie-player>
+        <h2>{{'NO_BENEF_FOUND' | translate}}</h2>
+      </ion-label>
+    </ion-item>
+  </ion-card>
+  <div *ngIf="benefList.length<=0 && showLoaders">
+    <ion-card class="card-item" *ngFor="let i of [0,1,2,3,4,5,6,7,8,9]">
+      <ion-item lines="none">
+        <ion-avatar slot="start">
+          <ion-skeleton-text [animated]="true"></ion-skeleton-text>
+        </ion-avatar>
+        <ion-label>
+          <h2><ion-skeleton-text [animated]="true"></ion-skeleton-text></h2>
+          <h2><ion-skeleton-text [animated]="true"></ion-skeleton-text></h2>
+        </ion-label>
+      </ion-item>
+    </ion-card>
+  </div>
+</ion-content>

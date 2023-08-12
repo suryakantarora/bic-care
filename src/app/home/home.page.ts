@@ -18,6 +18,7 @@ export class HomePage implements OnInit {
   ) { }
   ngOnInit(): void {
     this.menuController.enable(false);
+    this.navCtrl.navigateRoot(['home/welcome']);
   }
 
   async getAppInfo() {
@@ -39,11 +40,5 @@ export class HomePage implements OnInit {
     }).catch((err) => {
       console.error(err)
     });
-  }
-  ionViewDidEnter() {
-    console.log('ionViewDidLoad HomePage');
-    setTimeout(() => {
-      this.navCtrl.navigateRoot(['home/welcome']);
-    }, 3000);
   }
 }

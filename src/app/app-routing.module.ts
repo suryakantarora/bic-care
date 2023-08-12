@@ -155,22 +155,6 @@ const routes: Routes = [
     loadChildren: () => import('./pages/account/transfer/ft-bic-bic/ft-bic-bic.module').then( m => m.FtBicBicPageModule)
   },
   {
-    path: 'ft-bic-bcel',
-    loadChildren: () => import('./pages/account/transfer/ft-bic-bcel/ft-bic-bcel.module').then( m => m.FtBicBcelPageModule)
-  },
-  {
-    path: 'ft-bic-lapnet',
-    loadChildren: () => import('./pages/account/transfer/ft-bic-lapnet/ft-bic-lapnet.module').then( m => m.FtBicLapnetPageModule)
-  },
-  {
-    path: 'ft-bic-umoney',
-    loadChildren: () => import('./pages/account/transfer/ft-bic-umoney/ft-bic-umoney.module').then( m => m.FtBicUmoneyPageModule)
-  },
-  {
-    path: 'ft-bic-mmoney',
-    loadChildren: () => import('./pages/account/transfer/ft-bic-mmoney/ft-bic-mmoney.module').then( m => m.FtBicMmoneyPageModule)
-  },
-  {
     path: 'qr-details',
     loadChildren: () => import('./pages/qr/qr-details/qr-details.module').then( m => m.QrDetailsPageModule)
   },
@@ -225,14 +209,19 @@ const routes: Routes = [
   {
     path: 'manage-favourite',
     loadChildren: () => import('./pages/account/manage-favourite/manage-favourite.module').then( m => m.ManageFavouritePageModule)
-  },  {
+  },
+  {
     path: 'bic-other',
     loadChildren: () => import('./pages/account/transfer/bic-other/bic-other.module').then( m => m.BicOtherPageModule)
   },
   {
     path: 'bank-list',
     loadChildren: () => import('./shared/modals/bank-list/bank-list.module').then( m => m.BankListPageModule)
+  },  {
+    path: 'select-favorite',
+    loadChildren: () => import('./shared/modals/select-favorite/select-favorite.module').then( m => m.SelectFavoritePageModule)
   },
+
 
 
 ];

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-bic-mmoney',
@@ -6,7 +6,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./bic-mmoney.component.scss'],
 })
 export class BicMmoneyComponent  implements OnInit {
-
+  @Input() fromAccDetail:any;
+  @Input() accList:any;
+  @Input() userDetail:any;
+  @Input() exchangeRate:any;
   constructor() { }
 
   ngOnInit() {}

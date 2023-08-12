@@ -13,7 +13,7 @@ export class AccountListPage implements OnInit {
   constructor(
     private navParams: NavParams,
     private global:GlobalService
-  ) { 
+  ) {
     this.accList=this.navParams.data;
     this.disabledAcc=this.navParams.get('disabledAcc') || '';
   }
@@ -26,6 +26,11 @@ export class AccountListPage implements OnInit {
   closModal(data:any) {
     this.global.modalCtrl.dismiss(data);
   }
+
+  maskAcc(acc: string) {
+    return this.global.maskedAccountNumber(acc);
+  }
+
   getCurrency(cur:string) {
     return this.global.getTextCurrency(cur);
   }

@@ -11,6 +11,8 @@ import { TranslateModule } from '@ngx-translate/core';
 import { SharedCurrencyModule } from 'src/app/shared/module/shared-currency.module';
 import { OwnAccTransferComponent } from './own-acc-transfer/own-acc-transfer.component';
 import { BicAccTransferComponent } from './bic-acc-transfer/bic-acc-transfer.component';
+import { FromAccountComponent } from '../from-account/from-account.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   imports: [
@@ -20,7 +22,7 @@ import { BicAccTransferComponent } from './bic-acc-transfer/bic-acc-transfer.com
     IonicModule,
     FtBicBicPageRoutingModule,
     TranslateModule,
-    SharedCurrencyModule
+    SharedCurrencyModule, SharedModule
   ],
   declarations: [FtBicBicPage, OwnAccTransferComponent, BicAccTransferComponent]
 })
