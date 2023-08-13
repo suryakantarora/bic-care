@@ -6,10 +6,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./wallet-to-wallet.page.scss'],
 })
 export class WalletToWalletPage implements OnInit {
-
+  walletDetail:any={};
   constructor() { }
 
   ngOnInit() {
   }
+  initUserDetails(event:any) {
 
+  }
+  initWalletDetails(event:any) {
+    this.walletDetail=event;
+  }
 }

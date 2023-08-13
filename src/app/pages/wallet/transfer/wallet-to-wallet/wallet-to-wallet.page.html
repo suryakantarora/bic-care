@@ -1,13 +1,32 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>wallet-to-wallet</ion-title>
+<ion-header mode="md">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button mode="md"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{'FUND_TRANSFER' | translate}}</ion-title>
   </ion-toolbar>
+  <ion-toolbar color="primary">
+    <app-wallet-detail (sendUserDetail)="initUserDetails($event)"
+      (sendWalletDetail)="initWalletDetails($event)"></app-wallet-detail>
+  </ion-toolbar>
+  <ion-item lines="full">
+    <ion-label class="ion-text-center">
+      {{'WALLET_WALLET' | translate}}
+    </ion-label>
+  </ion-item>
 </ion-header>
-
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">wallet-to-wallet</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content mode="md">
+  <ion-toolbar class="text-field-with-icon">
+    <div class="form-field">
+      <div class="input-field">
+        <ion-input type="tel" fill="outline" maxlength="10" label="{{'TO_WALLET' | translate}}" labelPlacement="stacked"
+          placeholder="{{'TO_WALLET_MOBILE_NUMBER' | translate}}"></ion-input>
+      </div>
+    </div>
+    <ion-buttons slot="end" class="end-icon">
+      <ion-button color="primary">
+        <ion-icon slot="icon-only" name="person-add"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
 </ion-content>
