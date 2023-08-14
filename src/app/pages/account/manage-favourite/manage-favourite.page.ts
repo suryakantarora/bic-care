@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./manage-favourite.page.scss'],
 })
 export class ManageFavouritePage implements OnInit {
-  selectedTab='NEW';
+  selectedTab='OLD';
   constructor() { }
 
   ngOnInit() {

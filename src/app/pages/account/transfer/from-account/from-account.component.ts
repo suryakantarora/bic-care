@@ -23,7 +23,7 @@ export class FromAccountComponent  implements OnInit {
   };
   selectedCurrency: any;
   exchangeRate: any;
-  accountBalance: number;
+  accountBalance: number=1000;
   userDetail: any;
   constructor(
     private global: GlobalService,
@@ -35,7 +35,7 @@ export class FromAccountComponent  implements OnInit {
     this.sendAccList.emit(this.accList);
     this.sendFromAccDetail.emit(this.fromAccDetail);
     this.sendExchangeRate.emit(1);
-    this.getLinkedAccountNum();
+    // this.getLinkedAccountNum();
   }
   get accType() {
     return this.global.getAccType(this.fromAccDetail.accountType);

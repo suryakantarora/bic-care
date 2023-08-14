@@ -43,6 +43,7 @@ export class SelectFavoritePage implements OnInit {
   initBenefList() {
     this.rest.fetchBeneficiary().then(resp => {
       if (resp.RESP_CODE === 'MPAY1019') {
+        this.closeModal('');
         this.global.timeout()
       } else if (resp.RESP_STATUS == 'SUCCESS') {
         this.benefList=[];

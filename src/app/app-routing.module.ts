@@ -217,13 +217,15 @@ const routes: Routes = [
   {
     path: 'bank-list',
     loadChildren: () => import('./shared/modals/bank-list/bank-list.module').then( m => m.BankListPageModule)
-  },  {
+  },
+  {
     path: 'select-favorite',
     loadChildren: () => import('./shared/modals/select-favorite/select-favorite.module').then( m => m.SelectFavoritePageModule)
   },
-
-
-
+  {
+    path: 'recent',
+    loadChildren: () => import('./shared/modals/recent/recent.module').then( m => m.RecentPageModule)
+  },
 ];
 
 @NgModule({

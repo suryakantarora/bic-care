@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NO_ERRORS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -13,6 +13,7 @@ import { OwnAccTransferComponent } from './own-acc-transfer/own-acc-transfer.com
 import { BicAccTransferComponent } from './bic-acc-transfer/bic-acc-transfer.component';
 import { FromAccountComponent } from '../from-account/from-account.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { RecentPageModule } from 'src/app/shared/modals/recent/recent.module';
 
 @NgModule({
   imports: [
@@ -22,8 +23,9 @@ import { SharedModule } from 'src/app/shared/shared.module';
     IonicModule,
     FtBicBicPageRoutingModule,
     TranslateModule,
-    SharedCurrencyModule, SharedModule
+    SharedCurrencyModule, SharedModule, RecentPageModule
   ],
+  schemas: [NO_ERRORS_SCHEMA],
   declarations: [FtBicBicPage, OwnAccTransferComponent, BicAccTransferComponent]
 })
 export class FtBicBicPageModule {}

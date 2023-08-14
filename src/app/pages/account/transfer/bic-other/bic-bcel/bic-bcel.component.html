@@ -1,3 +1,54 @@
-<p>
-  bic-bcel works!
-</p>
+<ion-toolbar color="primary">
+  <ion-row class="segment">
+    <ion-col size="6" [ngClass]="selectedTab==='NEW'?'active':''" (click)="changeActiveTab('NEW')">
+      {{'NEW' | translate}}</ion-col>
+    <ion-col size="6" [ngClass]="selectedTab==='OLD'?'active':''" (click)="changeActiveTab('OLD')">
+      {{'FAVOURITE' | translate}}</ion-col>
+  </ion-row>
+</ion-toolbar>
+<div [ngSwitch]="selectedTab" mode="md" class="ion-padding-top">
+  <div *ngSwitchCase="'NEW'">
+    <div class="form-field">
+      <div class="input-field">
+        <ion-input type="text" placeholder="{{'ENTER_BENIF_ACC_NUM' | translate}}" maxlength="20" inputmode="numeric"
+        label="{{'ENTER_BENIF_ACC_NUM' | translate}}" labelPlacement="stacked" fill="outline" clearInput
+        ></ion-input>
+      </div>
+    </div>
+    <div class="form-field">
+      <div class="input-field">
+        <ion-input type="password" placeholder="{{'CONFIRM_BENIF_ACC_NUM' | translate}}" maxlength="20" inputmode="numeric"
+        label="{{'CONFIRM_BENIF_ACC_NUM' | translate}}" labelPlacement="stacked" fill="outline" clearInput
+        ></ion-input>
+      </div>
+    </div>
+    <div class="form-field">
+      <div class="input-field">
+        <ion-button mode="md" expand="block" class="custom-btn">{{'VALIDATE' | translate}}</ion-button>
+      </div>
+    </div>
+  </div>
+  <div *ngSwitchCase="'OLD'">
+    <div class="form-field">
+      <div class="input-field">
+        <ion-item lines="none" button detail="false" fill="outline" (click)="loadBeneficiary('BCEL')">
+          <ion-label *ngIf="!benefDetail.toAccountNo">{{'SELECT_BENEF' | translate}}</ion-label>
+          <ion-label *ngIf="benefDetail.toAccountNo">
+            <p>{{benefDetail.toAccName}}</p>
+            <h2>{{global.maskedNumber(benefDetail.accountNo) + '-' + global.getTextCurrency(benefDetail.toCurrency)}}</h2>
+          </ion-label>
+          <ion-buttons slot="end">
+            <ion-button>
+              <ion-icon name="person-add" slot="icon-only" color="primary"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </ion-item>
+      </div>
+    </div>
+    <div class="form-field">
+      <div class="input-field">
+        <ion-button mode="md" expand="block" class="custom-btn">{{'VALIDATE' | translate}}</ion-button>
+      </div>
+    </div>
+  </div>
+</div>

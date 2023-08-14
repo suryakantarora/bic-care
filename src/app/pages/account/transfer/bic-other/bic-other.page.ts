@@ -20,16 +20,19 @@ export class BicOtherPage implements OnInit {
   ) {
     this.transferType=this.global.transferTo;
     console.log('this.transferType: ' + this.transferType);
+    if(!this.transferType) {
+      this.transferType='BCEL';
+    }
   }
   get transferDesc() {
     if (this.transferType === 'BCEL') {
-      return 'TRANSFER_THROUGH_BCEL';
+      return 'BIC_TO_BCEL_TRANSFER';
     } else if (this.transferType === 'LAPNET') {
       return 'TRANSFER_THROUGH_LAPNET';
     } else if (this.transferType === 'UMONEY') {
-      return 'TRANSFER_THROUGH_UMONEY';
+      return 'BIC_TO_UMONEY_TRANSFER';
     } else if (this.transferType === 'MMONEY') {
-      return 'TRANSFER_THROUGH_MMONEY';
+      return 'BIC_TO_MMONEY_TRANSFER';
     }
     return 'TRANSFER_THROUGH_BCEL';
   }

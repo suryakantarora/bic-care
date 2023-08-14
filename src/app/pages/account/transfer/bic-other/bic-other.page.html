@@ -3,7 +3,10 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title>{{'FUND_TRANSFER' | translate}}</ion-title>
+    <ion-label>
+      <h2><strong>{{'FUND_TRANSFER' | translate}}</strong></h2>
+      <p><ion-text color="secondary">{{transferDesc | translate}}</ion-text> </p>
+    </ion-label>
   </ion-toolbar>
   <ion-toolbar color="primary" mode="md">
     <app-from-account
@@ -12,14 +15,14 @@
     (sendExchangeRate)="sendExchangeRate($event)"
     ></app-from-account>
   </ion-toolbar>
-  <ion-item lines="full">
+<!--   <ion-item lines="full">
     <ion-label class="ion-text-center">
       {{transferDesc | translate}}
     </ion-label>
-  </ion-item>
+  </ion-item> -->
 </ion-header>
 
-<ion-content mode="md" class="ion-padding-top">
+<ion-content mode="md">
   <div [ngSwitch]="transferType">
     <div *ngSwitchCase="'BCEL'">
       <app-bic-bcel [fromAccDetail]="fromAccDetail" [accList]="accList" [userDetail]="userDetail"

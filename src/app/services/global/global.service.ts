@@ -1,4 +1,4 @@
-import { Injectable, NgZone } from '@angular/core';
+import { Injectable, NgZone, ViewChild } from '@angular/core';
 import { ModalController, NavController, PopoverController } from '@ionic/angular';
 import { Storage } from '@ionic/storage-angular';
 import { TranslateService } from '@ngx-translate/core';
@@ -12,6 +12,7 @@ import { AccountListPage } from 'src/app/shared/modals/account-list/account-list
   providedIn: 'root'
 })
 export class GlobalService {
+  // @ViewChild('recentModal') recentModal: any;
   defaultLang: string = 'en';
   flagImage: string = 'assets/imgs/logo/enflag.png';
   profilePicAvatar = 'assets/imgs/home/man-icon-256x256.png';

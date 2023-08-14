@@ -6,6 +6,7 @@ import { RestService } from 'src/app/services/rest/rest.service';
 import { ConfirmTransferPage } from '../../confirm-transfer/confirm-transfer.page';
 import { VerifyOtpPage } from 'src/app/shared/modals/verify-otp/verify-otp.page';
 import { TxnResultPage } from '../../txn-result/txn-result.page';
+import { Storage } from '@ionic/storage-angular';
 
 @Component({
   selector: 'app-own-acc-transfer',
@@ -18,6 +19,7 @@ export class OwnAccTransferComponent  implements OnInit {
   @Input() userDetail:any;
   @Input() exchangeRate:any=1;
   @Output() sendDetail: EventEmitter<any>= new EventEmitter();
+  @Output() sendRecent: EventEmitter<any>= new EventEmitter();
   // fromAccDetail:any={};
   // accList:any=[];
   ftForm:FormGroup = new FormGroup({
@@ -32,11 +34,15 @@ export class OwnAccTransferComponent  implements OnInit {
   constructor(
     private global: GlobalService,
     private alertService: AlertService,
-    private rest: RestService
-  ) { }
+    private rest: RestService,
+    private storage: Storage
+  ) { 
+    this.storage.create();
+  }
 
   ngOnInit() {
     // this.test();
+    this.readRecentFT();
   }
   get accType() {
     return this.global.getAccType(this.fromAccDetail.accountType);
@@ -221,6 +227,9 @@ export class OwnAccTransferComponent  implements OnInit {
     txnData.txnId= resp.TXN_ID;
     txnData.txnStatus=status;
     txnData.txnDate= new Date().toISOString();
+    if(status==='S') {
+      this.addToRecent(txnData);
+    }
     const result = await this.global.modalCtrl.create({
       component: TxnResultPage,
       componentProps: {txnData},
@@ -236,5 +245,30 @@ export class OwnAccTransferComponent  implements OnInit {
       return true;
     }
     return false;
+  }
+
+
+  async addToRecent(txnData:any){
+    let recent:any=[];
+    this.storage.get('RECENT_OWN_FT').then(res => {
+      if(res && res.length>0) {
+        recent=res;
+        recent.push(txnData);
+        this.storage.set('RECENT_OWN_FT', recent);
+      } else {
+        recent.push(txnData);
+        this.storage.set('RECENT_OWN_FT', recent);
+      }
+    });
+  }
+  async readRecentFT() {
+    this.storage.get('RECENT_OWN_FT').then(res=> {
+      console.log('RECENT_OWN_FT: ' + JSON.stringify(res));
+      if(res && res.length>0) {
+        this.sendRecent.emit(res);
+      } else {
+        this.sendRecent.emit([]);
+      }
+    });
   }
 }
