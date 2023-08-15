@@ -1,3 +1,26 @@
-<p>
-  bic-umoney works!
-</p>
+<div>
+  <form [formGroup]="ftForm">
+    <ion-toolbar class="text-field-with-icon">
+      <div class="form-field">
+        <div class="input-field">
+          <ion-input type="text" placeholder="{{'ENTER_BENIF_ACC_NUM' | translate}}" maxlength="20" inputmode="numeric"
+            label="{{'MOBILE_NUMBER' | translate}}" labelPlacement="stacked" fill="outline" clearInput
+            formControlName="toAccount"></ion-input>
+        </div>
+      </div>
+      <ion-buttons slot="end" class="end-icon" (click)="selectContact()">
+        <ion-button color="primary" type="button">
+          <ion-icon slot="icon-only" name="person-add"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+
+    <div class="form-field">
+      <div class="input-field">
+        <ion-button mode="ios" expand="block" class="custom-btn" [disabled]="ftForm.invalid">
+          {{'PROCEED' | translate}}
+        </ion-button>
+      </div>
+    </div>
+  </form>
+</div>

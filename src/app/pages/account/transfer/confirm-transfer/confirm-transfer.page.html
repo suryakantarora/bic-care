@@ -14,7 +14,7 @@
     <ion-card class="card-item">
       <ion-item lines="none">
         <ion-label>
-          <p>{{ 'PAY_TO' | translate }}: {{cnfData?.toAccountHolder}}</p>
+          <p>{{ 'PAY_TO' | translate }}: {{cnfData?.toAccountHolder || cnfData?.toAccName}}</p>
           <h2> {{global.maskedNumber(cnfData?.toAccount)}}</h2>
         </ion-label>
       </ion-item>
@@ -37,7 +37,7 @@
             </ion-col>
             <ion-col size="6" class="ion-text-end">
               <p>{{ 'TRX_FEE' | translate }}</p>
-              <h2> {{global.getTextCurrency(cnfData.curCode) + ' ' + global.formatNumber(cnfData.feeAmount)}}</h2>
+              <h2> {{global.getTextCurrency(cnfData.curCode) + ' ' + global.formatNumber(cnfData.feeAmount || cnfData.txnFee)}}</h2>
             </ion-col>
           </ion-row>
         </ion-label>
@@ -46,7 +46,7 @@
     <ion-card class="card-item" *ngIf="cnfData?.fromAccount">
       <ion-item lines="none">
         <ion-label>
-          <p>{{ 'FROM_ACC' | translate }}: {{cnfData.fromAccountHolder}}</p>
+          <p *ngIf="cnfData.fromAccountHolder">{{ 'FROM_ACC' | translate }}: {{cnfData.fromAccountHolder}}</p>
           <h2>{{global.maskedNumber(cnfData.fromAccount)}}</h2>
         </ion-label>
       </ion-item>

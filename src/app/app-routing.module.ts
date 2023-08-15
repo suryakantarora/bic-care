@@ -225,7 +225,11 @@ const routes: Routes = [
   {
     path: 'recent',
     loadChildren: () => import('./shared/modals/recent/recent.module').then( m => m.RecentPageModule)
+  },  {
+    path: 'select-contact',
+    loadChildren: () => import('./shared/modals/select-contact/select-contact.module').then( m => m.SelectContactPageModule)
   },
+
 ];
 
 @NgModule({

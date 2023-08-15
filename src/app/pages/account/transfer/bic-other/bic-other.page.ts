@@ -21,7 +21,8 @@ export class BicOtherPage implements OnInit {
     this.transferType=this.global.transferTo;
     console.log('this.transferType: ' + this.transferType);
     if(!this.transferType) {
-      this.transferType='BCEL';
+      // this.transferType='BCEL';
+      this.transferType='UMONEY';
     }
   }
   get transferDesc() {

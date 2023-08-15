@@ -38,4 +38,5 @@ export const suburl = {
     ADD_BENEFICIARY: 'beneficiary/add',
     LMPS_ENQUIRY: 'lmps/inquiry',
     LMPS_BANK_LIST: 'lmps/list',
+    ACCOUNT_FEE_LIMIT: 'accountFeeLimit',
 }

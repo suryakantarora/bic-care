@@ -14,7 +14,7 @@ export class ConfirmTransferPage implements OnInit {
   constructor(
     public global: GlobalService,
     private navParams: NavParams
-  ) { 
+  ) {
     this.cnfData= this.navParams.data;
   }
 
