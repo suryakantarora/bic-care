@@ -63,7 +63,7 @@ export class OwnAccTransferComponent  implements OnInit {
     return this.global.getTextCurrency(accountCCY);
   }
   maskBalance(accountBalance:any) {
-    return this.global.formatAmmount(accountBalance);
+    return this.global.formatAmount(accountBalance);
   }
   async openOwnToAccount() {
     await this.global.selectFromAccount(this.accList, this.fromAccDetail.accountNo).then(res => {

@@ -1,13 +1,18 @@
 <ion-header mode="md" class="ion-no-border">
-  <ion-toolbar color="primary">
-    <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
-    </ion-buttons>
+  <ion-item color="primary" lines="none">
+    <ion-avatar slot="start">
+      <img [src]="bankLogo">
+    </ion-avatar>
     <ion-label>
       <h2><strong>{{'FUND_TRANSFER' | translate}}</strong></h2>
       <p><ion-text color="secondary">{{transferDesc | translate}}</ion-text> </p>
     </ion-label>
-  </ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-button (click)="closePage()">
+        <ion-icon name="close" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-item>
   <ion-toolbar color="primary" mode="md">
     <app-from-account
     (sendFromAccDetail)="sendFromAccDetail($event)"

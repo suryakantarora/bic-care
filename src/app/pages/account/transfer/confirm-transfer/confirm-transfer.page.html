@@ -11,8 +11,22 @@
     <ion-item-divider color="secondary">
       <ion-label class="ion-text-wrap">{{ 'CNF_FT_MSG' | translate }}</ion-label>
     </ion-item-divider>
+    <ion-card class="card-item" *ngIf="cnfData?.fromAccount">
+      <ion-item lines="none">
+        <ion-avatar slot="start">
+          <img src="assets/imgs/bic-logo.png">
+        </ion-avatar>
+        <ion-label>
+          <p>{{ 'FROM_ACC' | translate }}: <span *ngIf="cnfData?.fromAccountHolder">{{cnfData?.fromAccountHolder}}</span></p>
+          <h2>{{global.maskedNumber(cnfData?.fromAccount)}}</h2>
+        </ion-label>
+      </ion-item>
+    </ion-card>
     <ion-card class="card-item">
       <ion-item lines="none">
+        <ion-avatar slot="start">
+          <img [src]="toBankLogo">
+        </ion-avatar>
         <ion-label>
           <p>{{ 'PAY_TO' | translate }}: {{cnfData?.toAccountHolder || cnfData?.toAccName}}</p>
           <h2> {{global.maskedNumber(cnfData?.toAccount)}}</h2>
@@ -40,14 +54,6 @@
               <h2> {{global.getTextCurrency(cnfData.curCode) + ' ' + global.formatNumber(cnfData.feeAmount || cnfData.txnFee)}}</h2>
             </ion-col>
           </ion-row>
-        </ion-label>
-      </ion-item>
-    </ion-card>
-    <ion-card class="card-item" *ngIf="cnfData?.fromAccount">
-      <ion-item lines="none">
-        <ion-label>
-          <p *ngIf="cnfData.fromAccountHolder">{{ 'FROM_ACC' | translate }}: {{cnfData.fromAccountHolder}}</p>
-          <h2>{{global.maskedNumber(cnfData.fromAccount)}}</h2>
         </ion-label>
       </ion-item>
     </ion-card>

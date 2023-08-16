@@ -25,7 +25,7 @@ export class AccStatementPage implements OnInit {
     return this.global.getTextCurrency(accountCurrency);
   }
   formatAmount(balance:string) {
-    return this.global.formatAmmount(balance);
+    return this.global.formatAmount(balance);
   }
   maskAccount(acc:string) {
     return this.global.maskAccNumber(acc);
@@ -76,7 +76,7 @@ export class AccStatementPage implements OnInit {
     });
   }
   formatNumber(amt:string) {
-    return this.global.formatAmmount(amt);
+    return this.global.formatAmount(amt);
   }
   goBack(){
     this.global.pop();

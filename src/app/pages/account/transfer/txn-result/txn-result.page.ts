@@ -20,7 +20,7 @@ export class TxnResultPage implements OnInit {
   bgColor = '#13A100';
   constructor(
     private navParam: NavParams,
-    private global: GlobalService,
+    public global: GlobalService,
     private socialService: SocialShareService,
     private alertService: AlertService,
   ) {
@@ -54,7 +54,7 @@ export class TxnResultPage implements OnInit {
     return this.global.getTextCurrency(cur);
   }
   formatAmount(amt: string) {
-    return this.global.formatAmmount(amt);
+    return this.global.formatAmount(amt);
   }
   maskAccount(acc: string) {
     return this.global.maskAccNumber(acc);
@@ -82,5 +82,18 @@ export class TxnResultPage implements OnInit {
       console.error("File sharing failed", error.message);
       this.alertService.showToast('File sharing failed');
     });
+  }
+  get toBankLogo() {
+    const toBankId=this.txnResult.toBankId || 'BIC';
+    if(toBankId==='BCEL') {
+      return 'assets/imgs/bank-logo/27710418.png';
+    } else if (toBankId==='LAPNET') {
+      return 'assets/imgs/lapnet-sm.png';
+    } else if (toBankId==='UMONEY') {
+      return 'assets/imgs/umoney.jpg';
+    } else if (toBankId==='MMONEY') {
+      return 'assets/imgs/lmmdummy.png';
+    }
+    return 'assets/imgs/bic-logo.png';
   }
 }

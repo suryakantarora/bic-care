@@ -25,6 +25,21 @@ export class BicOtherPage implements OnInit {
       this.transferType='UMONEY';
     }
   }
+  closePage() {
+    this.global.pop();
+  }
+  get bankLogo() {
+    if(this.transferType==='BCEL') {
+      return 'assets/imgs/bank-logo/27710418.png';
+    } else if (this.transferType==='LAPNET') {
+      return 'assets/imgs/lapnet-sm.png';
+    } else if (this.transferType==='UMONEY') {
+      return 'assets/imgs/umoney.jpg';
+    } else if (this.transferType==='MMONEY') {
+      return 'assets/imgs/lmmdummy.png';
+    }
+    return 'assets/imgs/bic-logo.png';
+  }
   get transferDesc() {
     if (this.transferType === 'BCEL') {
       return 'BIC_TO_BCEL_TRANSFER';

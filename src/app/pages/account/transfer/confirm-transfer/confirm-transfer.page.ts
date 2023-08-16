@@ -23,4 +23,17 @@ export class ConfirmTransferPage implements OnInit {
   closeModal(data: any) {
     this.global.modalCtrl.dismiss(data);
   }
+  get toBankLogo() {
+    const toBankId=this.cnfData.toBankId || 'BIC';
+    if(toBankId==='BCEL') {
+      return 'assets/imgs/bank-logo/27710418.png';
+    } else if (toBankId==='LAPNET') {
+      return 'assets/imgs/lapnet-sm.png';
+    } else if (toBankId==='UMONEY') {
+      return 'assets/imgs/umoney.jpg';
+    } else if (toBankId==='MMONEY') {
+      return 'assets/imgs/lmmdummy.png';
+    }
+    return 'assets/imgs/bic-logo.png';
+  }
 }

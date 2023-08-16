@@ -39,4 +39,8 @@ export const suburl = {
     LMPS_ENQUIRY: 'lmps/inquiry',
     LMPS_BANK_LIST: 'lmps/list',
     ACCOUNT_FEE_LIMIT: 'accountFeeLimit',
+    BANKCODE_TRANSFER: 'BANKCODE_TRANSFER',
+    UMONEY_TRANSFER:'umoney/transfer',
+    UMONEY_ACC_INFO: 'umoney/getaccount',
+    FEE_CONFIG:'feeconfig',
 }

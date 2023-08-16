@@ -16,7 +16,7 @@
         <ion-label class="recent">
           <h2 *ngIf="r.toAccountHolder">{{r.toAccountHolder}}</h2>
           <p>{{global.maskAccNumber(r.toAccount)}} - {{global.getTextCurrency(r.toCurCode)}}</p>
-          <ion-chip [color]="r.txnStatus==='F'?'danger':'success'"><strong>{{global.getTextCurrency(r.curCode)}} {{global.formatAmmount(r.amount)}}</strong></ion-chip>
+          <ion-chip [color]="r.txnStatus==='F'?'danger':'success'"><strong>{{global.getTextCurrency(r.curCode)}} {{global.formatAmount(r.amount)}}</strong></ion-chip>
         </ion-label>
         <ion-label slot="end" class="ion-text-end">
           <ion-chip color="tertiary" (click)="showTxnDetail(r)"><strong>{{'VIEW' | translate}}</strong></ion-chip><br>

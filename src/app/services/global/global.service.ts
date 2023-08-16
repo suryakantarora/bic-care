@@ -210,7 +210,7 @@ export class GlobalService {
   }
 
   // Amount Masking code
-  formatAmmount(num: any) {
+  formatAmount(num: any) {
     if(!num) return;
     const num_parts = num.toString().split(".");
     num_parts[0] = num_parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ".");
@@ -235,7 +235,7 @@ export class GlobalService {
     let data1 = data.replace(re, "");
     return data1;
   }
-  formatToNumeric(intNum: any, floatNum: any) {
+  formatToNumeric(intNum: any, floatNum: any=0) {
     let data1 = Number(intNum.toString().replace(/[.]*/g, ''));
     let data2 = Number(floatNum);
     let amount = data1;

@@ -1,5 +1,5 @@
 <div>
-  <form [formGroup]="ftForm">
+  <form [formGroup]="ftForm" *ngIf="!toAccountName">
     <ion-toolbar class="text-field-with-icon">
       <div class="form-field">
         <div class="input-field">
@@ -17,9 +17,56 @@
 
     <div class="form-field">
       <div class="input-field">
-        <ion-button mode="ios" expand="block" class="custom-btn" [disabled]="ftForm.invalid">
+        <ion-button mode="ios" expand="block" class="custom-btn" [disabled]="ftForm.invalid" (click)="searchMobileNumber()">
           {{'PROCEED' | translate}}
         </ion-button>
+      </div>
+    </div>
+  </form>
+  <form [formGroup]="ftForm" *ngIf="toAccountName" (ngSubmit)="showConfirmScreen()">
+    <ion-card class="card-bg no-shadow">
+      <ion-item lines="full" color="primary">
+        <ion-label class="ion-text-center">{{'BENEF_ACC_DETAIL' | translate}}</ion-label>
+      </ion-item>
+      <ion-card class="card-item">
+        <ion-item lines="full">
+          <ion-label class="header-text">
+            <p>{{'BENIF_NAME' | translate}}</p>
+            <h2>{{toAccountName}}</h2>
+          </ion-label>
+          <ion-chip color="success" mode="ios" slot="end" (click)="clearForm()">
+            <ion-icon name="create-outline"></ion-icon> &nbsp; {{'EDIT' | translate}}
+          </ion-chip>
+        </ion-item>
+        <ion-item lines="full">
+          <ion-label class="header-text">
+            <p>{{'MOBILE_NUMBER' | translate}}</p>
+            <h2>{{toAccount}}</h2>
+          </ion-label>
+        </ion-item>
+      </ion-card>
+    </ion-card>
+    <div class="form-field">
+      <div class="input-field">
+        <div class="custom-input-box">
+          <div class="material-textfield">
+            <input placeholder="{{'ENTER_AMT' | translate}}" type="tel" maxlength="15" lakCurrencyMask formControlName="txnAmount">
+            <label>{{'AMOUNT' | translate}} - LAK</label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-field">
+      <div class="input-field">
+        <ion-input type="text" placeholder="{{'ENTER_REMARKS' | translate}}" maxlength="30"
+          label="{{'REMARKS' | translate}}" labelPlacement="floating" fill="outline" clearInput
+          formControlName="remarks"></ion-input>
+      </div>
+    </div>
+
+    <div class="form-field">
+      <div class="input-field">
+        <ion-button expand="block" mode="ios" class="custom-btn" [disabled]="!txnAmount" type="submit">{{'PROCEED' | translate}}</ion-button>
       </div>
     </div>
   </form>

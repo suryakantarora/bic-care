@@ -47,7 +47,7 @@ export class FromAccountComponent  implements OnInit {
     return this.global.getTextCurrency(accountCCY);
   }
   maskBalance(accountBalance:any) {
-    return this.global.formatAmmount(accountBalance);
+    return this.global.formatAmount(accountBalance);
   }
   getUserInfo() {
     this.rest.getUserInfo({}).then(resp => {

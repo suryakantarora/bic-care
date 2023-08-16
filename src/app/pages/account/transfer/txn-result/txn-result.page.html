@@ -1,6 +1,4 @@
-<ion-header class="ion-no-border" mode="ios">
-</ion-header>
-
+<ion-header class="ion-no-border" mode="ios"></ion-header>
 <ion-content [ngClass]="txnResult.txnStatus==='S'?'success-bg':'failed-bg'">
   <div class="spacer"></div>
   <div #receipt_screen style="padding:5px;">
@@ -41,7 +39,7 @@
       </div>
       <ion-item lines="full">
         <ion-thumbnail slot="start">
-          <img src="assets/imgs/bic-logo.png">
+          <img [src]="toBankLogo">
         </ion-thumbnail>
         <ion-label>
           <p>{{'CREDITED_TO' | translate}}:  {{txnResult?.toAccountHolder}}</p>
@@ -51,11 +49,11 @@
       <ion-item lines="none">
         <ion-label>
           <p>{{'AMOUNT' | translate}}</p>
-          <h2>{{getCurrency(txnResult.curCode)}} {{txnResult.amount}}</h2>
+          <h2>{{getCurrency(txnResult.curCode)}} {{global.formatAmount(txnResult.amount)}}</h2>
         </ion-label>
         <ion-label slot="end" class="ion-text-end">
           <p>{{'TXN_FEE' | translate}}</p>
-          <h2>{{getCurrency(txnResult.curCode)}} {{txnResult.feeAmount}}</h2>
+          <h2>{{getCurrency(txnResult.curCode)}} {{global.formatAmount(txnResult.feeAmount)}}</h2>
         </ion-label>
       </ion-item>
       <ion-item lines="full">
@@ -70,7 +68,7 @@
       </ion-item>
       <ion-item lines="none" *ngIf="txnResult.txnStatus==='S'">
         <ion-label class="ion-text-wrap ion-text-center">
-          <ion-text color="success">{{ 'THANK_YOU_FOR_USING_BIC_BEST' | translate }} {{ 'PAYMENT_HAD_BEEN_PROCESSED_SUCCESSFULLY' | translate }}</ion-text>
+          <ion-text color="success">{{ 'THANK_YOU_FOR_USING_BIC_BEST' | translate }}, {{ 'PAYMENT_HAD_BEEN_PROCESSED_SUCCESSFULLY' | translate }}</ion-text>
         </ion-label>
       </ion-item>
       <br>

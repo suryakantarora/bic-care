@@ -69,7 +69,7 @@ export class BicAccTransferComponent implements OnInit {
     return this.global.getTextCurrency(accountCCY);
   }
   maskBalance(accountBalance: any) {
-    return this.global.formatAmmount(accountBalance);
+    return this.global.formatAmount(accountBalance);
   }
 
   formatNumber(num: string) {
