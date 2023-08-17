@@ -1,1 +1,98 @@
-12121
+<form [formGroup]="ftForm" (ngSubmit)="validateAccount()" *ngIf="!toAccountName">
+    <ion-item lines="full" color="light">
+        <ion-label class="ion-text-center">{{'MPAY1039' | translate}}</ion-label>
+    </ion-item>
+    <ion-toolbar class="text-field-with-icon">
+        <div class="form-field">
+            <div class="input-field">
+                <ion-input type="text" placeholder="{{'ENTER_BENIF_ACC_NUM' | translate}}" maxlength="20"
+                    inputmode="numeric" label="{{'MOBILE_NUMBER' | translate}}" labelPlacement="stacked" fill="outline"
+                    clearInput formControlName="toAccount"></ion-input>
+            </div>
+        </div>
+        <ion-buttons slot="end" class="end-icon" (click)="selectContact()">
+            <ion-button color="primary" type="button">
+                <ion-icon slot="icon-only" name="person-add"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+    <div class="form-field">
+        <div class="input-field">
+            <div class="custom-input-box">
+                <div class="material-textfield" *ngIf="global.getTextCurrency(fromAccDetail.accountCCY)==='LAK'">
+                    <input placeholder="0.00" type="tel" maxlength="15" lakCurrencyMask formControlName="txnAmount">
+                    <label>{{'AMOUNT' | translate}} - {{global.getTextCurrency(fromAccDetail.accountCCY)}}</label>
+                </div>
+                <div class="material-textfield" *ngIf="global.getTextCurrency(fromAccDetail.accountCCY)!=='LAK'">
+                    <input placeholder="0.00" type="tel" maxlength="15" usdCurrencyMask formControlName="txnAmount">
+                    <label>{{'AMOUNT' | translate}} - {{global.getTextCurrency(fromAccDetail.accountCCY)}}</label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-field">
+        <div class="input-field">
+            <ion-input type="text" maxlength="30" formControlName="remarks" fill="outline"
+                label="{{'REMARKS' | translate}}" [counter]="true" labelPlacement="floating"
+                placeholder="{{'ENTER_REMARKS' | translate}}"></ion-input>
+        </div>
+    </div>
+    <div class="form-field input-field ion-padding-top">
+        <ion-button expand="block" mode="ios" class="custom-btn" [disabled]="ftForm.invalid" type="submit">
+            {{'PROCEED' | translate}}
+        </ion-button>
+    </div>
+</form>
+
+<form [formGroup]="ftForm" (ngSubmit)="validateAccount()" *ngIf="toAccountName">
+    <ion-card class="card-bg no-shadow">
+        <ion-item lines="full" color="primary">
+            <ion-label class="ion-text-center">{{'BENEF_DETAIL' | translate}}</ion-label>
+        </ion-item>
+        <ion-card class="card-item">
+            <ion-item lines="full">
+                <ion-label class="header-text">
+                    <p>{{'BENIF_NAME' | translate}}</p>
+                    <h2>{{toAccountName}}</h2>
+                </ion-label>
+                <ion-chip color="success" mode="ios" slot="end" (click)="clearForm()">
+                    <ion-icon name="create-outline"></ion-icon> &nbsp; {{'EDIT' | translate}}
+                </ion-chip>
+            </ion-item>
+            <ion-item lines="full">
+                <ion-label class="header-text">
+                    <p>{{'MOBILE_NUMBER' | translate}}</p>
+                    <h2>{{global.maskedMobile(toAccount+'')}}</h2>
+                </ion-label>
+                <ion-label slot="end" class="header-text ion-text-end">
+                    <p>{{'CURRENCY' | translate}}</p>
+                    <h2>{{global.getTextCurrency(toCurrency+'')}}</h2>
+                </ion-label>
+            </ion-item>
+            <ion-item lines="full">
+                <ion-label class="header-text">
+                    <p>{{'AMOUNT' | translate}}</p>
+                    <h2>{{global.getTextCurrency(toCurrency+'')}} {{global.formatAmount(txnAmount)}}</h2>
+                </ion-label>
+                <ion-label slot="end" class="header-text ion-text-end">
+                    <p>{{'TXN_FEE' | translate}}</p>
+                    <h2>{{global.getTextCurrency(toCurrency+'')}} {{global.formatAmount(txnFee)}}</h2>
+                </ion-label>
+            </ion-item>
+            <ion-item lines="full">
+                <ion-label class="header-text">
+                    <p>{{'REMARKS' | translate}}</p>
+                    <h2>{{ftForm.controls['remarks'].value}}</h2>
+                </ion-label>
+                <ion-label class="header-text ion-text-end" slot="end" *ngIf="global.getTextCurrency(fromAccDetail.accountCCY)!=='LAK'">
+                    <p>{{'EXCHANGE_RATE' | translate}}</p>
+                    <h2>{{global.getTextCurrency(fromAccDetail.accountCCY)}}
+                        1 = <span>LAK</span> {{global.formatNumber(exchangeRate)}}</h2>
+                </ion-label>
+            </ion-item>
+        </ion-card>
+    </ion-card>
+    <div class="form-field input-field" (click)="confirmTransfer()">
+        <ion-button color="secondary" expand="block" mode="ios" class="custom-btn">{{'TRANSFER' | translate}}</ion-button>
+    </div>
+</form>

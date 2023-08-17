@@ -481,6 +481,21 @@ export class RestService {
     // loading.dismiss();
     return response?.data;
   }
+  async fetchInterBeneficiary() {
+    const postData: any={};
+    // const loading = await this.loading();
+    postData.TOKEN = this.authToken;
+    const options = {
+      url: this.baseUrl + suburl.LIST_INTER_BENEFICIARY,
+      headers: { 'Content-Type': 'application/json' },
+      data: postData
+    };
+    console.log("Request Data: " + JSON.stringify(options));
+    const response: HttpResponse = await CapacitorHttp.post(options);
+    console.log("Response Data: " + JSON.stringify(response.data));
+    // loading.dismiss();
+    return response?.data;
+  }
   async addhBeneficiary(postData: any) {
     const loading = await this.loading();
     postData.TOKEN = this.authToken;
@@ -583,6 +598,54 @@ export class RestService {
   async umoneyAccTransfer(postData:any) {
     postData.TOKEN= this.authToken;
     postData.SUBURL= suburl.UMONEY_TRANSFER;
+    
+    const loading = await this.loading();
+    const options = {
+      url: this.baseUrl + suburl.POST_SERVICE_WITH_DATA,
+      headers: { 'Content-Type': 'application/json' },
+      data: postData
+    };
+    console.log("Request Data: " + JSON.stringify(options));
+    const response: HttpResponse = await CapacitorHttp.post(options);
+    console.log("Response Data: " + JSON.stringify(response.data));
+    loading.dismiss();
+    return response?.data;
+  }
+  async lmmCashin(postData:any) {
+    postData.TOKEN= this.authToken;
+    postData.SUBURL= suburl.LMM_CASHIN;
+    
+    const loading = await this.loading();
+    const options = {
+      url: this.baseUrl + suburl.POST_SERVICE_WITH_DATA,
+      headers: { 'Content-Type': 'application/json' },
+      data: postData
+    };
+    console.log("Request Data: " + JSON.stringify(options));
+    const response: HttpResponse = await CapacitorHttp.post(options);
+    console.log("Response Data: " + JSON.stringify(response.data));
+    loading.dismiss();
+    return response?.data;
+  }
+  async lmmAccTransfer(postData:any) {
+    postData.TOKEN= this.authToken;
+    postData.SUBURL= suburl.LMM_CONFIRM_CASHIN;
+    
+    const loading = await this.loading();
+    const options = {
+      url: this.baseUrl + suburl.POST_SERVICE_WITH_DATA,
+      headers: { 'Content-Type': 'application/json' },
+      data: postData
+    };
+    console.log("Request Data: " + JSON.stringify(options));
+    const response: HttpResponse = await CapacitorHttp.post(options);
+    console.log("Response Data: " + JSON.stringify(response.data));
+    loading.dismiss();
+    return response?.data;
+  }
+  async walletToWalletFT(postData:any) {
+    postData.TOKEN= this.authToken;
+    postData.SUBURL= suburl.WALLET_TO_WALLET_FT;
     
     const loading = await this.loading();
     const options = {

@@ -13,10 +13,12 @@ import { AccountListPage } from 'src/app/shared/modals/account-list/account-list
 })
 export class GlobalService {
   // @ViewChild('recentModal') recentModal: any;
+  umoneyLimit = { minLimit: 5000, maxLimit: 20000000 };
+  mmoneyLimit = { minLimit: 10000, maxLimit: 10000000 };
   defaultLang: string = 'en';
   flagImage: string = 'assets/imgs/logo/enflag.png';
   profilePicAvatar = 'assets/imgs/home/man-icon-256x256.png';
-  transferTo='';
+  transferTo = '';
   constructor(
     private translate: TranslateService,
     private storage: Storage,
@@ -49,17 +51,17 @@ export class GlobalService {
       return 'SAVING_ACC';
     } else if (accType === '20' || accType === 20) {
       return 'CREDIT_ACC';
-    } else if (accType===30 || accType==='30') {
+    } else if (accType === 30 || accType === '30') {
       return 'FIXED_ACC';
     } else {
-      return accType +' Account';
+      return accType + ' Account';
     }
   }
-  async selectFromAccount(accList: any, disabledAcc:string='') {
+  async selectFromAccount(accList: any, disabledAcc: string = '') {
     const modal = await this.modalCtrl.create({
       component: AccountListPage,
       cssClass: 'action-sheet-modal',
-      componentProps: { accList:accList, disabledAcc:disabledAcc },
+      componentProps: { accList: accList, disabledAcc: disabledAcc },
       initialBreakpoint: 0.5,
       breakpoints: [0.4, 0.5, 0.6, 0.7, 0.8, 0.9],
       backdropBreakpoint: 0.3
@@ -69,7 +71,7 @@ export class GlobalService {
     console.log(JSON.stringify(data));
     return data;
   }
- 
+
   setRoot(page: string) {
     this.ngZone.run(() => {
       this.navCtrl.navigateRoot(['/' + page]).catch(err => {
@@ -203,7 +205,7 @@ export class GlobalService {
       return currency;
     }
   }
-  formatNumber(num:string) {
+  formatNumber(num: string) {
     var num_parts = num.toString().split(".");
     num_parts[0] = num_parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     return num_parts.join(",");
@@ -211,7 +213,7 @@ export class GlobalService {
 
   // Amount Masking code
   formatAmount(num: any) {
-    if(!num) return;
+    if (!num) return;
     const num_parts = num.toString().split(".");
     num_parts[0] = num_parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     return num_parts.join(",");
@@ -235,7 +237,7 @@ export class GlobalService {
     let data1 = data.replace(re, "");
     return data1;
   }
-  formatToNumeric(intNum: any, floatNum: any=0) {
+  formatToNumeric(intNum: any, floatNum: any = 0) {
     let data1 = Number(intNum.toString().replace(/[.]*/g, ''));
     let data2 = Number(floatNum);
     let amount = data1;
@@ -249,7 +251,7 @@ export class GlobalService {
     }
     return amount;
   }
-  formatUsdAmount(num:any) {
+  formatUsdAmount(num: any) {
     const num_parts = num.toString().split(",");
     num_parts[0] = num_parts[0].replaceAll(".", "");
     return num_parts.join(".");
@@ -315,44 +317,44 @@ export class GlobalService {
     });
   }
 
-  getLogoPath(data:string) {
-		if (data == "BCEL") {
-			return 'assets/imgs/bank-logo/27710418.png';
-		} else if (data == "LDB") {
-			return 'assets/imgs/bank-logo/70030418.png';
-		} else if (data == "JDB") {
-			return 'assets/imgs/bank-logo/32170418.png';
-		} else if (data == "LVB") {
-			return 'assets/imgs/bank-logo/70050418.png';
-		} else if (data == "APB") {
-			return 'assets/imgs/bank-logo/70020418.png';
-		} else if (data == "MJB") {
-			return 'assets/imgs/bank-logo/70040418.png';
-		} else if (data == "ICBC") {
-			return 'assets/imgs/bank-logo/70070418.png';
-		} else if (data == "BOC") {
-			return 'assets/imgs/bank-logo/70100418.png';
-		} else if (data == "VTB") {
-			return 'assets/imgs/bank-logo/70120418.png';
-		} else if (data == "IDB") {
-			return 'assets/imgs/bank-logo/70140418.png';
-		} else if (data == "ACLE") {
-			return 'assets/imgs/bank-logo/70080418.png';
-		} else if (data == "SACOM") {
-			return 'assets/imgs/bank-logo/70130418.png';
-		} else if (data == "STB") {
-			return 'assets/imgs/bank-logo/70150418.png';
-		} else if (data == "BIC") {
-			return 'assets/imgs/bank-logo/70110418.png';
-		} else if (data == "VMB") {
-			return 'assets/imgs/bank-logo/70190418.png';
-		} else if (data == "PSV") {
-			return 'assets/imgs/bank-logo/29110418.png';
-		} else if (data == "BFL") {
-			return 'assets/imgs/bank-logo/37160418.png';
-		} else if (data == "CAMBODIA") {
-			return 'assets/imgs/bank-logo/CAMBODIA.png';
-		}
+  getLogoPath(data: string) {
+    if (data == "BCEL") {
+      return 'assets/imgs/bank-logo/27710418.png';
+    } else if (data == "LDB") {
+      return 'assets/imgs/bank-logo/70030418.png';
+    } else if (data == "JDB") {
+      return 'assets/imgs/bank-logo/32170418.png';
+    } else if (data == "LVB") {
+      return 'assets/imgs/bank-logo/70050418.png';
+    } else if (data == "APB") {
+      return 'assets/imgs/bank-logo/70020418.png';
+    } else if (data == "MJB") {
+      return 'assets/imgs/bank-logo/70040418.png';
+    } else if (data == "ICBC") {
+      return 'assets/imgs/bank-logo/70070418.png';
+    } else if (data == "BOC") {
+      return 'assets/imgs/bank-logo/70100418.png';
+    } else if (data == "VTB") {
+      return 'assets/imgs/bank-logo/70120418.png';
+    } else if (data == "IDB") {
+      return 'assets/imgs/bank-logo/70140418.png';
+    } else if (data == "ACLE") {
+      return 'assets/imgs/bank-logo/70080418.png';
+    } else if (data == "SACOM") {
+      return 'assets/imgs/bank-logo/70130418.png';
+    } else if (data == "STB") {
+      return 'assets/imgs/bank-logo/70150418.png';
+    } else if (data == "BIC") {
+      return 'assets/imgs/bank-logo/70110418.png';
+    } else if (data == "VMB") {
+      return 'assets/imgs/bank-logo/70190418.png';
+    } else if (data == "PSV") {
+      return 'assets/imgs/bank-logo/29110418.png';
+    } else if (data == "BFL") {
+      return 'assets/imgs/bank-logo/37160418.png';
+    } else if (data == "CAMBODIA") {
+      return 'assets/imgs/bank-logo/CAMBODIA.png';
+    }
     return 'assets/imgs/bank-logo/bank-logo.png';
-	}
+  }
 }

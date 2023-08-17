@@ -11,10 +11,7 @@ export class ContactService {
     private modalCtrl: ModalController
   ) { }
 
-  async selectContact(contacts: any) {
-    /* const contact={"contactId":"2","name":{"display":"Lalu CGS","given":"Lalu","family":"CGS"},"organization":{"company":"CashLink Global System"},
-    "phones":[{"type":"mobile","isPrimary":false,"number":"(808) 313-0892"},{"type":"mobile","isPrimary":false,"number":"(808) 313-0892"}]};
- */
+  async selectContact() {
     return await this.getContactList().then((res: any) => {
       const contactList = res?.contact?.phones;
       if (contactList.length > 1) {

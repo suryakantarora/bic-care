@@ -14,7 +14,8 @@
     <ion-card class="card-item" *ngIf="cnfData?.fromAccount">
       <ion-item lines="none">
         <ion-avatar slot="start">
-          <img src="assets/imgs/bic-logo.png">
+          <img src="assets/imgs/bic-logo.png" *ngIf="cnfData?.paymentFrom!=='W'">
+          <img src="assets/imgs/home/wallet-512x512.png" *ngIf="cnfData?.paymentFrom==='W'">
         </ion-avatar>
         <ion-label>
           <p>{{ 'FROM_ACC' | translate }}: <span *ngIf="cnfData?.fromAccountHolder">{{cnfData?.fromAccountHolder}}</span></p>
@@ -29,7 +30,8 @@
         </ion-avatar>
         <ion-label>
           <p>{{ 'PAY_TO' | translate }}: {{cnfData?.toAccountHolder || cnfData?.toAccName}}</p>
-          <h2> {{global.maskedNumber(cnfData?.toAccount)}}</h2>
+          <h2 *ngIf="cnfData?.paymentTo!=='W'"> {{global.maskedNumber(cnfData?.toAccount)}}</h2>
+          <h2 *ngIf="cnfData?.paymentTo==='W'"> {{global.maskedMobile(cnfData?.toAccount)}}</h2>
         </ion-label>
       </ion-item>
     </ion-card>

@@ -22,12 +22,13 @@
         </ion-thumbnail>
         <ion-label>
           <p>{{'REFERNCE_ID' | translate}}</p>
-          <h2>{{txnResult.fromAccount}}</h2>
+          <h2>{{txnResult.txnId}}</h2>
         </ion-label>
       </ion-item>
       <ion-item lines="none">
         <ion-thumbnail slot="start">
-          <img src="assets/imgs/bic-logo.png">
+          <img src="assets/imgs/bic-logo.png" *ngIf="txnResult?.paymentFrom!=='W'">
+          <img src="assets/imgs/home/wallet-512x512.png" *ngIf="txnResult?.paymentFrom==='W'">
         </ion-thumbnail>
         <ion-label>
           <p>{{'DEBITED_FROM' | translate}}: {{txnResult?.fromAccountHolder}}</p>

@@ -68,6 +68,16 @@ export class WalletDashboardPage implements OnInit {
   openPage(page: string) {
     this.global.push(page);
   }
+  openTransferPage(page:string) {
+    if(page==='W2W') {
+      this.global.transferTo='W2W';
+    } else if (page === 'W2A') {
+      this.global.transferTo='W2A';
+    } else if (page === 'A2W') {
+      this.global.transferTo='A2W';
+    }
+    this.openPage('wallet-transfer');
+  }
   async openKycStatus() {
     const modal = await this.modalCtrl.create({
       component: KycStatusPage,

@@ -1,3 +1,109 @@
-<p>
-  bic-lapnet works!
-</p>
+<div>
+  <form [formGroup]="ftForm">
+    <div class="form-field">
+      <div class="input-field">
+        <ion-item lines="none" fill="outline" button detail="false" mode="md" (click)="openBeneficiaryBank()">
+          <ion-avatar slot="start">
+            <img [src]="toBankLogo">
+          </ion-avatar>
+          <ion-label class="header-text ion-text-wrap">
+            <p>{{'TO_BANK' | translate}}</p>
+            <h2 *ngIf="!memberName">{{'PLZ_SELECT' | translate}}</h2>
+            <h2 *ngIf="memberName">{{memberName}}</h2>
+          </ion-label>
+          <ion-icon name="chevron-down-outline" color="medium" slot="end"></ion-icon>
+        </ion-item>
+      </div>
+    </div>
+    <div class="form-field input-field">
+      <ion-label class="header-text">
+        <p>{{'SEL_TYPEOF_BENEF' | translate}}</p>
+      </ion-label>
+      <ion-item lines="none" fill="outline">
+        <ion-radio-group formControlName="benefType" style="width:100%" area-label="Benef Type">
+          <ion-row>
+            <ion-col size="6">
+              <ion-radio value="NEW" labelPlacement="end" justify="start" label="New">{{'NEW' | translate}}</ion-radio>
+            </ion-col>
+            <ion-col size="6">
+              <ion-radio value="EXISTING" labelPlacement="end" justify="start" label="Existing">{{'EXISTING' |
+                translate}}</ion-radio>
+            </ion-col>
+          </ion-row>
+        </ion-radio-group>
+      </ion-item>
+    </div>
+    <ion-toolbar class="text-field-with-icon" *ngIf="f['benefType'].value==='NEW'">
+      <div class="form-field">
+        <div class="input-field">
+          <ion-input type="text" placeholder="{{'ENTER_BENIF_ACC_NUM' | translate}}" maxlength="20" inputmode="numeric"
+            label="{{'TO_ACC' | translate}}" labelPlacement="stacked" fill="outline" clearInput (ngModelChange)="onChangeAccNum()"
+            formControlName="toAccount"></ion-input>
+        </div>
+      </div>
+      <ion-buttons slot="end" class="end-icon" (click)="searchBeneficiary()">
+        <ion-button color="primary" type="button">
+          <ion-icon slot="icon-only" name="search"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+    <div class="form-field" *ngIf="f['benefType'].value!=='NEW'">
+      <div class="input-field">
+        <ion-item lines="none" fill="outline" button mode="md">
+          <ion-label class="header-text">
+            <p>{{'TO_ACC' | translate}}</p>
+            <h2 *ngIf="!toAccount">{{'SELECT_BENIF_ACC_NUM' | translate}}</h2>
+            <h2 *ngIf="toAccount">{{global.maskedAccountNumber(toAccount)}}</h2>
+          </ion-label>
+          <ion-buttons slot="end" class="end-icon" (click)="openBeneficiary()">
+            <ion-button color="primary" type="button">
+              <ion-icon slot="icon-only" name="person-add"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </ion-item>
+      </div>
+    </div>
+    <div *ngIf="f['toAccountHolder'].value">
+      <div class="form-field">
+        <div class="input-field">
+          <ion-item lines="none" fill="outline" button mode="md">
+            <ion-label class="header-text">
+              <p *ngIf="toAccount">{{'CURRENCY' | translate }}: {{global.getTextCurrency(toCurrency)}}</p>
+              <h2 *ngIf="toAccount">{{f['toAccountHolder'].value}}</h2>
+            </ion-label>
+          </ion-item>
+        </div>
+      </div>
+      <div class="form-field">
+        <div class="input-field">
+          <div class="custom-input-box">
+            <div class="material-textfield" *ngIf="global.getTextCurrency(fromAccDetail.accountCCY)==='LAK'">
+              <input placeholder="0.00" type="tel" maxlength="15" lakCurrencyMask formControlName="txnAmount">
+              <label>{{'AMOUNT' | translate}} - {{global.getTextCurrency(fromAccDetail.accountCCY)}}</label>
+            </div>
+            <div class="material-textfield" *ngIf="global.getTextCurrency(fromAccDetail.accountCCY)!=='LAK'">
+              <input placeholder="0.00" type="tel" maxlength="15" usdCurrencyMask formControlName="txnAmount">
+              <label>{{'AMOUNT' | translate}} - {{global.getTextCurrency(fromAccDetail.accountCCY)}}</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="global.getTextCurrency(fromAccDetail.accountCCY) !== 'LAK' && global.getTextCurrency(toCurrency) === 'LAK'">
+        <ion-label class="ion-text-center">
+          <p> {{ 'EXCHANGE_RATE' | translate }} : {{global.getTextCurrency(fromAccDetail.accountCCY) }} 
+            1 = <span>LAK</span> {{global.formatNumber(exchangeRate)}}</p>
+        </ion-label>
+      </div>
+      <div class="form-field">
+        <div class="input-field">
+          <ion-input type="tel" maxlength="20" formControlName="remarks" fill="outline" label="{{'REMARKS' | translate}}"
+            labelPlacement="floating" placeholder="{{'ENTER_REMARKS' | translate}}">
+          </ion-input>
+        </div>
+      </div>
+      <div class="form-field input-field ion-padding-top">
+        <ion-button expand="block" mode="ios" class="custom-btn" [disabled]="ftForm.invalid">{{'PROCEED' | translate}}</ion-button>
+      </div>
+    </div>
+  </form>
+</div>

@@ -159,10 +159,6 @@ const routes: Routes = [
     loadChildren: () => import('./pages/qr/qr-details/qr-details.module').then( m => m.QrDetailsPageModule)
   },
   {
-    path: 'wallet-to-wallet',
-    loadChildren: () => import('./pages/wallet/transfer/wallet-to-wallet/wallet-to-wallet.module').then( m => m.WalletToWalletPageModule)
-  },
-  {
     path: 'wallet-to-account',
     loadChildren: () => import('./pages/wallet/transfer/wallet-to-account/wallet-to-account.module').then( m => m.WalletToAccountPageModule)
   },
@@ -225,9 +221,14 @@ const routes: Routes = [
   {
     path: 'recent',
     loadChildren: () => import('./shared/modals/recent/recent.module').then( m => m.RecentPageModule)
-  },  {
+  },
+  {
     path: 'select-contact',
     loadChildren: () => import('./shared/modals/select-contact/select-contact.module').then( m => m.SelectContactPageModule)
+  },
+  {
+    path: 'wallet-transfer',
+    loadChildren: () => import('./pages/wallet/transfer/transfer.module').then( m => m.TransferPageModule)
   },
 
 ];

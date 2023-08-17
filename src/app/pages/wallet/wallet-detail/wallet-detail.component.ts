@@ -12,12 +12,14 @@ import { RestService } from 'src/app/services/rest/rest.service';
 export class WalletDetailComponent  implements OnInit {
   @Output() sendUserDetail: EventEmitter<any> = new EventEmitter();
   @Output() sendWalletDetail: EventEmitter<any> = new EventEmitter();
-  walletBalance:any;
-  userDetail: any;
+  walletBalance:any=10000;
+  userDetail: any={
+
+  };
   deviceId: any;
-  walletMobileNo: string;
-  walletCurrency: any;
-  userName: any;
+  walletMobileNo: string='2052592794';
+  walletCurrency: any='LAK';
+  userName: any='Suryakant Kumar';
   constructor(
     public global: GlobalService,
     private rest: RestService,
@@ -25,7 +27,7 @@ export class WalletDetailComponent  implements OnInit {
   ) { }
 
   ngOnInit() {
-    // this.getDeviceId();
+    this.getDeviceId();
   }
   async getDeviceId() {
     await Device.getId().then(res => {

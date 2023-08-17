@@ -1,0 +1,25 @@
+<ion-header mode="md">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button mode="md"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{'FUND_TRANSFER' | translate}}</ion-title>
+  </ion-toolbar>
+  <ion-toolbar color="primary">
+    <app-wallet-detail (sendUserDetail)="initUserDetails($event)"
+      (sendWalletDetail)="initWalletDetails($event)"></app-wallet-detail>
+  </ion-toolbar>
+</ion-header>
+<ion-content [fullscreen]="true">
+  <div [ngSwitch]="transferTo">
+    <div *ngSwitchCase="'W2W'">
+      <app-wallet-to-wallet [walletDetail]="walletDetail"></app-wallet-to-wallet>
+    </div>
+    <div *ngSwitchCase="'W2A'">
+      <app-wallet-to-account [walletDetail]="walletDetail"></app-wallet-to-account>
+    </div>
+    <div *ngSwitchCase="'A2W'">
+      change it
+    </div>
+  </div>
+</ion-content>

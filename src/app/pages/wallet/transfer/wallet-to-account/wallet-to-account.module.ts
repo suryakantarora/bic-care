@@ -17,6 +17,7 @@ import { TranslateModule } from '@ngx-translate/core';
     WalletToAccountPageRoutingModule,
     TranslateModule
   ],
-  declarations: [WalletToAccountPage]
+  declarations: [WalletToAccountPage],
+  exports: [WalletToAccountPage],
 })
 export class WalletToAccountPageModule {}

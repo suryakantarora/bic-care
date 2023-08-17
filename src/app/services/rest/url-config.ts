@@ -35,6 +35,7 @@ export const suburl = {
     TRANSFER: 'transfer',
     ACCOUNT_INFO: 'accountInfo',
     LIST_BENEFICIARY: 'listBeneficiary',
+    LIST_INTER_BENEFICIARY:'inter/beneficiary/list',
     ADD_BENEFICIARY: 'beneficiary/add',
     LMPS_ENQUIRY: 'lmps/inquiry',
     LMPS_BANK_LIST: 'lmps/list',
@@ -43,4 +44,7 @@ export const suburl = {
     UMONEY_TRANSFER:'umoney/transfer',
     UMONEY_ACC_INFO: 'umoney/getaccount',
     FEE_CONFIG:'feeconfig',
+    LMM_CASHIN:'lmm/cashin',
+    LMM_CONFIRM_CASHIN:'lmm/confirm/cashin',
+    WALLET_TO_WALLET_FT:'wallet/wallet/wallet'
 }

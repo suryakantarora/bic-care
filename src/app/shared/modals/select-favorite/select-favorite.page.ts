@@ -57,6 +57,23 @@ export class SelectFavoritePage implements OnInit {
       this.rest.closeLoader();
     });
   }
+  fetchInterBeneficiary() {
+    this.rest.fetchInterBeneficiary().then(resp => {
+      if (resp.RESP_CODE === 'MPAY1019') {
+        this.closeModal('');
+        this.global.timeout()
+      } else if (resp.RESP_STATUS == 'SUCCESS') {
+        this.benefList=[];
+        this.benefList=resp.data;
+        this.filterBenefList=resp.data;
+        this.showLoaders=false;
+      } else {
+        this.alertService.showAlert('ALERT', resp.REASON || resp.RESP_CODE);
+      }
+    }).catch(err => {
+      this.rest.closeLoader();
+    });
+  }
   searchBenef(event:any) {
     const query = event.target.value.toLowerCase();
     this.benefList = this.filterBenefList.filter((d:any) => d.accountName.toLowerCase().indexOf(query) > -1);

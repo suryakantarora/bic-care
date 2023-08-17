@@ -93,6 +93,16 @@ export class TxnResultPage implements OnInit {
       return 'assets/imgs/umoney.jpg';
     } else if (toBankId==='MMONEY') {
       return 'assets/imgs/lmmdummy.png';
+    } else if (toBankId==='ETL') {
+      return 'assets/imgs/lmmdummy.png';
+    } else if (toBankId==='LTC') {
+      return 'assets/imgs/lmmdummy.png';
+    } else if (toBankId==='UNITEL') {
+      return 'assets/imgs/lmmdummy.png';
+    }
+
+    if(this.txnResult?.paymentTo==='W') {
+      return 'assets/imgs/home/wallet-512x512.png';
     }
     return 'assets/imgs/bic-logo.png';
   }

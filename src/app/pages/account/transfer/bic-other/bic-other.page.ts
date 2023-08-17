@@ -22,7 +22,7 @@ export class BicOtherPage implements OnInit {
     console.log('this.transferType: ' + this.transferType);
     if(!this.transferType) {
       // this.transferType='BCEL';
-      this.transferType='UMONEY';
+      this.transferType='MMONEY';
     }
   }
   closePage() {

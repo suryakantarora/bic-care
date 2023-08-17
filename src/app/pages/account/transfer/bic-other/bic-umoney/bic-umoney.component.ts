@@ -39,7 +39,7 @@ export class BicUmoneyComponent implements OnInit {
   ngOnInit() { 
   }
   selectContact() {
-    this.contactService.selectContact([]).then(res=> {
+    this.contactService.selectContact().then(res=> {
       console.log('Contact List: ' + JSON.stringify(res));
       this.ftForm.controls['toAccount'].setValue(res);
     });
@@ -77,8 +77,8 @@ export class BicUmoneyComponent implements OnInit {
   validateFields() {
     const amount:any= this.global.formatToNumeric(this.ftForm.controls['txnAmount'].value);
     console.log(amount);
-		const minLimit = 5000;
-		const maxLimit = 20000000;
+		const minLimit = this.global.umoneyLimit.minLimit;
+		const maxLimit = this.global.umoneyLimit.maxLimit;
 		if (amount < minLimit) {
       console.log('amount < minLimit: ' + (amount < minLimit));
 			this.alertService.showAlert('ALERT', this.translate.instant('MINIMUM_TXN_LIMIT_ALERT', { amount: 'LAK ' + this.global.formatNumber(minLimit+'')}));
@@ -122,6 +122,7 @@ export class BicUmoneyComponent implements OnInit {
 			feeAmount: this.ftForm.controls['txnFee'].value,
 			amount: this.ftForm.controls['txnAmount'].value,
 			toBankId: this.ftForm.controls['toBankId'].value,
+      paymentTo: 'W',
       fromAccountHolder: this.userDetail.nickName || 'Test'
     };
     console.log(cnfData);

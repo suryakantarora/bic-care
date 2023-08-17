@@ -1,32 +1,41 @@
-<ion-header mode="md">
-  <ion-toolbar color="primary">
-    <ion-buttons slot="start">
-      <ion-back-button mode="md"></ion-back-button>
-    </ion-buttons>
-    <ion-title>{{'FUND_TRANSFER' | translate}}</ion-title>
-  </ion-toolbar>
-  <ion-toolbar color="primary">
-    <app-wallet-detail (sendUserDetail)="initUserDetails($event)"
-      (sendWalletDetail)="initWalletDetails($event)"></app-wallet-detail>
-  </ion-toolbar>
-  <ion-item lines="full">
-    <ion-label class="ion-text-center">
-      {{'WALLET_WALLET' | translate}}
-    </ion-label>
-  </ion-item>
-</ion-header>
-<ion-content mode="md">
+
+<ion-item lines="full">
+  <ion-label class="ion-text-center">
+    {{'WALLET_WALLET' | translate}}
+  </ion-label>
+</ion-item>
+<form [formGroup]="ftForm" (ngSubmit)="validateForm()">
   <ion-toolbar class="text-field-with-icon">
     <div class="form-field">
       <div class="input-field">
         <ion-input type="tel" fill="outline" maxlength="10" label="{{'TO_WALLET' | translate}}" labelPlacement="stacked"
-          placeholder="{{'TO_WALLET_MOBILE_NUMBER' | translate}}"></ion-input>
+          placeholder="{{'TO_WALLET_MOBILE_NUMBER' | translate}}" formControlName="toAccount"></ion-input>
       </div>
     </div>
     <ion-buttons slot="end" class="end-icon">
-      <ion-button color="primary">
+      <ion-button color="primary" (click)="getContact()">
         <ion-icon slot="icon-only" name="person-add"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
-</ion-content>
+  <div class="form-field">
+    <div class="input-field">
+      <div class="custom-input-box">
+        <div class="material-textfield">
+          <input placeholder="0.00" type="tel" maxlength="15" lakCurrencyMask formControlName="txnAmount">
+          <label>{{'AMOUNT' | translate}} - LAK</label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-field">
+    <div class="input-field">
+      <ion-input type="tel" fill="outline" maxlength="10" label="{{'REMARKS' | translate}}" labelPlacement="stacked"
+        placeholder="{{'ENTER_REMARKS' | translate}}" formControlName="remarks"></ion-input>
+    </div>
+  </div>
+  <div class="form-field input-field">
+    <ion-button expand="block" color="secondary" mode="ios" class="custom-btn" [disabled]="ftForm.invalid" type="submit">{{'PROCEED' | translate}}</ion-button>
+  </div>
+</form>

@@ -34,6 +34,9 @@ export class ConfirmTransferPage implements OnInit {
     } else if (toBankId==='MMONEY') {
       return 'assets/imgs/lmmdummy.png';
     }
+    if(this.cnfData?.paymentTo==='W') {
+      return 'assets/imgs/home/wallet-512x512.png';
+    }
     return 'assets/imgs/bic-logo.png';
   }
 }

@@ -1019,5 +1019,6 @@
 	"ROADTAX":"Road Tax",
 	"ROADTAX_BILL_PAYMENT":"Roadtax Bill Payment",
 	"FIXED_ACC": "Fixed Account",
-	"INVALID_ACC_NUM":"Invalid Account Number"
+	"INVALID_ACC_NUM":"Invalid Account Number",
+	"TO_WALLET":"To Wallet"
 }
