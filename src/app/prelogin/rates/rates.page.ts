@@ -10,6 +10,8 @@ import { RestService } from 'src/app/services/rest/rest.service';
 export class RatesPage implements OnInit {
   exchangeRates:any=[]; // [{"sellRate":"21580","currency":"978","buyRate":"21366"},{"sellRate":"19205","currency":"840","buyRate":"19080"},{"sellRate":"578.75","currency":"764","buyRate":"573.02"}];
   rate='INTER';
+  interestRates:any=[];
+  respDate:any=new Date().toISOString();;
   constructor(private rest: RestService, private global: GlobalService) { }
 
   ngOnInit() {
@@ -30,6 +32,8 @@ export class RatesPage implements OnInit {
   async fetchInterestRate() {
     this.rest.fetchInterestRate().then(res => {
       console.log(res);
+      this.interestRates = res.data;
+      // this.respDate = new Intl.DateTimeFormat('en-US').format(this.date);
     }).catch(err => {
       console.log(err);
       this.rest.closeLoader();

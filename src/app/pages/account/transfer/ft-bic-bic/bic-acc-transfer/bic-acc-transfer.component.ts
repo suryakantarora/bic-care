@@ -47,7 +47,7 @@ export class BicAccTransferComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.readRecentFT();
+    // this.readRecentFT();
   }
   get accType() {
     return this.global.getAccType(this.fromAccDetail.accountType);
@@ -234,7 +234,8 @@ export class BicAccTransferComponent implements OnInit {
       handle: true,
       backdropDismiss: false,
       showBackdrop: true,
-      backdropBreakpoint: 0.2
+      backdropBreakpoint: 0.2,
+      cssClass: 'action-sheet-modal'
     });
     await modal.present();
     const { data } = await modal.onDidDismiss();
@@ -309,7 +310,7 @@ export class BicAccTransferComponent implements OnInit {
     txnData.txnStatus = status;
     txnData.txnDate = new Date().toISOString();
     if(status !=='F') {
-      this.addToRecent(txnData);
+      // this.addToRecent(txnData);
     }
     const result = await this.global.modalCtrl.create({
       component: TxnResultPage,

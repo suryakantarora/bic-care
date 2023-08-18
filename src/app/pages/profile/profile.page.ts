@@ -74,19 +74,6 @@ export class ProfilePage implements OnInit {
 
   }
   async initProfile() {
-    const postData={};
-    this.rest.getUserInfo(postData).then(resp=> {
-      if (resp.RESP_CODE === 'MPAY1019') {
-        this.alertService.showAlert('TIMEOUT', 'TIMEOUT_MSG');
-        this.global.timeout();
-      } else if(resp.RESP_STATUS === 'SUCCESS') {
-        this.user = resp;
-      } else {
-        this.alertService.showAlert('ALERT', resp.REASON || resp.RESP_CODE);
-      }
-    }).catch(err=> {
-      console.error(err);
-      this.rest.closeLoader();
-    })
+    this.user=this.rest.completeUserInfo;
   }
 }

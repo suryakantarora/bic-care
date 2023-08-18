@@ -229,7 +229,11 @@ const routes: Routes = [
   {
     path: 'wallet-transfer',
     loadChildren: () => import('./pages/wallet/transfer/transfer.module').then( m => m.TransferPageModule)
+  },  {
+    path: 'wallet-statement',
+    loadChildren: () => import('./pages/wallet/wallet-statement/wallet-statement.module').then( m => m.WalletStatementPageModule)
   },
+
 
 ];
 

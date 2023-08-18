@@ -19,6 +19,7 @@ export class RestService {
   tcUrl = suburl.TNC_URL;
   baseUrl = environment.baseUrl;
   userDetail: any = {};
+  completeUserInfo: any={};
   constructor(private httpClient: HttpClient, private popoverCtrl: PopoverController) { }
   public setQrCode(qrCode: any) {
     this.qrCode = qrCode;
@@ -106,6 +107,19 @@ export class RestService {
     const loading = await this.loading();
     const options = {
       url: this.baseUrl + suburl.TXN_FEE,
+      headers: { 'Content-Type': 'application/json' },
+      data: {}
+    };
+    console.log("Request Data: " + JSON.stringify(options));
+    const response: HttpResponse = await CapacitorHttp.post(options);
+    console.log("Response Data: " + JSON.stringify(response));
+    loading.dismiss();
+    return response?.data;
+  }
+  async fetchTxnLimit() {
+    const loading = await this.loading();
+    const options = {
+      url: this.baseUrl + suburl.TXN_LIMIT,
       headers: { 'Content-Type': 'application/json' },
       data: {}
     };

@@ -101,10 +101,11 @@ export class ForgotPasswordPage implements OnInit {
       "deviceId": deviceId
     };   
     this.rest.forgotMpin(postData).then((resp)=> {
-      this.validateResponse(resp)
+      this.validateResponse(resp);
     }).catch((error)=>{
       console.log(error);
-    })
+      this.rest.closeLoader();
+    });
   }
 
   validateResponse(resp:any){
@@ -112,6 +113,8 @@ export class ForgotPasswordPage implements OnInit {
       this.current=40;
       this.isModalOpen=true;
       this.otpRefId = resp.otpRefId;
+    } else {
+      this.alertService.showFailedAlert('FAILED', resp.REASON || resp.RESP_CODE || 'SOMETHING_WENT_WRONG')
     }
   }
 
@@ -129,9 +132,12 @@ export class ForgotPasswordPage implements OnInit {
         },100);
         this.current = 80;
         this.pageStatus += 1;  
+      }else {
+        this.alertService.showFailedAlert('FAILED', resp.REASON || resp.RESP_CODE || 'SOMETHING_WENT_WRONG')
       }
     }).catch((error)=>{
       console.log(error);
+      this.rest.closeLoader();
     })
   }
 
@@ -156,10 +162,11 @@ export class ForgotPasswordPage implements OnInit {
       if(resp.RESP_STATUS === 'SUCCESS'){
         this.current=100;
       } else{
-        this.alertService.showAlert(resp.RESP_STATUS, resp.REASON);
+        this.alertService.showAlert('ALERT', resp.REASON || resp.RESP_STATUS);
       }
     }).catch((error)=>{
       console.log(error);
+      this.rest.closeLoader();
     })
   }
 

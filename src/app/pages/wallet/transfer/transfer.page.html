@@ -1,13 +1,21 @@
-<ion-header mode="md">
+<ion-header mode="md" class="ion-no-border">
   <ion-toolbar color="primary">
     <ion-buttons slot="start">
       <ion-back-button mode="md"></ion-back-button>
     </ion-buttons>
-    <ion-title>{{'FUND_TRANSFER' | translate}}</ion-title>
+    <ion-title>
+      <span *ngIf="transferTo==='W2W'">{{'WALLET_WALLET' | translate}}</span>
+      <span *ngIf="transferTo==='W2A'">{{'WALLET_ACCOUNT' | translate}}</span>
+      <span *ngIf="transferTo==='A2W'">{{'ACCOUNT_WALLET' | translate}}</span>
+    </ion-title>
   </ion-toolbar>
   <ion-toolbar color="primary">
-    <app-wallet-detail (sendUserDetail)="initUserDetails($event)"
-      (sendWalletDetail)="initWalletDetails($event)"></app-wallet-detail>
+    <app-wallet-detail *ngIf="transferTo!=='A2W'" (sendWalletDetail)="initWalletDetails($event)"
+      [walletDetail]="walletDetail">
+    </app-wallet-detail>
+    <app-from-account *ngIf="transferTo==='A2W'" (sendFromAccDetail)="sendFromAccDetail($event)"
+      (sendAccList)="sendAccList($event)" (sendExchangeRate)="sendExchangeRate($event)">
+    </app-from-account>
   </ion-toolbar>
 </ion-header>
 <ion-content [fullscreen]="true">
@@ -19,7 +27,8 @@
       <app-wallet-to-account [walletDetail]="walletDetail"></app-wallet-to-account>
     </div>
     <div *ngSwitchCase="'A2W'">
-      change it
+      <app-account-to-wallet [fromAccDetail]="fromAccDetail" [accList]="accList" [userDetail]="userDetail"
+        [exchangeRate]="exchangeRate"></app-account-to-wallet>
     </div>
   </div>
 </ion-content>

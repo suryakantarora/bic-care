@@ -223,8 +223,10 @@ export class LoginPage implements OnInit {
           walletId: resp.walletId,
           custId: resp.custId,
         };
+        console.log('userdetail: ' + JSON.stringify(userDetail));
         this.storage.setData('kycStatus', resp.kycStatus);
         this.rest.userDetail = userDetail;
+        this.getUserDetail();
         if (resp?.custId) {
           console.log("wallet id" + resp.walletId);
           this.global.setRoot('tabs/dashboard');
@@ -237,6 +239,19 @@ export class LoginPage implements OnInit {
       }
     }).catch(err => {
       console.log(err);
+      this.rest.closeLoader();
+    });
+  }
+  getUserDetail() {
+    this.rest.getUserInfo({}).then(resp => {
+      if (resp.RESP_CODE === 'MPAY1019') {
+        this.global.timeout()
+      } else if (resp.RESP_STATUS == 'SUCCESS') {
+        this.rest.completeUserInfo = resp;
+      } else {
+        this.alertService.showAlert('ALERT', resp.REASON || resp.RESP_CODE);
+      }
+    }).catch(err => {
       this.rest.closeLoader();
     });
   }

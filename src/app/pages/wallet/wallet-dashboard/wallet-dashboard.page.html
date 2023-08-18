@@ -83,7 +83,7 @@
           <p text-center>{{'WALLET_ACCOUNT' | translate}}</p>
         </div>
       </ion-col>
-      <ion-col size="3" class="card-btn">
+      <ion-col size="3" class="card-btn" (click)="openTransferPage('A2W')">
         <div class="menu_item ion-text-center">
           <div class="icon_box">
             <img src="assets/imgs/wallet/account-to-wallet-512x512.png">
@@ -91,7 +91,7 @@
           <p text-center>{{'ACCOUNT_WALLET' | translate}}</p>
         </div>
       </ion-col>
-      <ion-col size="3" class="card-btn">
+      <ion-col size="3" class="card-btn" (click)="openPage('wallet-statement')">
         <div class="menu_item ion-text-center">
           <div class="icon_box">
             <img src="assets/imgs/wallet/wallet-statement-512x512.png">

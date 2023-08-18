@@ -12,7 +12,7 @@
         </ion-label>
       </ion-item>
       <div class="form-control" mode="md">
-        <form [formGroup]="loginForm">
+        <form [formGroup]="loginForm" (ngSubmit)="login()">
           <ion-input type="text" label="Username *" labelPlacement="floating" fill="outline" formControlName="userName"
             name="userName" placeholder="Enter your username" class="input-field" required="true" errorText="Invalid username"></ion-input>
           <!-- <div *ngIf="f['userName'].invalid && (f['userName'].dirty || f['userName'].touched)" class="error">
@@ -31,10 +31,10 @@
           <ion-button fill="clear" expand="block" color="danger" mode="ios" (click)="showConfirmAlert()">{{'FORGOT_PASS' | translate}}</ion-button>
           <ion-row>
             <ion-col size="6">
-              <ion-button mode="ios" fill="outline" color="primary" expand="block" (click)="back()" class="custom-btn">{{'BACK' | translate}}</ion-button>
+              <ion-button mode="ios" fill="outline" color="primary" expand="block" type="button" (click)="back()" class="custom-btn">{{'BACK' | translate}}</ion-button>
             </ion-col>
             <ion-col size="6">
-              <ion-button mode="ios" color="primary" expand="block" class="custom-btn">{{'PROCEED' | translate}}</ion-button>
+              <ion-button mode="ios" color="primary" expand="block" class="custom-btn" type="submit">{{'PROCEED' | translate}}</ion-button>
             </ion-col>
           </ion-row>
         </form>

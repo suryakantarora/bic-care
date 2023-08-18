@@ -59,6 +59,9 @@ export class TxnResultPage implements OnInit {
   maskAccount(acc: string) {
     return this.global.maskAccNumber(acc);
   }
+  maskMobile(acc: string) {
+    return this.global.maskedMobile(acc);
+  }
   shareReceipt() {
     html2canvas(this.receipt_screen.nativeElement).then(canvas => {
       this.receipt_canvas.nativeElement.src = canvas.toDataURL();

@@ -19,7 +19,8 @@
         </ion-avatar>
         <ion-label>
           <p>{{ 'FROM_ACC' | translate }}: <span *ngIf="cnfData?.fromAccountHolder">{{cnfData?.fromAccountHolder}}</span></p>
-          <h2>{{global.maskedNumber(cnfData?.fromAccount)}}</h2>
+          <h2  *ngIf="cnfData?.paymentFrom!=='W'">{{global.maskedNumber(cnfData?.fromAccount)}}</h2>
+          <h2  *ngIf="cnfData?.paymentFrom==='W'">{{global.maskedMobile(cnfData?.fromAccount)}}</h2>
         </ion-label>
       </ion-item>
     </ion-card>

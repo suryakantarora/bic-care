@@ -13,9 +13,8 @@ export class WalletDetailComponent  implements OnInit {
   @Output() sendUserDetail: EventEmitter<any> = new EventEmitter();
   @Output() sendWalletDetail: EventEmitter<any> = new EventEmitter();
   walletBalance:any=10000;
-  userDetail: any={
-
-  };
+  userDetail: any={ };
+  walletDetail: any={"walletBalance":"10000","walletCurrency":"418","mobileNo":"2087654321","custName":"SKSINGH","deviceId":"78f8fdf2fa05f877"};
   deviceId: any;
   walletMobileNo: string='2052592794';
   walletCurrency: any='LAK';
@@ -28,6 +27,7 @@ export class WalletDetailComponent  implements OnInit {
 
   ngOnInit() {
     this.getDeviceId();
+    // this.rest.getUserInfo({});
   }
   async getDeviceId() {
     await Device.getId().then(res => {
@@ -36,21 +36,6 @@ export class WalletDetailComponent  implements OnInit {
       this.walletInfo();
     }).catch((err) => {
       console.error(err)
-    });
-  }
-  getUserDetail() {
-    this.rest.getUserInfo({}).then(resp => {
-      if (resp.RESP_CODE === 'MPAY1019') {
-        this.global.timeout()
-      } else if (resp.RESP_STATUS == 'SUCCESS') {
-        this.userDetail = resp;
-        this.sendUserDetail.emit(resp);
-        this.walletInfo();
-      } else {
-        this.alertService.showAlert('ALERT', resp.REASON || resp.RESP_CODE);
-      }
-    }).catch(err => {
-      this.rest.closeLoader();
     });
   }
   walletInfo() {

@@ -12,6 +12,9 @@ export class TransferPage implements OnInit {
   walletDetail:any={};
   userDetail:any={};
   transferTo:string='W2W';
+  accList=[];
+  fromAccDetail:any={};
+  exchangeRate:any=1;
   constructor(
     private alertService: AlertService,
     public global: GlobalService,
@@ -21,6 +24,7 @@ export class TransferPage implements OnInit {
   }
 
   ngOnInit() {
+    this.initUserDetails();
   }
 
   initWalletDetails(event:any) {
@@ -28,9 +32,16 @@ export class TransferPage implements OnInit {
     console.log(event);
     this.walletDetail=event;
   }
-  initUserDetails(event:any) {
-    console.log('User Details');
-    console.log(event);
-    this.userDetail=event;
+  initUserDetails() {
+    this.userDetail=this.rest.completeUserInfo;
+  }
+  sendAccList(event:any) {
+    this.accList=event;
+  }
+  sendExchangeRate(event:any) {
+    this.exchangeRate=event;
+  }
+  sendFromAccDetail(event:any) {
+    this.fromAccDetail=event;
   }
 }

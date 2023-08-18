@@ -7,3 +7,24 @@
 .inactive{
   color: #fff !important;
 }
+
+.col-border{
+  border-style: solid;
+  border-width: thin;
+  border-color: lightgrey;
+}
+
+
+.div-padding{
+  padding: 0px;
+}
+
+.common-element{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.txnTypeTab{
+  width:100% !important;
+  border:1px solid #fff;
+}

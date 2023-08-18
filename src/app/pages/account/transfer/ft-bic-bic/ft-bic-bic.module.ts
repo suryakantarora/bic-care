@@ -9,11 +9,8 @@ import { FtBicBicPageRoutingModule } from './ft-bic-bic-routing.module';
 import { FtBicBicPage } from './ft-bic-bic.page';
 import { TranslateModule } from '@ngx-translate/core';
 import { SharedCurrencyModule } from 'src/app/shared/module/shared-currency.module';
-import { OwnAccTransferComponent } from './own-acc-transfer/own-acc-transfer.component';
-import { BicAccTransferComponent } from './bic-acc-transfer/bic-acc-transfer.component';
-import { FromAccountComponent } from '../from-account/from-account.component';
-import { SharedModule } from 'src/app/shared/shared.module';
 import { RecentPageModule } from 'src/app/shared/modals/recent/recent.module';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   imports: [
@@ -23,9 +20,9 @@ import { RecentPageModule } from 'src/app/shared/modals/recent/recent.module';
     IonicModule,
     FtBicBicPageRoutingModule,
     TranslateModule,
-    SharedCurrencyModule, SharedModule, RecentPageModule
+    SharedCurrencyModule,  RecentPageModule, SharedModule
   ],
   schemas: [NO_ERRORS_SCHEMA],
-  declarations: [FtBicBicPage, OwnAccTransferComponent, BicAccTransferComponent]
+  declarations: [FtBicBicPage]
 })
 export class FtBicBicPageModule {}

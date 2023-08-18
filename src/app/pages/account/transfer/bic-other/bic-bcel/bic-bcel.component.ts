@@ -182,7 +182,8 @@ export class BicBcelComponent  implements OnInit {
       handle: true,
       backdropDismiss: false,
       showBackdrop: true,
-      backdropBreakpoint: 0.2
+      backdropBreakpoint: 0.2,
+      cssClass: 'action-sheet-modal'
     });
     await modal.present();
     const { data } = await modal.onDidDismiss();

@@ -1,15 +1,15 @@
-<ion-header class="ion-no-border">
+<ion-header class="ion-no-border" mode="md">
   <ion-toolbar color="primary">
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
     <ion-title>{{'TXN_FEE' | translate}}</ion-title>
   </ion-toolbar>
-  <ion-item-divider>
+  <ion-item-divider mode="md">
     <ion-label class="ion-text-center">{{'TXN_FEE_MSG' | translate}}</ion-label>
   </ion-item-divider>
-  <ion-item color="light" mode="ios">
-    <ion-segment class="segment" style="width: 100%;" [(ngModel)]="activeTab">
+  <ion-item color="primary" mode="ios">
+    <ion-segment class="txnTypeTab" [(ngModel)]="activeTab">
       <ion-segment-button value="TXN_FEE" [ngClass]="activeTab==='TXN_FEE'?'active':'inactive'">
         <ion-label>{{'TXN_FEE' | translate}}</ion-label>
       </ion-segment-button>
@@ -26,30 +26,192 @@
       <ion-item-divider lines="full" mode="md" >
         <ion-segment style="width: 100%;" [(ngModel)]="txnCurrency" color="secondary">
           <ion-segment-button value="LAK">
-            <ion-label>LAK</ion-label>
+            <ion-label color="primary">{{'LAK' | translate}}</ion-label>
           </ion-segment-button>
           <ion-segment-button value="USD">
-            <ion-label>USD</ion-label>
+            <ion-label color="primary">{{'USD' | translate}}</ion-label>
           </ion-segment-button>
           <ion-segment-button value="THB">
-            <ion-label>THB</ion-label>
+            <ion-label color="primary">{{'THB' | translate}}</ion-label>
           </ion-segment-button>
         </ion-segment>
       </ion-item-divider>
       <div [ngSwitch]="txnCurrency">
         <div *ngSwitchCase="'LAK'">
-          LAK
-        </div>
+            <ion-row style="background-color: var(--ion-color-primary);">
+              <ion-col class="ion-text-center ion-text-wrap col-border" size="3">
+                <ion-label color="light" style="font-weight: bold;">{{'TXN_TYPE' | translate}}</ion-label>
+              </ion-col>
+              <ion-col class="ion-text-center col-border common-element" size="6">
+                <ion-label style="font-weight: bold;" color="light">{{'RANGE' | translate}}</ion-label>
+              </ion-col>
+              <ion-col class="ion-text-center col-border" size="3">
+                <ion-label style="font-weight: bold;" color="light">{{'FEE_CHARGE' | translate}}</ion-label>
+              </ion-col>
+            </ion-row>
+            <div *ngFor="let r of txnType.LAK">
+              <ion-row>
+                <ion-col size="3" class="ion-text-wrap ion-text-center col-border common-element">
+                  <ion-label color="primary">{{r | translate}}</ion-label>
+                </ion-col>
+                <ion-col class="ion-no-padding">
+                  <div *ngFor="let i of lakData" class="div-padding">
+                    <ion-row *ngIf="i.txnType === r">
+                      <ion-col class="ion-text-center col-border ion-no-padding" size="8">
+                        <ion-label color="primary">{{currencyFormatter(i.minAmount)}} - {{currencyFormatter(i.maxAmount)}}</ion-label>
+                      </ion-col>
+                      <ion-col class="ion-text-center col-border">
+                        <ion-label color="primary">{{currencyFormatter(i.feeAmount)}}</ion-label>
+                      </ion-col>      
+                    </ion-row>
+                  </div>  
+                </ion-col>
+              </ion-row>          
+            </div>
+          </div>
         <div *ngSwitchCase="'USD'">
-          USD
-        </div>
+          <ion-row style="background-color: var(--ion-color-primary);">
+            <ion-col class="ion-text-center ion-text-wrap col-border" size="3">
+              <ion-label color="light" style="font-weight: bold;">{{'TXN_TYPE' | translate}}</ion-label>
+            </ion-col>
+            <ion-col class="ion-text-center col-border" size="6">
+              <ion-label style="font-weight: bold;" color="light">{{'RANGE' | translate}}</ion-label>
+            </ion-col>
+            <ion-col class="ion-text-center col-border" size="3">
+              <ion-label style="font-weight: bold;" color="light">{{'FEE_CHARGE' | translate}}</ion-label>
+            </ion-col>
+          </ion-row>
+          <div *ngFor="let r of txnType.USD">
+            <ion-row>
+              <ion-col size="3" class="ion-text-wrap ion-text-center col-border common-element">
+                <ion-label color="primary">{{r | translate}}</ion-label>
+              </ion-col>
+              <ion-col class="ion-no-padding">
+                <div *ngFor="let i of usdData" class="div-padding">
+                  <ion-row *ngIf="i.txnType === r">
+                    <ion-col class="ion-text-center col-border" size="8">
+                      <ion-label color="primary">{{currencyFormatter(i.minAmount)}} - {{currencyFormatter(i.maxAmount)}}</ion-label>
+                    </ion-col>
+                    <ion-col class="ion-text-center col-border">
+                      <ion-label color="primary">{{currencyFormatter(i.feeAmount)}}</ion-label>
+                    </ion-col>      
+                  </ion-row>
+                </div>  
+              </ion-col>
+            </ion-row>          
+          </div>
+      </div>
         <div *ngSwitchCase="'THB'">
-          THB
+          <ion-row style="background-color: var(--ion-color-primary);">
+            <ion-col class="ion-text-center ion-text-wrap col-border" size="3">
+              <ion-label color="light" style="font-weight: bold;">{{'TXN_TYPE' | translate}}</ion-label>
+            </ion-col>
+            <ion-col class="ion-text-center col-border" size="6">
+              <ion-label style="font-weight: bold;" color="light">{{'RANGE' | translate}}</ion-label>
+            </ion-col>
+            <ion-col class="ion-text-center col-border" size="3">
+              <ion-label style="font-weight: bold;" color="light">{{'FEE_CHARGE' | translate}}</ion-label>
+            </ion-col>
+          </ion-row>
+          <div *ngFor="let r of txnType.THB">
+            <ion-row>
+              <ion-col size="3" class="ion-text-wrap ion-text-center col-border common-element">
+                <ion-label color="primary">{{r | translate}}</ion-label>
+              </ion-col>
+              <ion-col class="ion-no-padding">
+                <div *ngFor="let i of thbData" class="div-padding">
+                  <ion-row *ngIf="i.txnType === r">
+                    <ion-col class="ion-text-center col-border" size="8">
+                      <ion-label color="primary">{{currencyFormatter(i.minAmount)}} - {{currencyFormatter(i.maxAmount)}}</ion-label>
+                    </ion-col>
+                    <ion-col class="ion-text-center col-border">
+                      <ion-label color="primary">{{currencyFormatter(i.feeAmount)}}</ion-label>
+                    </ion-col>      
+                  </ion-row>
+                </div>  
+              </ion-col>
+            </ion-row>          
+          </div>
         </div>
       </div>
     </div>
     <div *ngSwitchCase="'TXN_LIMIT'">
-      txn limit
+      <ion-item color="secondary" lines="none" class="ion-text-center">
+        <ion-label color="light" style="font-weight: bold;">{{'TXN_LIMIT_BIC_BIC' | translate}}</ion-label>
+      </ion-item>
+        <ion-row style="background-color: var(--ion-color-primary);" >
+          <ion-col class="ion-text-center col-border">
+            <ion-label style="font-weight: bold;" color="light">{{'CURRENCY' | translate}}</ion-label>
+        </ion-col>
+          <ion-col class="ion-text-center col-border">
+            <ion-label style="font-weight: bold;" color="light">{{'LIMIT' | translate}}</ion-label>
+          </ion-col>
+        </ion-row> 
+        <ion-row *ngFor="let i of bicToBicTxn">
+          <ion-col class="ion-text-center col-border">
+            <ion-label style="font-weight: bold;" color="primary">{{i.limitCCY | translate}}</ion-label>
+          </ion-col>
+          <ion-col class="ion-text-center col-border">
+            <ion-label color="primary">{{i.limitAmount}}</ion-label>
+          </ion-col>
+        </ion-row>
+        <ion-item color="secondary" lines="none" class="ion-text-center">
+          <ion-label style="font-weight: bold;" color="light">{{'TXN_LIMIT_OFFUS' | translate}}</ion-label>
+        </ion-item> 
+        <ion-row style="background-color: var(--ion-color-primary);" >
+          <ion-col class="ion-text-center col-border">
+            <ion-label style="font-weight: bold;" color="light">{{'CURRENCY' | translate}}</ion-label>
+          </ion-col>
+          <ion-col class="ion-text-center col-border">
+            <ion-label style="font-weight: bold;" color="light">{{'LIMIT' | translate}}</ion-label>
+          </ion-col>
+        </ion-row> 
+        <ion-row *ngFor="let i of offUsTxn">
+          <ion-col class="ion-text-center col-border">
+            <ion-label style="font-weight: bold;" color="primary">{{i.limitCCY | translate}}</ion-label>
+          </ion-col>
+          <ion-col class="ion-text-center col-border">
+            <ion-label color="primary">{{i.limitAmount | translate}}/{{'TXN' | translate}}</ion-label>
+          </ion-col>
+        </ion-row>
+        <ion-item lines="none" color="secondary" class="ion-text-center">
+          <ion-label style="font-weight: bold;" color="light">{{'TXN_LIMIT_BIC_BCEL' | translate}}</ion-label>
+        </ion-item>
+        <ion-row style="background-color: var(--ion-color-primary);" >
+          <ion-col class="ion-text-center col-border">
+            <ion-label style="font-weight: bold;" color="light">{{'CURRENCY' | translate}}</ion-label>
+          </ion-col>
+          <ion-col class="ion-text-center col-border">
+            <ion-label style="font-weight: bold;" color="light">{{'LIMIT' | translate}}</ion-label>
+          </ion-col>
+        </ion-row> 
+        <ion-row *ngFor="let i of bicToBcelTxn">
+          <ion-col class="ion-text-center col-border">
+            <ion-label style="font-weight: bold;" color="primary">{{i.limitCCY | translate}}</ion-label>
+          </ion-col>
+          <ion-col class="ion-text-center col-border">
+            <ion-label color="primary">{{i.limitAmount | translate}}</ion-label>
+          </ion-col>
+        </ion-row>
+        <ion-item lines="none" color="secondary" class="ion-text-center">
+          <ion-label style="font-weight: bold;" color="light">{{'TXN_LIMIT_MMONEY' | translate}}</ion-label>
+        </ion-item>
+        <ion-row style="background-color: var(--ion-color-primary);" >
+          <ion-col class="ion-text-center col-border">
+            <ion-label style="font-weight: bold;" color="light">{{'CURRENCY' | translate}}</ion-label>
+          </ion-col>
+          <ion-col class="ion-text-center col-border">
+            <ion-label style="font-weight: bold;" color="light">{{'LIMIT' | translate}}</ion-label>
+          </ion-col>
+        </ion-row> 
+        <ion-row *ngFor="let i of mMoneyTxn">
+          <ion-col class="ion-text-center col-border">
+            <ion-label style="font-weight: bold;" color="primary">{{i.limitCCY | translate}}</ion-label>
+          </ion-col>
+          <ion-col class="ion-text-center col-border">
+            <ion-label color="primary">{{i.limitAmount | translate}}/{{'TXN' | translate}}</ion-label>
+          </ion-col>
+        </ion-row>
     </div>
   </div>
 </ion-content>

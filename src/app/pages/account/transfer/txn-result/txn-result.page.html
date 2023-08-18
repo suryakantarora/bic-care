@@ -32,7 +32,8 @@
         </ion-thumbnail>
         <ion-label>
           <p>{{'DEBITED_FROM' | translate}}: {{txnResult?.fromAccountHolder}}</p>
-          <h2>{{maskAccount(txnResult.fromAccount)}}</h2>
+          <h2 *ngIf="txnResult?.paymentFrom!=='W'">{{maskAccount(txnResult.fromAccount)}}</h2>
+          <h2 *ngIf="txnResult?.paymentFrom==='W'">{{maskMobile(txnResult.fromAccount)}}</h2>
         </ion-label>
       </ion-item>
       <div class="ion-text-start ion-padding-start">
@@ -44,7 +45,8 @@
         </ion-thumbnail>
         <ion-label>
           <p>{{'CREDITED_TO' | translate}}:  {{txnResult?.toAccountHolder}}</p>
-          <h2>{{maskAccount(txnResult.toAccount)}}</h2>
+          <h2 *ngIf="txnResult?.paymentTo!=='W'">{{maskAccount(txnResult.toAccount)}}</h2>
+          <h2 *ngIf="txnResult?.paymentTo==='W'">{{maskMobile(txnResult.toAccount)}}</h2>
         </ion-label>
       </ion-item>
       <ion-item lines="none">

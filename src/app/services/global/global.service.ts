@@ -316,7 +316,17 @@ export class GlobalService {
       return this.profilePicAvatar;
     });
   }
-
+  formattedAmount(amount:any, fromCurrency:string) {
+    let v=this.formatToNumeric(amount, 0);
+    console.log('Amount: ' + v);
+    if(this.getTextCurrency(fromCurrency) === 'LAK') {
+      return v;
+    }
+    // code for usd/thb amount
+    v=this.formatUsdAmount(amount);
+    console.log('Amount: ' + v);
+    return v;
+  }
   getLogoPath(data: string) {
     if (data == "BCEL") {
       return 'assets/imgs/bank-logo/27710418.png';

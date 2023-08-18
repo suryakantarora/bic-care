@@ -8,6 +8,8 @@ import { WalletToAccountPageRoutingModule } from './wallet-to-account-routing.mo
 
 import { WalletToAccountPage } from './wallet-to-account.page';
 import { TranslateModule } from '@ngx-translate/core';
+import { SharedModule } from 'src/app/shared/shared.module';
+import { SharedCurrencyModule } from 'src/app/shared/module/shared-currency.module';
 
 @NgModule({
   imports: [
@@ -15,7 +17,8 @@ import { TranslateModule } from '@ngx-translate/core';
     FormsModule, ReactiveFormsModule,
     IonicModule,
     WalletToAccountPageRoutingModule,
-    TranslateModule
+    TranslateModule,
+    SharedModule, SharedCurrencyModule
   ],
   declarations: [WalletToAccountPage],
   exports: [WalletToAccountPage],

@@ -58,7 +58,7 @@ export class AccountQrPage implements OnInit {
   maskAcc(acc: string) {
     return this.global.maskedAccountNumber(acc);
   }
-  getCurrency(accountCCY:string) {
+  getCurrency(accountCCY: string) {
     return this.global.getTextCurrency(accountCCY);
   }
   onSelectEnterAmount(ev: any) {
@@ -111,18 +111,9 @@ export class AccountQrPage implements OnInit {
   }
 
   getUserInfo() {
-    this.rest.getUserInfo({}).then(resp => {
-      if (resp.RESP_CODE === 'MPAY1019') {
-        this.global.timeout()
-      } else if (resp.RESP_STATUS == 'SUCCESS') {
-        this.userDetail = resp;
-        this.getLinkedAccountNum();
-      } else {
-        this.alertService.showAlert('ALERT', resp.REASON || resp.RESP_CODE);
-      }
-    }).catch(err => {
-      this.rest.closeLoader();
-    });
+    const resp = this.rest.completeUserInfo;
+    this.userDetail = resp;
+    this.getLinkedAccountNum();
   }
 
   getLinkedAccountNum() {
@@ -152,11 +143,11 @@ export class AccountQrPage implements OnInit {
   }
   async selectFromAccount() {
     await this.global.selectFromAccount(this.accList).then(res => {
-      if(!res) return;
+      if (!res) return;
       console.log(JSON.stringify(res));
       this.qrForm.controls.fromAccount.setValue(res.accountNo);
       this.selectedCurrency = res.accountCCY;
-      this.fromAccDetail=res;
+      this.fromAccDetail = res;
     });
   }
   generateAccQr() {

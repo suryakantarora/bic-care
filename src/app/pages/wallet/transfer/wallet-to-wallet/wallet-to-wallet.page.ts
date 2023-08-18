@@ -55,7 +55,7 @@ export class WalletToWalletPage implements OnInit {
       txnDate: new Date().toISOString(),
 			remarks: this.ftForm.controls['remarks'].value,
 			fromAccount: this.walletDetail.mobileNo,
-			fromAccName: this.userInfo.fromAccName || 'NA',
+			fromAccName: this.userInfo.userName || 'NA',
 			fromCurrency: this.walletDetail.walletCurrency,
 			curCode: this.walletDetail.walletCurrency,
 			toAccount: this.ftForm.controls['toAccount'].value,
@@ -65,7 +65,7 @@ export class WalletToWalletPage implements OnInit {
 			feeAmount: this.ftForm.controls['txnFee'].value,
 			amount: amt,
 			toBankId: this.ftForm.controls['toBankId'].value,
-      fromAccountHolder: this.userInfo.nickName || 'Test',
+      fromAccountHolder: this.userInfo.userName || 'Test',
       paymentTo: 'W',
       paymentFrom: 'W'
     };
